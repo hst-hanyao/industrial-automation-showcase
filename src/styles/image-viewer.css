@@ -1,0 +1,38 @@
+.image-viewer__trigger,
+.image-viewer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid #738398;
+  border-radius: 4px;
+  color: #263448;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.image-viewer__trigger { flex-shrink: 0; white-space: nowrap; }
+.image-viewer__trigger:hover, .image-viewer button:hover { color: #1d4ed8; border-color: #2563eb; background: #eff5ff; }
+.image-viewer { width: min(1720px, calc(100vw - 32px)); height: min(1160px, calc(100svh - 32px)); max-width: calc(100vw - 32px); max-height: calc(100svh - 32px); margin: auto; padding: 0; overflow: hidden; border: 1px solid #738398; border-radius: 8px; color: #172033; background: #fff; }
+.image-viewer[open] { display: flex; flex-direction: column; }
+.image-viewer::backdrop { background: rgba(24, 36, 53, 0.64); }
+.image-viewer__header { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 20px; border-bottom: 1px solid #d4dce7; }
+.image-viewer__header > div:first-child { min-width: 0; }
+.image-viewer__header h3 { font-size: 18px; font-weight: 600; line-height: 1.5; }
+.image-viewer__header p { margin-top: 4px; color: #526173; font-size: 12px; }
+.image-viewer__actions { display: flex; flex-shrink: 0; flex-wrap: wrap; gap: 8px; }
+.image-viewer__canvas { min-width: 0; min-height: 0; flex: 1; overflow: auto; overscroll-behavior: contain; background: #eef2f6; }
+.image-viewer__canvas img { display: block; width: var(--image-width); height: var(--image-height); max-width: none; max-height: none; }
+.image-viewer__canvas.is-fit { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); place-items: center; }
+.image-viewer__canvas.is-fit img { min-width: 0; min-height: 0; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
+.image-viewer__note { flex-shrink: 0; padding: 12px 20px; color: #526173; font-size: 12px; line-height: 1.6; }
+
+@media (max-width: 767px) {
+  .image-viewer__header { flex-wrap: wrap; gap: 12px; padding: 12px; }
+  .image-viewer__header > div:first-child { flex: 1 1 180px; }
+  .image-viewer__note { padding: 10px 12px; }
+}

@@ -48,7 +48,7 @@ export default function HomePage() {
         <div className="home-hero__frame" aria-hidden="true"><i /><i /><i /><i /></div>
 
         <div className="home-hero__copy">
-          <p className="eyebrow" data-home-intro>INDUSTRIAL AUTOMATION / STATIC SHOWCASE</p>
+          <p className="eyebrow" data-home-intro>INDUSTRIAL AUTOMATION / ENGINEERING SHOWCASE</p>
           <h1 id="home-title" ref={headingRef} tabIndex={-1} data-home-intro>
             <span>控制不是按钮。</span>
             <strong>它是一条可以追踪的闭环。</strong>

@@ -1,0 +1,113 @@
+.detail-hero.detail-hero--architecture { min-height: 0; grid-template-columns: 32px minmax(0, 1fr); grid-template-rows: auto auto auto; gap: 20px; padding: 28px var(--page-gutter) 24px; background: #fff; overflow: visible; }
+.detail-hero--architecture::before { display: none; }
+.detail-hero--architecture .detail-hero__index { height: 96px; }
+.detail-hero--architecture .detail-hero__copy { position: relative; padding-right: 260px; }
+.detail-hero--architecture .detail-hero__copy h1 { margin: 8px 0 10px; font-size: clamp(30px, 3vw, 44px); letter-spacing: -.04em; line-height: 1.2; }
+.detail-hero--architecture .detail-hero__lead { max-width: 860px; font-size: 16px; line-height: 1.7; }
+.detail-hero--architecture .tag-row { position: absolute; top: 4px; right: 0; max-width: 230px; justify-content: end; margin-top: 0; font-size: 12px; }
+.detail-hero--architecture .detail-hero__visual, .detail-hero--architecture .evidence-legend { grid-column: 1 / -1; }
+.detail-hero--architecture .evidence-legend { padding-top: 14px; }
+.hmi-explorer { color: #172033; border: 1px solid #8291a6; border-radius: 8px; background: #fff; overflow: clip; scroll-margin-top: calc(var(--header-height) + 16px); }
+.hmi-explorer__toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 18px 8px; }
+.hmi-explorer__eyebrow { color: #536277; font: 12px/16px Consolas, monospace; letter-spacing: .09em; }
+.hmi-explorer__toolbar h2 { margin-top: 3px; font-size: 18px; line-height: 25px; font-weight: 600; }
+.hmi-explorer__toolbar > p { color: #536277; font-size: 12px; line-height: 18px; }
+.hmi-chain-tabs { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 0 18px 8px; border-bottom: 1px solid #dce4ef; }
+.hmi-chain-tabs button, .hmi-mobile-context button { display: inline-flex; gap: 7px; justify-content: center; align-items: center; min-height: 44px; padding: 7px 12px; border: 1px solid #7b8aa0; border-radius: 4px; color: #34445b; background: #fff; cursor: pointer; font-size: 12px; line-height: 18px; transition: color 160ms, background-color 160ms, border-color 160ms; }
+.hmi-chain-tabs button > span { font-family: Consolas, monospace; }
+.hmi-chain-tabs button:hover, .hmi-chain-tabs button[aria-pressed="true"], .hmi-mobile-context button:hover { color: #1d4ed8; background: #eff5ff; border-color: #2563eb; }
+.hmi-chain-tabs .hmi-chain-tabs__full { margin-left: auto; }
+.hmi-explorer__workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0fr); min-width: 0; overflow-anchor: none; transition: grid-template-columns 220ms ease; }
+.hmi-explorer.is-reading .hmi-explorer__workspace { grid-template-columns: minmax(0, .42fr) minmax(0, .58fr); height: min(720px, calc(100svh - var(--header-height) - 32px)); }
+.hmi-graph-scroll { min-width: 0; min-height: 0; max-height: 600px; overflow: auto; overscroll-behavior: contain; scrollbar-color: #8291a6 #f6f8fc; }
+.hmi-graph-scroll:focus-visible { outline-offset: -3px; }
+.hmi-explorer.is-reading .hmi-graph-scroll { height: 100%; max-height: none; }
+.hmi-explorer.is-overview .hmi-graph-scroll { max-height: none; }
+.hmi-diagram { position: relative; min-width: 0; isolation: isolate; background: linear-gradient(#edf1f6 1px, transparent 1px), linear-gradient(90deg, #edf1f6 1px, transparent 1px), #fcfdff; background-size: 24px 24px; }
+.hmi-group-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 12px; }
+.hmi-group { min-width: 0; padding: 8px 10px; border: 1px solid #7b8aa0; border-radius: 5px; background: #fff; }
+.hmi-group > header { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 44px; }
+.hmi-group > header > div { min-width: 0; }
+.hmi-group h3 { font-size: 14px; line-height: 20px; font-weight: 600; }
+.hmi-group h3 > span { margin-right: 7px; color: #536277; font: 12px Consolas, monospace; }
+.hmi-group header p { margin-top: 2px; color: #536277; font-size: 12px; line-height: 18px; }
+.hmi-group header button { min-width: 44px; min-height: 44px; padding: 4px 6px; border: 0; border-radius: 4px; color: #1d4ed8; background: #eff5ff; cursor: pointer; font-size: 12px; flex-shrink: 0; }
+.hmi-group header button:hover { background: #dce9ff; }
+.hmi-group header button span { display: block; color: #34445b; }
+.hmi-group__count { color: #536277; font-size: 12px; white-space: nowrap; }
+.hmi-group__expanded { display: grid; gap: 6px; padding-top: 6px; }
+.hmi-group__expanded[hidden] { display: none; }
+.hmi-graph-heading { position: relative; z-index: 2; display: flex; justify-content: space-between; gap: 12px; padding: 16px 18px 0; font-size: 14px; line-height: 22px; }
+.hmi-graph-heading > span { color: #536277; font-size: 12px; white-space: nowrap; }
+.hmi-flow-nodes { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px 28px; padding: 40px 48px 26px 18px; }
+.hmi-explorer.is-reading .hmi-flow-nodes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px 18px; }
+.hmi-node { min-width: 0; position: relative; border: 1px solid #7b8aa0; border-radius: 4px; background: #fff; transition: border-color 160ms, background-color 160ms; }
+.hmi-node:hover, .hmi-node:focus-within, .hmi-node.is-previewed { border-color: #2563eb; }
+.hmi-node.is-selected { border-color: #2563eb; background: #eff5ff; box-shadow: inset 3px 0 #2563eb; }
+.hmi-node__open { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 60px; padding: 10px 12px; border: 0; color: #172033; background: transparent; text-align: left; cursor: pointer; }
+.hmi-node__open > span:first-child { min-width: 0; }
+.hmi-node__open strong { display: block; font-size: 14px; line-height: 20px; font-weight: 600; }
+.hmi-node__class { display: block; color: #34445b; font: 14px/20px Consolas, monospace; overflow-wrap: anywhere; }
+.hmi-node__action { color: #1d4ed8; font-size: 12px; line-height: 18px; flex-shrink: 0; }
+.hmi-node > p { padding: 0 12px 12px; color: #536277; font-size: 12px; line-height: 18px; }
+.hmi-node--compact { border: 0; margin-top: 3px; }
+.hmi-node--compact .hmi-node__open { min-height: 44px; padding: 3px 0; }
+.hmi-node--compact .hmi-node__open strong, .hmi-node--compact .hmi-node__class { line-height: 18px; }
+.hmi-node--external { border-style: dashed; background: #f6f8fc; }
+.hmi-node__external { display: grid; gap: 3px; padding: 10px 12px; font-size: 14px; line-height: 20px; }
+.hmi-node__external > span { font-family: Consolas, monospace; }
+.hmi-node__external small { color: #536277; font-size: 12px; }
+.hmi-diagram__edges { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
+.hmi-edge path { fill: none; stroke: #70829b; stroke-width: 1.6; transition: stroke 160ms; }
+.hmi-edge--projection path { stroke-dasharray: 6 4; }
+.hmi-edge--binding path { stroke-dasharray: 2 4; }
+.hmi-edge--implementation path { stroke-dasharray: 8 3 2 3; }
+.hmi-edge.is-highlighted path { stroke: #2563eb; stroke-width: 2; }
+.hmi-edge path.hmi-edge__halo { stroke: #fff; stroke-width: 6; stroke-dasharray: none; stroke-linecap: round; stroke-linejoin: round; }
+.hmi-code-ghost { position: absolute; inset: 12px 0; z-index: 0; overflow: hidden; opacity: .5; pointer-events: none; mask-image: linear-gradient(transparent, #000 10%, #000 85%, transparent); }
+.hmi-code-ghost > p { padding: 0 18px 8px; color: #1d4ed8; font: 12px/18px Consolas, monospace; white-space: nowrap; }
+.hmi-external-boundary { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; padding: 9px 18px; border-top: 1px dashed #8291a6; color: #536277; font-size: 12px; line-height: 20px; }
+.hmi-external-boundary > span:not(:first-child) { color: #172033; font-family: Consolas, monospace; }
+.hmi-external-boundary > small { margin-left: auto; font-size: 12px; }
+.hmi-explorer__footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 18px; border-top: 1px solid #dce4ef; color: #536277; font-size: 12px; line-height: 18px; }
+.hmi-explorer__footer > p { font-family: Consolas, monospace; }
+.hmi-edge-key { display: flex; flex-wrap: wrap; gap: 12px; }
+.hmi-edge-key > span { display: inline-flex; align-items: center; gap: 6px; }
+.hmi-edge-key__line { width: 18px; border-top: 2px solid #536277; }
+.hmi-edge-key__line--projection { border-top-style: dashed; }
+.hmi-edge-key__line--binding { border-top-style: dotted; }
+.hmi-edge-key__line--implementation { height: 5px; border-top-style: dashed; border-bottom: 1px solid #536277; }
+.hmi-chain-relations { padding: 0 18px; border-top: 1px solid #dce4ef; color: #34445b; font-size: 12px; line-height: 20px; }
+.hmi-chain-relations summary { min-height: 44px; display: list-item; align-content: center; cursor: pointer; }
+.hmi-chain-relations > p { margin-bottom: 10px; }
+.hmi-chain-relations ul { display: grid; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
+.hmi-chain-relations li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 8px 10px; background: #f6f8fc; overflow-wrap: anywhere; }
+.hmi-chain-relations b { color: #1d4ed8; font-weight: 500; }
+.hmi-chain-relations small { color: #536277; font-size: 12px; }
+.hmi-mobile-context { display: none; }
+.hmi-explorer[data-motion="reduced"] *, .hmi-explorer[data-motion="reduced"] *::before { transition: none !important; }
+@media (max-width: 1199px) {
+  .detail-hero--architecture .detail-hero__copy { padding-right: 0; }
+  .detail-hero--architecture .tag-row { position: static; max-width: none; justify-content: start; margin-top: 10px; }
+  .hmi-explorer.is-reading .hmi-explorer__workspace { grid-template-columns: minmax(0, 1fr); height: auto; }
+  .hmi-explorer.is-reading .hmi-graph-scroll { height: 340px; }
+  .hmi-explorer.is-reading .hmi-flow-nodes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hmi-group-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .detail-hero.detail-hero--architecture { grid-template-columns: minmax(0, 1fr); padding-top: 20px; gap: 16px; }
+  .detail-hero--architecture .detail-hero__index { display: none; }
+  .hmi-explorer__toolbar { align-items: start; flex-direction: column; gap: 6px; padding-inline: 12px; }
+  .hmi-explorer__toolbar h2 { font-size: 17px; }
+  .hmi-chain-tabs { padding-inline: 12px; }
+  .hmi-chain-tabs .hmi-chain-tabs__full { margin-left: 0; }
+  .hmi-group-grid { grid-template-columns: minmax(0, 1fr); padding: 10px; }
+  .hmi-flow-nodes, .hmi-explorer.is-reading .hmi-flow-nodes { grid-template-columns: minmax(0, 1fr); padding-left: 12px; }
+  .hmi-graph-heading { padding-inline: 12px; flex-wrap: wrap; }
+  .hmi-explorer.is-reading .hmi-graph-scroll { display: none; }
+  .hmi-explorer.is-reading[data-mobile-expanded="true"] .hmi-graph-scroll { display: block; height: 300px; }
+  .hmi-mobile-context { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; color: #536277; font-size: 12px; border-bottom: 1px solid #dce4ef; }
+  .hmi-external-boundary, .hmi-explorer__footer { padding-inline: 12px; }
+  .hmi-external-boundary > small { width: 100%; margin-left: 0; }
+  .hmi-chain-relations { padding-inline: 12px; }
+}

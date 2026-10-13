@@ -1,0 +1,21 @@
+.home-device { width: 100%; min-width: 0; padding: 22px 0 0; }
+.home-device__label { display: flex; align-items: center; justify-content: space-between; gap: 16px; color: #526173; font: 12px/1.5 Consolas, monospace; letter-spacing: .09em; border-bottom: 1px solid #dce3eb; padding-bottom: 12px; }
+.home-device__figure { margin: 0; }
+.home-device__figure img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; }
+.home-device__figure figcaption { display: flex; align-items: center; gap: 9px; color: #526173; font-size: 12px; line-height: 1.6; padding: 0 0 18px; }
+.home-device__figure figcaption span { border: 1px solid #75859a; color: #526173; padding: 1px 6px; }
+.home-device__domains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid #75859a; }
+.home-device__domain { display: flex; align-items: center; gap: 12px; padding: 15px 12px; min-height: 72px; min-width: 0; border-bottom: 1px solid #dce3eb; transition: background-color 160ms ease; }
+.home-device__domain:nth-child(odd) { border-right: 1px solid #dce3eb; }
+.home-device__domain > span { color: #2563eb; font: 12px/1.5 Consolas, monospace; }
+.home-device__domain > div { min-width: 0; }
+.home-device__domain b { display: block; color: #172033; font-size: 16px; font-weight: 600; }
+.home-device__domain small { display: block; color: #526173; font: 12px/1.5 Consolas, monospace; overflow-wrap: anywhere; }
+.home-device__domain i { margin-left: auto; color: #2563eb; font-style: normal; }
+.home-device__domain:hover, .home-device__domain:focus-visible { background: #eff5ff; }
+@media (max-width: 767px) {
+  .home-device { padding-top: 0; }
+  .home-device__domain { padding: 12px 8px; gap: 8px; }
+  .home-device__domain small { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .home-device__domain { transition: none; } }

@@ -1,37 +1,33 @@
 # 工业自动化能力展示站
 
-这是一个独立的 Vite / React / TypeScript 工业自动化能力展示站。全部内容和素材随站点发布，运行时不请求数据库、接口、CDN 或远程字体。
+Vite / React / TypeScript 静态展示站，包含首页及上位机、PLC、运动控制、机器视觉四个详情页。运行素材随站点发布，无后端接口或外部 CDN 依赖。
 
-## 在线访问
+## 当前展示
 
-GitHub Pages：<https://2286015860.github.io/industrial-automation-showcase/>
+- 白蓝灰主题，桌面优先并支持手机阅读与可展开导航。
+- 首页设备概念插画明确标注 AI 生成，不作为项目实拍。
+- 上位机提供六组架构总览、完整架构、四条真实调用链、源码预览与阅读。
+- 源码片段包含相对文件路径及原始行号；当前快照日期为 2026-10-04。
+- 五张真实界面截图支持画廊切换和原尺寸查看。
+- 页脚显示完整 ICP 服务备案号：浙ICP备2026082555号-1，并链接至工信部备案查询网站。
 
-## 本地启动
+自动流程静态展示、Mock 和机器人本地模拟均按页面标签区分，不代表真实设备或现场验收。
 
-首次联网安装依赖后：
+## 开发与验证
 
-```powershell
-npm install
-.\Start-Showcase.ps1
-```
-
-浏览器访问 `http://127.0.0.1:4173/#/`。
-
-服务运行期间保留 PowerShell 窗口；关闭该窗口即可停止站点。
-
-## GitHub Pages 发布
-
-推送到远端 `main` 分支后，`.github/workflows/deploy-pages.yml` 会依次执行类型检查、Lint、测试和生产构建，通过后发布 `dist`。站点使用 `HashRouter` 和相对资源基路径，可在 GitHub Pages 的项目子路径下直接访问五个路由。
-
-## 验证
-
-```powershell
+```sh
+npm ci
+npm run dev
 npm run typecheck
 npm run lint
-npm run test
+npm test
 npm run build
 ```
 
-视觉偏好、文案真实性和截图隐私仍需人工验收。
+现有测试覆盖 8 个文件、47 项测试。生产输出目录为 `dist`。
 
-浏览器验收减少动画分支时，可访问 `http://127.0.0.1:4173/?motion=reduced#/`。默认入口仍读取操作系统的 `prefers-reduced-motion` 设置。
+## GitHub Pages
+
+推送到 `main` 后，`.github/workflows/deploy-pages.yml` 自动执行类型检查、Lint、测试、构建并发布 Pages。使用 `HashRouter` 与相对资源路径，支持项目子路径。
+
+实际访问地址以成功部署后的 `github-pages` 环境链接为准。公安联网备案号与图标须在真实记录确认后单独添加，不能从 ICP 编号推算。

@@ -1,19 +1,21 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   font-family: "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --ink: #090b0b;
-  --ink-raised: #0f1311;
-  --ink-panel: #151a17;
-  --bone: #efebdc;
-  --bone-muted: #a9afa7;
-  --line: rgba(239, 235, 220, 0.15);
-  --line-strong: rgba(239, 235, 220, 0.28);
-  --signal: #d7ff52;
-  --safety: #ff7048;
-  --cyan: #56d7ff;
-  --gold: #f1c35d;
+  --ink: #ffffff;
+  --ink-raised: #f6f8fc;
+  --ink-panel: #eef2f8;
+  --bone: #172033;
+  --bone-muted: #59677c;
+  --line: rgba(46, 65, 94, 0.13);
+  --line-strong: rgba(46, 65, 94, 0.23);
+  --control-border: #738398;
+  --signal: #2563eb;
+  --signal-hover: #1d4ed8;
+  --safety: #52657f;
+  --cyan: #0e7490;
+  --gold: #59677c;
   --header-height: 76px;
   --page-gutter: clamp(28px, 5vw, 88px);
   background: var(--ink);
@@ -30,25 +32,12 @@ html {
 }
 
 body {
-  min-width: 1024px;
+  min-width: 0;
   min-height: 100vh;
   margin: 0;
-  overflow-x: clip;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.014) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px),
-    var(--ink);
-  background-size: 72px 72px;
-}
-
-body::before {
-  position: fixed;
-  inset: 0;
-  z-index: 900;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
-  content: "";
-  opacity: 0.035;
-  pointer-events: none;
+  background: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 button,
@@ -80,6 +69,10 @@ a {
 :focus-visible {
   outline: 2px solid var(--signal);
   outline-offset: 4px;
+}
+
+h1:focus-visible {
+  outline-offset: -2px;
 }
 
 ::selection {
@@ -138,11 +131,13 @@ pre,
 }
 
 .app-shell {
+  min-width: 0;
   min-height: 100vh;
 }
 
 main {
   position: relative;
+  min-width: 0;
   padding-top: var(--header-height);
 }
 
@@ -165,7 +160,7 @@ main {
 
 .eyebrow {
   color: var(--signal);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   line-height: 1.5;
@@ -179,6 +174,17 @@ main {
   color: var(--bone-muted);
   font-family: "Cascadia Code", Consolas, monospace;
   letter-spacing: 0.12em;
+}
+
+@media (max-width: 1199px) {
+  :root { --page-gutter: 28px; }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --page-gutter: 16px;
+    --header-height: 64px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

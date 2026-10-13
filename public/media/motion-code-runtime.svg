@@ -1,82 +1,82 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-label="运动控制核心代码与调用链">
   <rect width="1400" height="820" fill="#ffffff"/>
-  <rect x="1" y="1" width="1398" height="818" fill="none" stroke="#e4e7e5" stroke-width="2"/>
+  <rect x="1" y="1" width="1398" height="818" fill="none" stroke="#dce4ef" stroke-width="2"/>
 
   <g font-family="Microsoft YaHei UI, Segoe UI, sans-serif">
-    <text x="64" y="70" fill="#0b7d69" font-family="Consolas, monospace" font-size="23" font-weight="700" letter-spacing="3">MOTION CONTROL / SDK TRACE</text>
-    <text x="64" y="122" fill="#111311" font-size="34" font-weight="700">核心代码、ZAux 调用链与轴控运行语义</text>
-    <text x="64" y="156" fill="#626a65" font-size="18">从界面命令追踪到控制器封装，再验证底层 SDK 的真实执行路径</text>
+    <text x="64" y="70" fill="#0e7490" font-family="Consolas, monospace" font-size="23" font-weight="700" letter-spacing="3">MOTION CONTROL / SDK TRACE</text>
+    <text x="64" y="122" fill="#172033" font-size="34" font-weight="700">核心代码、ZAux 调用链与轴控运行语义</text>
+    <text x="64" y="156" fill="#59677c" font-size="18">调用关系与 SDK 语义示意 · 静态复盘，不代表真实控制器运行结果</text>
   </g>
 
   <g transform="translate(64 196)">
-    <rect width="720" height="528" rx="4" fill="#f6f7f6" stroke="#dfe3e0"/>
-    <rect width="720" height="52" rx="4" fill="#eef1ef"/>
-    <circle cx="26" cy="26" r="5" fill="#0b7d69"/>
-    <text x="46" y="33" fill="#303532" font-family="Consolas, monospace" font-size="17">ZmotionMotionController.cs</text>
-    <text x="663" y="33" fill="#77807b" font-family="Consolas, monospace" font-size="15">C#</text>
+    <rect width="720" height="528" rx="4" fill="#f6f8fc" stroke="#738398"/>
+    <rect width="720" height="52" rx="4" fill="#eef2f8"/>
+    <circle cx="26" cy="26" r="5" fill="#0e7490"/>
+    <text x="46" y="33" fill="#26374f" font-family="Consolas, monospace" font-size="17">ZmotionMotionController.cs</text>
+    <text x="663" y="33" fill="#59677c" font-family="Consolas, monospace" font-size="15">C#</text>
 
     <g font-family="Consolas, monospace" font-size="18">
-      <g fill="#8a928d" text-anchor="end">
+      <g fill="#59677c" text-anchor="end">
         <text x="46" y="98">01</text><text x="46" y="134">02</text><text x="46" y="170">03</text>
         <text x="46" y="206">04</text><text x="46" y="242">05</text><text x="46" y="278">06</text>
         <text x="46" y="314">07</text><text x="46" y="350">08</text><text x="46" y="386">09</text>
         <text x="46" y="422">10</text><text x="46" y="458">11</text>
       </g>
-      <g fill="#1d211f">
-        <text x="68" y="98"><tspan fill="#0b7d69">public void</tspan> MoveLinear(AxisGroup group)</text>
+      <g fill="#26374f">
+        <text x="68" y="98"><tspan fill="#0e7490">public void</tspan> MoveLinear(AxisGroup group)</text>
         <text x="68" y="134">{</text>
-        <text x="92" y="170"><tspan fill="#0b7d69">var</tspan> axes = ADDAX(group.AxisList);</text>
+        <text x="92" y="170"><tspan fill="#0e7490">var</tspan> axes = ADDAX(group.AxisList);</text>
         <text x="92" y="206">EnsureBufferedOutput(axes);</text>
         <text x="92" y="242">ZAux_Direct_Move(</text>
         <text x="116" y="278">handle, axes.Count, axes, distance);</text>
         <text x="68" y="314">}</text>
-        <text x="68" y="350"><tspan fill="#0b7d69">public void</tspan> Stop() =&gt;</text>
+        <text x="68" y="350"><tspan fill="#0e7490">public void</tspan> Stop() =&gt;</text>
         <text x="92" y="386">ZAux_Direct_Single_Cancel(handle, axis, 2);</text>
-        <text x="68" y="422"><tspan fill="#0b7d69">public void</tspan> EmergencyStop() =&gt;</text>
+        <text x="68" y="422"><tspan fill="#0e7490">public void</tspan> EmergencyStop() =&gt;</text>
         <text x="92" y="458">ZAux_Direct_Rapidstop(handle, 2);</text>
       </g>
     </g>
-    <rect x="64" y="486" width="628" height="1" fill="#dfe3e0"/>
-    <text x="68" y="512" fill="#626a65" font-family="Microsoft YaHei UI, sans-serif" font-size="15">普通停止与急停采用不同 SDK 语义，避免界面动作与控制器行为混淆</text>
+    <rect x="64" y="486" width="628" height="1" fill="#738398"/>
+    <text x="68" y="512" fill="#59677c" font-family="Microsoft YaHei UI, sans-serif" font-size="15">普通停止与急停使用不同 SDK 语义，实际响应仍需控制器运行验证</text>
   </g>
 
   <g transform="translate(830 196)" font-family="Microsoft YaHei UI, Segoe UI, sans-serif">
-    <rect width="506" height="528" rx="4" fill="#fafbfa" stroke="#dfe3e0"/>
-    <text x="30" y="43" fill="#111311" font-size="20" font-weight="700">调用链与验证面</text>
-    <text x="30" y="72" fill="#626a65" font-size="15">每一层都保留明确职责与可审计边界</text>
+    <rect width="506" height="528" rx="4" fill="#f6f8fc" stroke="#738398"/>
+    <text x="30" y="43" fill="#172033" font-size="20" font-weight="700">调用链与验证面</text>
+    <text x="30" y="72" fill="#59677c" font-size="15">每一层都保留明确职责与可审计边界</text>
 
     <g transform="translate(30 104)">
-      <rect width="446" height="62" rx="4" fill="#ffffff" stroke="#dfe3e0"/>
-      <circle cx="31" cy="31" r="12" fill="#0b7d69"/>
-      <text x="58" y="27" fill="#111311" font-size="17" font-weight="700">UI Command</text>
-      <text x="58" y="49" fill="#626a65" font-size="14">点动、定位、停止、急停</text>
-      <path d="M223 66v22" stroke="#aeb5b1" stroke-width="2"/>
-      <path d="m216 82 7 8 7-8" fill="none" stroke="#aeb5b1" stroke-width="2"/>
+      <rect width="446" height="62" rx="4" fill="#ffffff" stroke="#738398"/>
+      <circle cx="31" cy="31" r="12" fill="#0e7490"/>
+      <text x="58" y="27" fill="#172033" font-size="17" font-weight="700">UI Command</text>
+      <text x="58" y="49" fill="#59677c" font-size="14">点动、定位、停止、急停</text>
+      <path d="M223 66v22" stroke="#738398" stroke-width="2"/>
+      <path d="m216 82 7 8 7-8" fill="none" stroke="#738398" stroke-width="2"/>
 
-      <rect y="92" width="446" height="62" rx="4" fill="#ffffff" stroke="#dfe3e0"/>
-      <circle cx="31" cy="123" r="12" fill="#111311"/>
-      <text x="58" y="119" fill="#111311" font-size="17" font-weight="700">Motion Service</text>
-      <text x="58" y="141" fill="#626a65" font-size="14">轴组组织、参数约束、状态检查</text>
-      <path d="M223 158v22" stroke="#aeb5b1" stroke-width="2"/>
-      <path d="m216 174 7 8 7-8" fill="none" stroke="#aeb5b1" stroke-width="2"/>
+      <rect y="92" width="446" height="62" rx="4" fill="#ffffff" stroke="#738398"/>
+      <circle cx="31" cy="123" r="12" fill="#172033"/>
+      <text x="58" y="119" fill="#172033" font-size="17" font-weight="700">Motion Service</text>
+      <text x="58" y="141" fill="#59677c" font-size="14">轴组组织、参数约束、状态检查</text>
+      <path d="M223 158v22" stroke="#738398" stroke-width="2"/>
+      <path d="m216 174 7 8 7-8" fill="none" stroke="#738398" stroke-width="2"/>
 
-      <rect y="184" width="446" height="62" rx="4" fill="#ffffff" stroke="#dfe3e0"/>
-      <circle cx="31" cy="215" r="12" fill="#6f624f"/>
-      <text x="58" y="211" fill="#111311" font-size="17" font-weight="700">ZAux_* SDK</text>
-      <text x="58" y="233" fill="#626a65" font-size="14">ADDAX、缓冲输出与停止语义</text>
-      <path d="M223 250v22" stroke="#aeb5b1" stroke-width="2"/>
-      <path d="m216 266 7 8 7-8" fill="none" stroke="#aeb5b1" stroke-width="2"/>
+      <rect y="184" width="446" height="62" rx="4" fill="#ffffff" stroke="#738398"/>
+      <circle cx="31" cy="215" r="12" fill="#52657f"/>
+      <text x="58" y="211" fill="#172033" font-size="17" font-weight="700">ZAux_* SDK</text>
+      <text x="58" y="233" fill="#59677c" font-size="14">ADDAX、缓冲输出与停止语义</text>
+      <path d="M223 250v22" stroke="#738398" stroke-width="2"/>
+      <path d="m216 266 7 8 7-8" fill="none" stroke="#738398" stroke-width="2"/>
 
-      <rect y="276" width="446" height="62" rx="4" fill="#f0f7f5" stroke="#bcded6"/>
-      <circle cx="31" cy="307" r="12" fill="#0b7d69"/>
+      <rect y="276" width="446" height="62" rx="4" fill="#eff5ff" stroke="#738398"/>
+      <circle cx="31" cy="307" r="12" fill="#0e7490"/>
       <path d="m25 307 4 4 8-9" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="58" y="303" fill="#111311" font-size="17" font-weight="700">Controller Runtime</text>
-      <text x="58" y="325" fill="#42635b" font-size="14">导出函数、返回值与现场行为已核对</text>
+      <text x="58" y="303" fill="#172033" font-size="17" font-weight="700">Controller Runtime</text>
+      <text x="58" y="325" fill="#59677c" font-size="14">静态调用复盘，真实控制器运行待验证</text>
     </g>
 
     <g transform="translate(30 468)" font-family="Consolas, monospace" font-size="14">
-      <circle cx="6" cy="-1" r="5" fill="#0b7d69"/>
-      <text x="20" y="4" fill="#303532">SDK SEMANTICS VERIFIED</text>
+      <circle cx="6" cy="-1" r="5" fill="#0e7490"/>
+      <text x="20" y="4" fill="#26374f">STATIC REVIEW / RUNTIME PENDING</text>
     </g>
   </g>
 </svg>

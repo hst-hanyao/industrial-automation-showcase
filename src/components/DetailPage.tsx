@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, type ReactNode } from 'react'
 import {
   evidenceLabels,
   getCapabilityNeighbors,
@@ -16,9 +16,12 @@ const evidenceOrder: readonly EvidenceKind[] = ['project', 'review', 'future']
 
 interface DetailPageProps {
   readonly capability: Capability
+  readonly heroVisual?: ReactNode
+  readonly heroLayout?: 'default' | 'architecture'
+  readonly afterHero?: ReactNode
 }
 
-export function DetailPage({ capability }: DetailPageProps) {
+export function DetailPage({ capability, heroVisual, heroLayout = 'default', afterHero }: DetailPageProps) {
   const rootRef = useRef<HTMLElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const motionMode = useMotionMode()
@@ -82,7 +85,7 @@ export function DetailPage({ capability }: DetailPageProps) {
         '--accent-soft': capability.accentSoft,
       } as React.CSSProperties}
     >
-      <section className="detail-hero">
+      <section className={`detail-hero${heroLayout === 'architecture' ? ' detail-hero--architecture' : ''}`}>
         <div className="detail-hero__index" data-detail-intro aria-hidden="true">
           <span>{capability.order}</span>
           <i />
@@ -99,11 +102,11 @@ export function DetailPage({ capability }: DetailPageProps) {
         </div>
 
         <div className="detail-hero__visual" data-detail-intro>
-          {capability.heroMedia ? (
+          {heroVisual ?? (capability.heroMedia ? (
             <MediaFrame media={capability.heroMedia} eager />
           ) : (
             <TechnicalDiagram type="tasks" />
-          )}
+          ))}
         </div>
 
         <aside className="evidence-legend" data-detail-intro aria-label="内容证据分类">
@@ -115,12 +118,14 @@ export function DetailPage({ capability }: DetailPageProps) {
         </aside>
       </section>
 
+      {afterHero}
+
       <div className="detail-sections">
         {capability.sections.map((section, index) => (
           <section
             key={section.id}
             id={section.id}
-            className={`detail-block detail-block--${index % 2 === 0 ? 'left' : 'right'}`}
+            className={`detail-block detail-block--${index % 2 === 0 ? 'left' : 'right'}${!section.diagram && !section.media?.length ? ' detail-block--text' : ''}`}
             data-detail-block
           >
             <header className="detail-block__header">
@@ -147,10 +152,10 @@ export function DetailPage({ capability }: DetailPageProps) {
                 ) : null}
               </div>
 
-              <div className="detail-block__evidence">
+              {section.diagram || section.media?.length ? <div className="detail-block__evidence">
                 {section.diagram ? <TechnicalDiagram type={section.diagram} /> : null}
                 {section.media?.map((media) => <MediaFrame key={media.file} media={media} />)}
-              </div>
+              </div> : null}
             </div>
           </section>
         ))}

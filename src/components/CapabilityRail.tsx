@@ -41,7 +41,7 @@ export function CapabilityRail() {
       chapters.forEach((chapter, index) => {
         gsap.fromTo(
           chapter,
-          { autoAlpha: 0.28, y: 48 },
+          { autoAlpha: 1, y: 48 },
           {
             autoAlpha: 1,
             y: 0,
@@ -79,22 +79,23 @@ export function CapabilityRail() {
       </div>
 
       <div className="atlas-rail__layout">
-        <aside className="atlas-rail__map" aria-label="四项能力滚动进度">
+        <nav className="atlas-rail__map" aria-label="四项能力导航与滚动进度">
           <div className="atlas-rail__map-line" aria-hidden="true">
             <i data-rail-fill />
           </div>
           {capabilities.map((capability) => (
-            <div
+            <IntentLink
               key={capability.id}
+              to={capability.route}
               className="atlas-rail__node"
               data-rail-node
               style={{ '--node-accent': capability.accent } as React.CSSProperties}
             >
               <span>{capability.order}</span>
               <div><b>{capability.shortName}</b><small>{capability.EnglishName}</small></div>
-            </div>
+            </IntentLink>
           ))}
-        </aside>
+        </nav>
 
         <div className="atlas-rail__chapters">
           {capabilities.map((capability, index) => (
@@ -131,4 +132,3 @@ export function CapabilityRail() {
     </section>
   )
 }
-

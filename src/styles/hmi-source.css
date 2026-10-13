@@ -1,0 +1,36 @@
+.hmi-code-reader { display: flex; flex-direction: column; min-width: 0; min-height: 0; height: 100%; background: #fff; border-left: 1px solid #8291a6; scroll-margin-top: calc(var(--header-height) + 16px); }
+.hmi-code-reader__header { position: sticky; top: var(--header-height); z-index: 5; display: flex; align-items: start; justify-content: space-between; gap: 12px; padding: 16px 18px 12px; flex-shrink: 0; background: #fff; }
+.hmi-code-reader__header > div { min-width: 0; }
+.hmi-code-reader__context { color: #536277; font-size: 12px; line-height: 18px; }
+.hmi-code-reader__header h3 { margin-top: 5px; font-size: 16px; line-height: 24px; font-weight: 600; overflow-wrap: anywhere; }
+.hmi-code-reader__header h3 span { display: block; color: #536277; font: 14px/22px Consolas, monospace; }
+.hmi-reader-button { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid #7b8aa0; border-radius: 4px; color: #34445b; background: #fff; cursor: pointer; font-size: 12px; line-height: 18px; flex-shrink: 0; }
+.hmi-reader-button:hover, .hmi-reader-button[aria-pressed="true"] { color: #1d4ed8; border-color: #2563eb; background: #eff5ff; }
+.hmi-reader-button:disabled { cursor: wait; }
+.hmi-method-selector { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 12px; padding: 0 18px 12px; }
+.hmi-method-selector label { color: #536277; font-size: 12px; }
+.hmi-method-selector select { min-width: 0; width: 100%; min-height: 44px; padding: 8px 10px; color: #172033; border: 1px solid #7b8aa0; border-radius: 4px; background: #fff; font: 14px/22px Consolas, monospace; }
+.hmi-reader-location { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 10px 18px; border-block: 1px solid #dce4ef; color: #536277; font: 12px/18px Consolas, monospace; }
+.hmi-reader-location > span:first-child { overflow-wrap: anywhere; }
+.hmi-reader-location > span:last-child { color: #1d4ed8; white-space: nowrap; }
+.hmi-reader-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 18px; }
+.hmi-copy-feedback { color: #34445b; font-size: 12px; line-height: 18px; }
+.hmi-code-reader__scroll { min-height: 0; flex: 1; overflow: auto; overscroll-behavior: contain; scrollbar-color: #8291a6 #f6f8fc; background: #fff; }
+.hmi-code-reader__scroll:focus-visible { outline-offset: -3px; }
+.hmi-code-reader__note { padding: 10px 18px; border-top: 1px solid #dce4ef; color: #536277; font-size: 12px; line-height: 18px; }
+.hmi-source { margin: 0; min-width: max-content; padding: 14px 0 20px; color: #20334f; background: transparent; font: 14px/22px "Cascadia Code", Consolas, monospace; white-space: pre; tab-size: 4; }
+.hmi-source code { display: block; }
+.hmi-source__line { display: inline-flex; min-width: 100%; padding-right: 18px; vertical-align: top; }
+.hmi-source__line:hover { background: #f4f7fc; }
+.hmi-source__number { flex: 0 0 56px; padding-right: 16px; color: #5b6a80; text-align: right; user-select: none; }
+.hmi-source__text { flex: 1; }
+.hmi-source.is-wrapped { min-width: 0; width: 100%; white-space: pre-wrap; }
+.hmi-source.is-wrapped .hmi-source__line { width: 100%; min-width: 0; }
+.hmi-source.is-wrapped .hmi-source__text { min-width: 0; overflow-wrap: anywhere; }
+.hmi-source--preview { padding: 0; font-size: 14px; }
+.hmi-token--comment { color: #546a55; }
+.hmi-token--keyword, .hmi-token--tag { color: #1d4ed8; }
+.hmi-token--string { color: #8c3d27; }
+.hmi-token--number, .hmi-token--attribute { color: #765399; }
+@media (max-width: 1199px) { .hmi-code-reader { height: min(680px, calc(100svh - var(--header-height) - 24px)); border-left: 0; border-top: 1px solid #8291a6; } }
+@media (max-width: 767px) { .hmi-code-reader { height: auto; } .hmi-code-reader__scroll { height: clamp(180px, 40svh, 360px); flex: none; } .hmi-code-reader__header { padding-inline: 12px; } .hmi-method-selector { grid-template-columns: minmax(0, 1fr); gap: 6px; padding-inline: 12px; } .hmi-reader-tools, .hmi-reader-location { padding-inline: 12px; } .hmi-source__number { flex-basis: 46px; padding-right: 12px; } .hmi-code-reader__header h3 { font-size: 14px; } }

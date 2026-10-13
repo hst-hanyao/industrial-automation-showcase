@@ -1,5 +1,6 @@
 import type { MediaAsset } from '../data/capabilities'
 import { getMediaUrl } from '../lib/media'
+import { ImageViewer } from './ImageViewer'
 
 interface MediaFrameProps {
   readonly media: MediaAsset
@@ -15,7 +16,7 @@ export function MediaFrame({ media, eager = false }: MediaFrameProps) {
         <span />
         <b>STATIC / EVIDENCE VIEW</b>
       </div>
-      <div className="media-frame__viewport">
+      <div className="media-frame__viewport" style={{ aspectRatio: `${media.width} / ${media.height}` }}>
         <img
           src={getMediaUrl(media.file)}
           alt={media.alt}
@@ -26,7 +27,7 @@ export function MediaFrame({ media, eager = false }: MediaFrameProps) {
           decoding="async"
         />
       </div>
-      <figcaption>{media.caption}</figcaption>
+      <figcaption><span>{media.caption}</span><ImageViewer media={media} /></figcaption>
     </figure>
   )
 }

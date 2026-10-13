@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { EvidenceSection } from '../data/capabilities'
 
 interface TechnicalDiagramProps {
@@ -9,7 +10,8 @@ const pipelineNodes = ['INPUT', 'CALIBRATE', 'CONTOUR', 'ALIGN', 'DISTANCE', 'JU
 
 function LinearDiagram({ nodes }: { readonly nodes: readonly string[] }) {
   return (
-    <div className="linear-diagram" role="img" aria-label={nodes.join(' 到 ')}>
+    <div className="linear-diagram" role="img" aria-label={nodes.join(' 到 ')}
+      style={{ '--diagram-node-count': nodes.length } as CSSProperties}>
       {nodes.map((node, index) => (
         <div key={node} className="linear-diagram__item">
           <span>{String(index + 1).padStart(2, '0')}</span>

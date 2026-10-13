@@ -32,7 +32,7 @@ function drawSignalField(
 
   context.save()
   context.lineWidth = 1
-  context.strokeStyle = 'rgba(213, 226, 216, 0.08)'
+  context.strokeStyle = 'rgba(46, 65, 94, 0.08)'
 
   for (let x = 0; x <= width; x += 64) {
     context.beginPath()
@@ -55,7 +55,7 @@ function drawSignalField(
   ] as const
 
   context.lineWidth = 1.5
-  context.strokeStyle = 'rgba(215, 255, 82, 0.26)'
+  context.strokeStyle = 'rgba(37, 99, 235, 0.24)'
   for (const [start, end] of segments) {
     context.beginPath()
     context.moveTo(start.x, start.y)
@@ -85,22 +85,22 @@ function drawSignalField(
 
     context.beginPath()
     context.arc(pulseX, pulseY, 3.2, 0, Math.PI * 2)
-    context.fillStyle = index === 1 ? '#ff7048' : '#d7ff52'
-    context.shadowBlur = 18
+    context.fillStyle = index === 1 ? '#52657f' : '#2563eb'
+    context.shadowBlur = 6
     context.shadowColor = context.fillStyle
     context.fill()
     context.shadowBlur = 0
   })
 
   for (const [index, node] of resolved.entries()) {
-    context.fillStyle = '#0b0e0d'
-    context.strokeStyle = index === 2 ? '#ff7048' : 'rgba(215, 255, 82, 0.72)'
+    context.fillStyle = '#ffffff'
+    context.strokeStyle = index === 2 ? '#52657f' : 'rgba(37, 99, 235, 0.72)'
     context.lineWidth = 1.5
     context.beginPath()
     context.rect(node.x - 8, node.y - 8, 16, 16)
     context.fill()
     context.stroke()
-    context.fillStyle = 'rgba(239, 235, 220, 0.74)'
+    context.fillStyle = 'rgba(46, 65, 94, 0.74)'
     context.font = '10px Cascadia Code, monospace'
     context.fillText(`0${index + 1}`, node.x + 14, node.y + 4)
   }
