@@ -7,6 +7,7 @@ export function SiteFooter() {
       <p>内容按项目证据、源码或案例复盘、后续方向区分</p>
       <ScrollTargetButton targetId="main-content">回到本页顶部</ScrollTargetButton>
       <p className="site-footer__icp">
+        <span>ICP备案/许可证号：</span>
         <a
           href="https://beian.miit.gov.cn/"
           target="_blank"
