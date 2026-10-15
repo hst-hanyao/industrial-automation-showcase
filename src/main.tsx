@@ -35,7 +35,7 @@ if (startedAsShowcase) {
 } else {
   const viewer = document.createElement('iframe')
   viewer.className = 'machine-home'
-  viewer.title = '晶圆电镀机 3D 交互演示、原理动画与公开专利依据'
+  viewer.title = '晶圆电镀工艺3D教学演示：非官方交互模型与原理动画'
   viewer.src = `${import.meta.env.BASE_URL}waferplt/`
   viewer.allow = 'fullscreen'
   viewer.allowFullscreen = true

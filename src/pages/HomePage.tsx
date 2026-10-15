@@ -58,7 +58,7 @@ export default function HomePage() {
           </p>
           <div className="home-hero__actions" data-home-intro>
             <a className="primary-action" href={import.meta.env.BASE_URL}>
-              进入晶圆电镀机 3D 演示 <span aria-hidden="true">↗</span>
+              进入晶圆电镀工艺3D教学演示 <span aria-hidden="true">↗</span>
             </a>
             <IntentLink className="secondary-action" to="/hmi">从上位机进入 <span aria-hidden="true">↗</span></IntentLink>
             <ScrollTargetButton className="secondary-action" targetId="capability-atlas">
