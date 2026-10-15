@@ -1,0 +1,79 @@
+.filing-footer {
+  --filing-color: #526257;
+  --filing-focus: #175f79;
+}
+
+body[data-theme="dark"] .filing-footer {
+  --filing-color: #b8c2b4;
+  --filing-focus: #9cd8ee;
+}
+
+footer.filing-shell {
+  height: auto;
+  min-height: 38px;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.filing-shell > .footer-context,
+.filing-shell > .footer-branding {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.filing-footer .filing-links {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  gap: 0 20px;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.filing-shell .filing-links {
+  margin-top: 0;
+}
+
+.filing-footer .filing-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 6px 0;
+  box-sizing: border-box;
+  color: var(--filing-color);
+  font: 14px/1.6 "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  border-radius: 3px;
+}
+
+.filing-link > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.filing-footer .filing-link:hover {
+  text-decoration: underline;
+}
+
+.filing-footer .filing-link:focus-visible {
+  outline: 2px solid var(--filing-focus);
+  outline-offset: 3px;
+}
+
+.filing-footer .filing-link .filing-icon {
+  display: block;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  max-width: none;
+  object-fit: contain;
+}
