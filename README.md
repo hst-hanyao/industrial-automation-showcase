@@ -1,14 +1,15 @@
 # 晶圆电镀工艺3D教学演示与工业自动化能力图谱
 
-网站根地址默认展示晶圆电镀工艺3D教学演示。原 Vite / React / TypeScript 能力图谱保留在 `/#/`，包含首页及上位机、PLC、运动控制、机器视觉四个详情页。运行素材随站点发布，无后端接口或外部 CDN 依赖。
+网站根地址默认展示工业自动化能力图谱，使用 Vite / React / TypeScript，包含首页及上位机、PLC、运动控制、机器视觉四个详情页。首页保留进入晶圆电镀工艺3D教学演示的按钮，设备独立入口为 `/waferplt/`。运行素材随站点发布，无后端接口或外部 CDN 依赖。
 
 ## 当前展示
 
-- 默认首页通过完整视口嵌入设备演示；整机、APT、PLT、SRD、结构图与影片保持原功能。通往能力图谱的返回按钮暂时隐藏，源码链接保留。
+- 默认首页恢复原能力图谱封面；整机、APT、PLT、SRD、前后手臂、结构图与影片保持原功能。设备页通往能力图谱的返回按钮继续隐藏，源码链接保留。
 - 设备入口、独立三维页和结构图显示非官方教学声明；主品牌采用中性教学名称。页面上的专利、厂商及研究文档来源跳转已移除，必要的专利号、出处文字和第三方许可保留。链接移除不改变原素材的权利状态。
-- 首页「前后手臂」标签进入独立三维教学：前手臂管理 FOUP、定向与干片交接，后手臂用独立干／湿末端连接 APT、PLT、SRD；支持分视角、播放／暂停、原子动作单步、时间轴、运动轴读数及入片交接未就绪的持片等待。只有 SRD 干燥完成后，干片末端才接回晶圆。
-- 显式哈希入口 `/#/` 加载原能力图谱；四个详情地址 `/#/hmi`、`/#/plc`、`/#/motion`、`/#/vision` 保持兼容。原能力图谱首页新增“进入晶圆电镀机 3D 演示”按钮。
-- 默认 3D 首页不加载能力图谱的 React 模块；在两个入口间切换时重新加载，能力图谱内部路由继续使用原 HashRouter。
+- 设备入口的「前后手臂」标签进入独立三维教学：前手臂管理 FOUP、定向与干片交接，后手臂用独立干／湿末端连接 APT、PLT、SRD；支持分视角、播放／暂停、原子动作单步、时间轴、运动轴读数及入片交接未就绪的持片等待。只有 SRD 干燥完成后，干片末端才接回晶圆。
+- 根地址与显式哈希入口 `/#/` 均加载能力图谱；四个详情地址 `/#/hmi`、`/#/plc`、`/#/motion`、`/#/vision` 保持兼容。首页“进入晶圆电镀工艺3D教学演示”按钮直达 `/waferplt/`。
+- 能力图谱继续使用原 HashRouter；进入独立 3D 目录时才加载设备模型。
+- 7 份原始专利 PDF 和 15 张原始专利页图片已从 `public` 移出，不进入 `dist` 或 Pages 新版本。22 份本地备份、原始元数据和逐文件 SHA-256 清单位于仓库外 `../local-backups/20261015-patent-originals/`，未加入 Git 或构建。公开参考目录保留专利号、标题、出处与适用边界，取消原图加载和本地副本索引。本次不改写已有 Git 历史。
 - 白蓝灰主题，桌面优先并支持手机阅读与可展开导航。
 - 首页设备概念插画明确标注 AI 生成，不作为项目实拍。
 - 上位机提供六组架构总览、完整架构、四条真实调用链、源码预览与阅读。
@@ -36,11 +37,11 @@ npm run build
 
 推送到 `main` 后，`.github/workflows/deploy-pages.yml` 自动执行类型检查、Lint、测试、构建并发布 Pages。使用 `HashRouter` 与相对资源路径，支持项目子路径。
 
-公开首页为 [晶圆电镀工艺3D教学演示](https://hst-hanyao.github.io/industrial-automation-showcase/)，原 [工业自动化能力图谱](https://hst-hanyao.github.io/industrial-automation-showcase/#/) 继续保留。备案号码和公安原图来自项目交接；官方网站查询受脚本或反爬限制时，页面可访问与链接正确不代表已独立取得官方备案查询结果。自定义域名由项目所有者单独更新。
+公开首页为 [工业自动化能力图谱](https://hst-hanyao.github.io/industrial-automation-showcase/)，[晶圆电镀工艺3D教学演示](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/) 保留独立入口。备案号码和公安原图来自项目交接；官方网站查询受脚本或反爬限制时，页面可访问与链接正确不代表已独立取得官方备案查询结果。自定义域名由项目所有者单独更新。
 
 ### 晶圆电镀设备演示
 
-`public/waferplt/` 随现有 Vite 构建复制到 `dist/waferplt/`，访问 [完整演示](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/) 或 [APT／PLT／SRD 总览](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/modules/)。包含预构建三维页、Anatomy 结构图、四段影片和公开专利证据；不包含 Windows 作者工具链。该内容属于公开专利教学重建，未验证真实设备或工艺配方。
+`public/waferplt/` 随现有 Vite 构建复制到 `dist/waferplt/`，访问 [完整演示](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/) 或 [APT／PLT／SRD 总览](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/modules/)。包含预构建三维页、Anatomy 结构图、四段原影片与必要出处文字；不包含原始专利 PDF、专利页图片或 Windows 作者工具链。该内容属于公开资料教学重建，未验证真实设备或工艺配方。
 
 ### 前后手臂教学
 

@@ -14,6 +14,8 @@
 
 公开专利取自不同实施例，未证明这些结构组成同一台商业 SABRE 3D 的实装配置。300 mm 晶圆与法拉第公式作为定量锚点，其余几何、参数、时序和流线均为教学设定。不是实机操作规程、制造 CAD 或工艺配方。用户功能验收、真实设备与现场验收未执行。
 
-[科学说明](shared/SCIENTIFIC-NOTES.md) · [公开专利图册与 PDF](references/sabre3d-research/index.html) · [第三方许可](THIRD-PARTY-NOTICES.txt) · [影片记录](out/modules/artifacts.json)
+[科学说明](shared/SCIENTIFIC-NOTES.md) · [结构参考资料与出处](references/sabre3d-research/index.html) · [第三方许可](THIRD-PARTY-NOTICES.txt) · [影片记录](out/modules/artifacts.json)
+
+公开目录仅保留必要的文献身份、图号页码、结构说明与适用边界。7 份原始专利 PDF 和 15 张原始专利页图片已移至发布仓库外的本地备份，不随本站分发；现有独立 3D 教学模型与影片继续保留。
 
 此目录是 Pages 访客资源快照；作者工程、Windows 工具链、重建脚本和本地检查报告不随网页发布。科研说明中提及的本地验证记录保留在作者工程。
