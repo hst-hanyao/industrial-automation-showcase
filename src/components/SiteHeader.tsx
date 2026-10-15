@@ -67,6 +67,13 @@ export function SiteHeader() {
         ))}
       </nav>
 
+      <a className="header-teaching-link" href={`${import.meta.env.BASE_URL}waferplt/`}
+        aria-label="进入晶圆电镀工艺3D教学演示">
+        <span className="header-teaching-link__full">进入晶圆电镀工艺3D教学演示</span>
+        <span className="header-teaching-link__compact">3D 演示</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+
     </header>
   )
 }

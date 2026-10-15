@@ -57,10 +57,7 @@ export default function HomePage() {
             以现有界面、源码语义和工程复盘，呈现上位机、PLC、运动控制与机器视觉之间的命令链和反馈链。
           </p>
           <div className="home-hero__actions" data-home-intro>
-            <a className="primary-action" href={`${import.meta.env.BASE_URL}waferplt/`}>
-              进入晶圆电镀工艺3D教学演示 <span aria-hidden="true">↗</span>
-            </a>
-            <IntentLink className="secondary-action" to="/hmi">从上位机进入 <span aria-hidden="true">↗</span></IntentLink>
+            <IntentLink className="primary-action" to="/hmi">从上位机进入 <span aria-hidden="true">↗</span></IntentLink>
             <ScrollTargetButton className="secondary-action" targetId="capability-atlas">
               查看四域图谱 <span aria-hidden="true">↓</span>
             </ScrollTargetButton>
