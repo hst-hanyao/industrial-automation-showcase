@@ -6,6 +6,7 @@
 
 - 默认首页通过完整视口嵌入设备演示；整机、APT、PLT、SRD、结构图与影片保持原功能。通往能力图谱的返回按钮暂时隐藏，源码链接保留。
 - 设备入口、独立三维页和结构图显示非官方教学声明；主品牌采用中性教学名称。页面上的专利、厂商及研究文档来源跳转已移除，必要的专利号、出处文字和第三方许可保留。链接移除不改变原素材的权利状态。
+- 首页「前后手臂」标签进入独立三维教学：前手臂管理 FOUP、定向与干片交接，后手臂用独立干／湿末端连接 APT、PLT、SRD；支持分视角、播放／暂停、原子动作单步、时间轴、运动轴读数及入片交接未就绪的持片等待。只有 SRD 干燥完成后，干片末端才接回晶圆。
 - 显式哈希入口 `/#/` 加载原能力图谱；四个详情地址 `/#/hmi`、`/#/plc`、`/#/motion`、`/#/vision` 保持兼容。原能力图谱首页新增“进入晶圆电镀机 3D 演示”按钮。
 - 默认 3D 首页不加载能力图谱的 React 模块；在两个入口间切换时重新加载，能力图谱内部路由继续使用原 HashRouter。
 - 白蓝灰主题，桌面优先并支持手机阅读与可展开导航。
@@ -29,7 +30,7 @@ npm test
 npm run build
 ```
 
-现有测试覆盖 8 个文件、47 项测试。生产输出目录为 `dist`。
+现有测试覆盖 9 个文件、61 项测试，其中14项验证前后手臂的单片归属、干湿分工、独立运动学、FOUP插片高度、交接错峰与动作连续性。生产输出目录为 `dist`。
 
 ## GitHub Pages
 
@@ -40,3 +41,9 @@ npm run build
 ### 晶圆电镀设备演示
 
 `public/waferplt/` 随现有 Vite 构建复制到 `dist/waferplt/`，访问 [完整演示](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/) 或 [APT／PLT／SRD 总览](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/modules/)。包含预构建三维页、Anatomy 结构图、四段影片和公开专利证据；不包含 Windows 作者工具链。该内容属于公开专利教学重建，未验证真实设备或工艺配方。
+
+### 前后手臂教学
+
+[前后手臂独立入口](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/robots/) 为同一 Vite 构建的第二个 HTML 入口，源码在 `waferplt/robots/index.html` 和 `src/wafer-handling/`，样式在 `src/styles/wafer-handling.css`。`kinematics.ts` 从绝对时间确定唯一晶圆归属与两套独立姿态，`geometry.ts` 创建实体机构，`main.ts` 管理渲染与交互。Three.js 固定为0.170.0，与原演示一致，无外部CDN或字体依赖。
+
+布局、两交接位和干湿专用末端是综合公开资料的独立教学方案，不能视为 Lam／Novellus／ACM 的统一标配。原整机保留简化搬运并明确引导此专页；原整机、工艺结构图及影片继续保留。专页另有独立录制的28秒静音概览，压缩教学时间而非真实节拍。可视净空与软件互锁检查不构成真实 CAD 碰撞认证、洁净度或现场安全验收。

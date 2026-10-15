@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="前后手臂3D教学：前端干片装卸与定向、后端干湿末端分工、交接互锁及APT到PLT到SRD的晶圆搬运。非官方独立教学示意。">
+  <meta name="theme-color" content="#f5f4ef">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/waferplt/filing.css">
+  <title>前后手臂 · 晶圆电镀工艺3D教学演示</title>
+</head>
+<body>
+  <header class="handling-header">
+    <a href="../index.html" target="_top" class="back-link">← 整机演示</a>
+    <span class="wordmark">WAFER HANDLING <i>/</i> TEACHING STUDY</span>
+    <a href="../modules/" target="_top" class="modules-link">APT · PLT · SRD ↗</a>
+  </header>
+  <main id="main-content">
+    <section class="introduction">
+      <div><span class="eyebrow">干片有入口，湿片有边界</span><h1>一片晶圆，两套搬运职责。</h1></div>
+      <p class="teaching-notice" role="note">非官方教学演示 · 基于公开资料独立制作，无厂商背书。两套导轨、双交接位及干湿末端是本教学方案，不代表任何商业机的实装配置；尺寸、路径和秒数均为示意。</p>
+    </section>
+    <section class="handling-workspace" aria-label="前后手臂三维演示与职责">
+      <div class="scene-panel">
+        <div class="scene-toolbar">
+          <div role="group" aria-label="观察手臂"><button data-view="all" aria-pressed="true">协同搬运</button><button data-view="front" aria-pressed="false">前手臂</button><button data-view="rear" aria-pressed="false">后手臂</button></div>
+          <button id="labels" aria-pressed="true">部件标签：开</button>
+        </div>
+        <div id="scene" tabindex="0" role="group" aria-label="可旋转的晶圆搬运3D模型。拖动旋转，滚轮缩放；空格暂停，左右键单步。"><div id="scene-labels" aria-hidden="true"></div><p id="loading">正在建立三维结构…</p></div>
+        <div class="scene-caption"><span><i class="dry-dot"></i>蓝 · 干片末端</span><span><i class="wet-dot"></i>琥珀 · 湿片末端</span><span>拖动旋转 · 滚轮缩放</span></div>
+      </div>
+      <aside class="responsibility-panel">
+        <div class="live-heading"><span class="eyebrow">此刻，谁在搬运</span><span class="live-lamp" id="live-lamp">运行中</span></div>
+        <h2 id="action-title">FOUP 取片</h2><p id="action-detail">前手臂准备接收干片。</p>
+        <div class="wafer-ledger"><span>唯一晶圆 <b id="wafer-state">干片</b></span><strong id="wafer-holder">FOUP</strong></div>
+        <button class="duty-card" data-focus="front" data-active="true"><span class="duty-number">01 / FRONT</span><strong>前手臂 · 干片装卸</strong><p>FOUP ⇄ 对准与交接<br>送出未处理干片，接回已干燥晶圆。<br><em>不进入湿工艺腔。</em></p><small id="front-status">等待取片</small></button>
+        <button class="duty-card rear-card" data-focus="rear" data-active="false"><span class="duty-number">02 / REAR</span><strong>后手臂 · 工艺间转移</strong><p>交接 ⇄ APT → PLT → SRD<br>蓝色末端只取干片；琥珀末端转移湿片。<br><em>干燥确认后，才允许干片取回。</em></p><small id="rear-status">等待入片交接</small></button>
+        <div class="interlock"><span class="eyebrow">进入下一动作的条件</span><p id="interlock-text">确认 FOUP 槽位与取片许可。</p></div>
+        <details class="joint-readouts"><summary>观察当前运动轴 <span>教学坐标</span></summary><dl><div><dt>沿轨位置 X</dt><dd id="rail-value">—</dd></div><div><dt>取放高度 Z</dt><dd id="lift-value">—</dd></div><div><dt>肩关节 / 肘关节</dt><dd id="angle-value">—</dd></div><div><dt>末端平面伸出量</dt><dd id="reach-value">—</dd></div></dl><p>场景竖直轴为 Y；此处 Z 指工业机器人升降轴。读数由当前姿态计算，非设备规格。</p></details>
+      </aside>
+    </section>
+    <section class="playback" aria-label="搬运动作控制">
+      <div class="playback-controls"><button id="play" class="primary">暂停</button><button id="previous" aria-label="上一个搬运动作">← 上一步</button><button id="next" aria-label="下一个搬运动作">下一步 →</button><button id="reset">重新开始</button><label>速度 <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><span class="time-readout"><b id="time">0.0</b><span id="duration"> / — s</span></span></div>
+      <label class="timeline-label" for="timeline">拖动查看取片、回缩、沿轨移动与放片</label><input id="timeline" type="range" min="0" max="100" value="0" step="0.01" aria-label="搬运教学时间轴">
+      <div class="route-steps" id="route-steps" aria-label="搬运路径"></div>
+      <div class="gate-control"><button id="gate" aria-pressed="false">演示：入片交接位未就绪</button><p id="gate-description">可观察互锁等待：前手臂保持持片，后手臂等待许可。</p></div>
+      <p id="announcement" class="sr-only" aria-live="polite"></p>
+    </section>
+    <details class="overview-film"><summary>观看28秒搬运概览 · 前端装卸到后端工艺</summary><p>静音概览压缩完整教学流程；画面时间不代表真实设备节拍。播放概览时，交互模型会暂停。</p><video id="overview-video" controls preload="none" poster="/waferplt/out/robots-overview-poster.png" aria-label="前后手臂28秒搬运教学概览"><source src="/waferplt/out/robots-overview.mp4" type="video/mp4"></video></details>
+    <section class="teaching-notes" aria-label="结构与教学边界">
+      <div><span class="eyebrow">为什么分成前与后</span><h2>装卸负责衔接，后端负责工艺。</h2><p>前手臂把 FOUP 内的干片送到定向位，再放进入片交接位。后手臂从该位置接片，依次进入预湿、电镀和清洗甩干；干燥后放回独立的回片交接位，由前手臂送回 FOUP。</p><p>本演示以一片晶圆说明职责，不演示多片调度或产能。非活动末端回缩停靠，工位取放与沿轨移动分步显示；真实设备可能采用不同布局、末端形式和复合运动。</p></div>
+      <div><span class="eyebrow">从结构到动作</span><h2>先确认，再伸入；取放后退出。</h2><p>沿轨底座、升降滑台、肩肘关节、叉形末端与工位承托分别建模。交接采用工位暂存，不让两个末端直接穿插交棒；晶圆在任意时刻只归属于一个末端或一个工位。</p><p>方案综合公开专利的前后端分工、独立双臂与干湿专用末端思路。参考文献标识：US20200115816A1、US9455139B2、US20110073469A1。三者的实施例并非同一商业机配置；未验证碰撞包络、洁净度、工艺配方或现场安全。</p></div>
+    </section>
+  </main>
+  <footer class="filing-footer handling-footer"><span>晶圆电镀工艺3D教学演示 · 前后手臂</span><span class="filing-links"><a class="filing-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" aria-label="查询ICP备案号：浙ICP备2026082555号-1（新窗口打开）"><span>ICP备案号：浙ICP备2026082555号-1</span></a><a class="filing-link" href="https://beian.mps.gov.cn/#/query/webSearch?code=33020002001289" target="_blank" rel="noopener noreferrer" aria-label="查询公安备案号：浙公网安备33020002001289号（新窗口打开）"><img class="filing-icon" src="/media/public-security-filing.png" width="20" height="20" alt=""><span>公安备案号：浙公网安备33020002001289号</span></a></span></footer>
+  <script type="module" src="../../src/wafer-handling/main.ts"></script>
+</body>
+</html>
