@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-10-15T12:06:01.110Z",
+  "createdAt": "2026-10-15T12:17:16.390Z",
   "basePath": "/industrial-automation-showcase/waferplt/",
   "kind": "Prebuilt static visitor snapshot",
   "files": [
@@ -15,13 +15,13 @@
     },
     {
       "path": "anatomy/electroplating-anatomy-light.html",
-      "bytes": 509766,
-      "sha256": "036e20804fa0411801a8a43fc7892fff27f10b2a65324f09f3d240c993f8627a"
+      "bytes": 509797,
+      "sha256": "887c705380597a4b156ad38aa917319a6b3f267a4b84a3f0c007d36b75307f37"
     },
     {
       "path": "anatomy/electroplating-anatomy.html",
-      "bytes": 509765,
-      "sha256": "f229a10a6f70fce594a20f48e9bc5592745b018a61b6a500fe187f4efeb2a0bc"
+      "bytes": 509796,
+      "sha256": "6ea8a08b3e1d8c556a2e6ee6da72a6c49872f19b9ab72426dea3b7c1b643c341"
     },
     {
       "path": "docs/research/APT-structure.md",
@@ -50,13 +50,13 @@
     },
     {
       "path": "modules/apt-anatomy-light.html",
-      "bytes": 328689,
-      "sha256": "56a139ae2df752f55afd53fe7526ad8cec58b8347807f64641e546a6037299f7"
+      "bytes": 328720,
+      "sha256": "440df0dab81316f5c7846448d20fd8bac8e97f7f9fdeb8115ee2ed7352ef5fc6"
     },
     {
       "path": "modules/apt-anatomy.html",
-      "bytes": 328688,
-      "sha256": "e184393c001c13f48ca36ce48fb81314bb643cc2fe2c2d43fff95f78f9699432"
+      "bytes": 328719,
+      "sha256": "5952d90e6be6d62cf6b4fd7891d97d20b9f1af91767bde7162bd9112cfad73a5"
     },
     {
       "path": "modules/apt.html",
@@ -70,13 +70,13 @@
     },
     {
       "path": "modules/plt-anatomy-light.html",
-      "bytes": 591332,
-      "sha256": "57a82e0eb6de60bf8679dd5dd30aefed8937eff82438cb0f1f5f0a915bfe477b"
+      "bytes": 591363,
+      "sha256": "621366dd1fde8b1a9d0304550e227bf0e992726da5c717fbf7ee4e74b41e33de"
     },
     {
       "path": "modules/plt-anatomy.html",
-      "bytes": 591331,
-      "sha256": "7aaddc1ced685a339d613f85bb336c814be1624f2bd507402b79cb2113b728de"
+      "bytes": 591362,
+      "sha256": "ab7470bade4b989c3ae364afd4e4cb0c201c09a8e214cc9e4c730050e8458f3c"
     },
     {
       "path": "modules/plt.html",
@@ -85,13 +85,13 @@
     },
     {
       "path": "modules/srd-anatomy-light.html",
-      "bytes": 374470,
-      "sha256": "a997d05bb46a8527ec6e9a6aed07f5ece1a8ca4b99a3b5555b783d9ad332e77b"
+      "bytes": 374501,
+      "sha256": "35dd25ec846c13902a383c6e9d3987180cc8c46856c7fd962939c421eaadb3d7"
     },
     {
       "path": "modules/srd-anatomy.html",
-      "bytes": 374469,
-      "sha256": "847f168225028ce1bf4ef172769db4b2059287a6cfe1a0522051b2237223eeeb"
+      "bytes": 374500,
+      "sha256": "5db920d110bbbe99b3950cde7d627dfb1d4e63fc74462c61dd962a4eca442ce8"
     },
     {
       "path": "modules/srd.html",
@@ -225,8 +225,8 @@
     },
     {
       "path": "references/sabre3d-research/index.html",
-      "bytes": 17824,
-      "sha256": "8cb63241ca1923c22cadbfe5780789f307833de191c8059268e2f9e4578dfe9e"
+      "bytes": 17855,
+      "sha256": "50c7675aadf32b9cb97b0276a67b622f6df0ca44f2786ad1984a7fdcdf2121b0"
     },
     {
       "path": "references/sabre3d-research/sources/US10094034B2.pdf",
@@ -269,7 +269,7 @@
       "sha256": "0614691312c3c5c0be132d2611c1f43f458e0916bcd4cd09f80ef13dde59845c"
     }
   ],
-  "totalBytes": 80291329,
+  "totalBytes": 80291608,
   "largest": {
     "path": "out/electroplating-principle.mp4",
     "bytes": 15895486,
