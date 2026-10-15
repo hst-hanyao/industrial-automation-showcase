@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 1875,
-      "sha256": "ba028e9cda98dfef32f891ef4bc28d67451f9f29699920986f90eaa96759b7e8"
+      "bytes": 1860,
+      "sha256": "82bac400c597de54dad258da76ae3c30970b955f9f301e57d3cff197b11550ed"
     },
     {
       "path": "THIRD-PARTY-NOTICES.txt",
@@ -45,8 +45,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 10841,
-      "sha256": "d29681072c41524b917a14291c4e59e1b84aaf046ef048f7b0b1d099191ba73e"
+      "bytes": 10850,
+      "sha256": "b4d3084f7edbdd8eeffb01cc98fdb248e9feb694a76296a285113ef658cff78b"
     },
     {
       "path": "machine/electroplating-machine.html",
@@ -274,11 +274,11 @@
       "sha256": "0614691312c3c5c0be132d2611c1f43f458e0916bcd4cd09f80ef13dde59845c"
     }
   ],
-  "totalBytes": 80299674,
+  "totalBytes": 80299668,
   "largest": {
     "path": "out/electroplating-principle.mp4",
     "bytes": 15895486,
     "sha256": "e8f283e3c1584dc7d1109dc964a3f8eed03661605bf70bc74df259ca3a4b0eba"
   },
-  "updatedAt": "2026-10-15T12:42:44.777Z"
+  "updatedAt": "2026-10-15T13:06:49.212Z"
 }

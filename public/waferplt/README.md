@@ -1,6 +1,6 @@
 # 晶圆电镀设备结构与工序演示
 
-[完整演示](index.html) · [APT／PLT／SRD 模块总览](modules/index.html) · [返回工业自动化能力图谱](../)
+[完整演示](index.html) · [APT／PLT／SRD 模块总览](modules/index.html) · [返回网站首页](../)
 
 这是预构建的静态教学演示，包含整机与 TSV／WLP 微结构、三个独立工艺模块、浅／暗主题 Anatomy 结构图及四段静音影片。网页可在支持 WebGL 2 的浏览器运行。
 

@@ -57,7 +57,10 @@ export default function HomePage() {
             以现有界面、源码语义和工程复盘，呈现上位机、PLC、运动控制与机器视觉之间的命令链和反馈链。
           </p>
           <div className="home-hero__actions" data-home-intro>
-            <IntentLink className="primary-action" to="/hmi">从上位机进入 <span aria-hidden="true">↗</span></IntentLink>
+            <a className="primary-action" href={import.meta.env.BASE_URL}>
+              进入晶圆电镀机 3D 演示 <span aria-hidden="true">↗</span>
+            </a>
+            <IntentLink className="secondary-action" to="/hmi">从上位机进入 <span aria-hidden="true">↗</span></IntentLink>
             <ScrollTargetButton className="secondary-action" targetId="capability-atlas">
               查看四域图谱 <span aria-hidden="true">↓</span>
             </ScrollTargetButton>
