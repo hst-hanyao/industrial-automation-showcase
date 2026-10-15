@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-10-15T11:51:07.655Z",
+  "scope": "Teaching animations; no hardware, recipe or process qualification",
+  "films": [
+    {
+      "module": "apt",
+      "movie": "out/modules/apt.mp4",
+      "poster": "out/modules/apt-poster.jpg",
+      "durationS": 34,
+      "frames": 816,
+      "width": 1600,
+      "height": 900,
+      "fps": 24,
+      "silent": true,
+      "decodedWithoutErrors": true,
+      "pinkscanClean": true,
+      "sha256": "d72f3ace610130e97192a5c0300fdf3eaa19b90a2484031bb63c2e43bc60dae1",
+      "htmlSha256": "6512347100dbcad0b705a1f0c1c97cadad383672124cf1462fb560f9f088c490"
+    },
+    {
+      "module": "plt",
+      "movie": "out/modules/plt.mp4",
+      "poster": "out/modules/plt-poster.jpg",
+      "durationS": 36,
+      "frames": 864,
+      "width": 1600,
+      "height": 900,
+      "fps": 24,
+      "silent": true,
+      "decodedWithoutErrors": true,
+      "pinkscanClean": true,
+      "sha256": "0dd9cc0df034e081ea0efdbd1768ceb492acc4e80069d023bdc9023462a7c683",
+      "htmlSha256": "c2bf7a62913b1816e94eaa6d94564e4561e11a8a4790508cc56486df8ab0b0d8"
+    },
+    {
+      "module": "srd",
+      "movie": "out/modules/srd.mp4",
+      "poster": "out/modules/srd-poster.jpg",
+      "durationS": 40,
+      "frames": 960,
+      "width": 1600,
+      "height": 900,
+      "fps": 24,
+      "silent": true,
+      "decodedWithoutErrors": true,
+      "pinkscanClean": true,
+      "sha256": "34ce370afb7938c7ff80f5784b954513a2b53d3cc8b9b5b18484ee8974774e40",
+      "htmlSha256": "0679f045d446aba8893bda10db2796f7d6a797950f7b043559f53ba9804c448b"
+    }
+  ]
+}

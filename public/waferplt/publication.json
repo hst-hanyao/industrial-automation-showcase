@@ -1,0 +1,278 @@
+{
+  "createdAt": "2026-10-15T12:06:01.110Z",
+  "basePath": "/industrial-automation-showcase/waferplt/",
+  "kind": "Prebuilt static visitor snapshot",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1875,
+      "sha256": "ba028e9cda98dfef32f891ef4bc28d67451f9f29699920986f90eaa96759b7e8"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.txt",
+      "bytes": 4232,
+      "sha256": "9f851b82d66c522fbc646ab3922e96a972a5520a27017cc9787575497cc2d9e6"
+    },
+    {
+      "path": "anatomy/electroplating-anatomy-light.html",
+      "bytes": 509766,
+      "sha256": "036e20804fa0411801a8a43fc7892fff27f10b2a65324f09f3d240c993f8627a"
+    },
+    {
+      "path": "anatomy/electroplating-anatomy.html",
+      "bytes": 509765,
+      "sha256": "f229a10a6f70fce594a20f48e9bc5592745b018a61b6a500fe187f4efeb2a0bc"
+    },
+    {
+      "path": "docs/research/APT-structure.md",
+      "bytes": 7877,
+      "sha256": "59641003ba82627e0487115cfd9c574821554df8f5ed10466f35a5478343e279"
+    },
+    {
+      "path": "docs/research/PLT-structure.md",
+      "bytes": 3488,
+      "sha256": "84fc6c81a8443e8d5dbc655274d291186024585eeb5fb581f90ff14e45704c87"
+    },
+    {
+      "path": "docs/research/SRD-structure.md",
+      "bytes": 10390,
+      "sha256": "28221b527e4a16689e24ed1deb3e0b32830cd59b6b48815682405feb18be79f2"
+    },
+    {
+      "path": "index.html",
+      "bytes": 10058,
+      "sha256": "26a608fb47f4a8a1a64614db8cc24f5ce9db3903d404bb253e86afd54d5a22af"
+    },
+    {
+      "path": "machine/electroplating-machine.html",
+      "bytes": 901979,
+      "sha256": "8664cf073cbcf84f82e36fb1b8ea4988755a7163989423b9c8a4fe29e5998488"
+    },
+    {
+      "path": "modules/apt-anatomy-light.html",
+      "bytes": 328689,
+      "sha256": "56a139ae2df752f55afd53fe7526ad8cec58b8347807f64641e546a6037299f7"
+    },
+    {
+      "path": "modules/apt-anatomy.html",
+      "bytes": 328688,
+      "sha256": "e184393c001c13f48ca36ce48fb81314bb643cc2fe2c2d43fff95f78f9699432"
+    },
+    {
+      "path": "modules/apt.html",
+      "bytes": 877261,
+      "sha256": "6512347100dbcad0b705a1f0c1c97cadad383672124cf1462fb560f9f088c490"
+    },
+    {
+      "path": "modules/index.html",
+      "bytes": 8130,
+      "sha256": "75e645ed08f78463000714df77c386cb1d2cacab8628a0cedd3527caf18f8e88"
+    },
+    {
+      "path": "modules/plt-anatomy-light.html",
+      "bytes": 591332,
+      "sha256": "57a82e0eb6de60bf8679dd5dd30aefed8937eff82438cb0f1f5f0a915bfe477b"
+    },
+    {
+      "path": "modules/plt-anatomy.html",
+      "bytes": 591331,
+      "sha256": "7aaddc1ced685a339d613f85bb336c814be1624f2bd507402b79cb2113b728de"
+    },
+    {
+      "path": "modules/plt.html",
+      "bytes": 878242,
+      "sha256": "c2bf7a62913b1816e94eaa6d94564e4561e11a8a4790508cc56486df8ab0b0d8"
+    },
+    {
+      "path": "modules/srd-anatomy-light.html",
+      "bytes": 374470,
+      "sha256": "a997d05bb46a8527ec6e9a6aed07f5ece1a8ca4b99a3b5555b783d9ad332e77b"
+    },
+    {
+      "path": "modules/srd-anatomy.html",
+      "bytes": 374469,
+      "sha256": "847f168225028ce1bf4ef172769db4b2059287a6cfe1a0522051b2237223eeeb"
+    },
+    {
+      "path": "modules/srd.html",
+      "bytes": 881054,
+      "sha256": "0679f045d446aba8893bda10db2796f7d6a797950f7b043559f53ba9804c448b"
+    },
+    {
+      "path": "out/electroplating-principle.mp4",
+      "bytes": 15895486,
+      "sha256": "e8f283e3c1584dc7d1109dc964a3f8eed03661605bf70bc74df259ca3a4b0eba"
+    },
+    {
+      "path": "out/modules/apt-poster.jpg",
+      "bytes": 106442,
+      "sha256": "9e7589d23115659d83eee5deae814ad52341ab80e0e5fdfc71d13b983fca03e1"
+    },
+    {
+      "path": "out/modules/apt.mp4",
+      "bytes": 9631561,
+      "sha256": "d72f3ace610130e97192a5c0300fdf3eaa19b90a2484031bb63c2e43bc60dae1"
+    },
+    {
+      "path": "out/modules/artifacts.json",
+      "bytes": 1588,
+      "sha256": "6e98dd831f5800d7782fb5e74821c6d2d788db704b20eff5e07659c48a7b96ed"
+    },
+    {
+      "path": "out/modules/plt-poster.jpg",
+      "bytes": 101044,
+      "sha256": "c0dacbfcd679effd1324fdeb0ba177f9423dce7e9000f0fdca6c3774134ecb19"
+    },
+    {
+      "path": "out/modules/plt.mp4",
+      "bytes": 9865419,
+      "sha256": "0dd9cc0df034e081ea0efdbd1768ceb492acc4e80069d023bdc9023462a7c683"
+    },
+    {
+      "path": "out/modules/srd-poster.jpg",
+      "bytes": 106917,
+      "sha256": "61bff61281da8310996697fbfe2c0c41b86725254f95b6384a1b2e786ea984ef"
+    },
+    {
+      "path": "out/modules/srd.mp4",
+      "bytes": 11921335,
+      "sha256": "34ce370afb7938c7ff80f5784b954513a2b53d3cc8b9b5b18484ee8974774e40"
+    },
+    {
+      "path": "out/preview.png",
+      "bytes": 657947,
+      "sha256": "8deb333ad64f55e3fef67dce5ee88c6acfe0d770ebaa843fed50e0bbff065198"
+    },
+    {
+      "path": "references/sabre3d-research/evidence-index.json",
+      "bytes": 12594,
+      "sha256": "bb82817ce700eb8a03fd8180f3cea383e4330a4f230f24171b7f3c027983eae9"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US10094034B2-Fig2-PDFp10.png",
+      "bytes": 138820,
+      "sha256": "4b81caf67d5111448b83a61035946d6445a823471398b3af79b2daea3384feb6"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US10094034B2-Fig4-PDFp13.png",
+      "bytes": 145876,
+      "sha256": "d35e3443b2861b212119edc93ee5d0917d1859cab745992bd3efdcbba6e4bde9"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US12241173B2-fig10-p12.png",
+      "bytes": 122898,
+      "sha256": "7e99fd072b80d3eea581a29a4ac75f6470cfc94d601ea33e3e13231972c78d6a"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US12241173B2-fig9-p11.png",
+      "bytes": 141602,
+      "sha256": "b23e771890aa075586672a602d23a0b6b7269d92dcbdb0c9c31e95c2f0e2fb14"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US20100200412A1-p4.png",
+      "bytes": 92605,
+      "sha256": "2b8b042fd4cd7dffe1415bf4f66c474be66f7842f3eb3a9d1fc4fecb68637cb1"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US20100200412A1-p5.png",
+      "bytes": 93978,
+      "sha256": "77770b6b66d4c4e3688cc0d29954cc947a2b2d4ed3c989077230d5b8d3d18972"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US20100200412A1-p8.png",
+      "bytes": 121022,
+      "sha256": "d9c97940d2c1d62649083bcaef511e93598e89d25cf6c9d947b7f88e0b7d134e"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US20120138471A1-p3.png",
+      "bytes": 76596,
+      "sha256": "bb01c2f4754023e143b694f1390585437c4a1eeac57a5013ba46f2069aa4d2ca"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US20120138471A1-p4.png",
+      "bytes": 85110,
+      "sha256": "9f9ce491661d2b69a3145f715a9225aedfd2748c2717e21a635bedbd0bae2642"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US20180251907A1-Fig1-2-PDFp2.png",
+      "bytes": 160411,
+      "sha256": "af9bb7b302505756a27c4470bd78e35efbc2a598ec835537ed549342ea8e9750"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US20180251907A1-Fig3-4-PDFp3.png",
+      "bytes": 199665,
+      "sha256": "ff75ff400d0881e63f004ce451b3557521490a875924908149614d19dd4fae14"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US9455139B2-fig7-p10.png",
+      "bytes": 48194,
+      "sha256": "7c94569f5e234389345a99208a5b476b830e0d2c2ef47dbeb598c611b6c2dfbd"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US9455139B2-prewet-p5.png",
+      "bytes": 84083,
+      "sha256": "7a9e0c80697ac4c3e10adee1b5171c6d0fb513bcbb252177930997a84c7bb15a"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US9677188B2-fig12-p14.png",
+      "bytes": 86042,
+      "sha256": "a4e3b6c9d08c83f39c86b07ffc5bd16d6ac47ef098b2a7e78da5c057b12be827"
+    },
+    {
+      "path": "references/sabre3d-research/figures/US9677188B2-fig13-p15.png",
+      "bytes": 128577,
+      "sha256": "e73f2a101deef54e73a419732ca03cb93ad0089210b36d457a38062987d704b8"
+    },
+    {
+      "path": "references/sabre3d-research/index.html",
+      "bytes": 17824,
+      "sha256": "8cb63241ca1923c22cadbfe5780789f307833de191c8059268e2f9e4578dfe9e"
+    },
+    {
+      "path": "references/sabre3d-research/sources/US10094034B2.pdf",
+      "bytes": 7097447,
+      "sha256": "56f0b7372ca2d56f9e480717a4522715f825577a938330ae40adbe5160aff2ab"
+    },
+    {
+      "path": "references/sabre3d-research/sources/US12241173B2.pdf",
+      "bytes": 2024692,
+      "sha256": "5b33ad1f1638edd7700e3a495d7bb6b54b1be2c1710f80b0ecba8c4523fec284"
+    },
+    {
+      "path": "references/sabre3d-research/sources/US20100200412A1.pdf",
+      "bytes": 2251198,
+      "sha256": "2c3e8ec2fe0e25c90df67214c36abb3cbf0e54c363cbae6bde3834c2ace3a41a"
+    },
+    {
+      "path": "references/sabre3d-research/sources/US20120138471A1.pdf",
+      "bytes": 3958166,
+      "sha256": "ceee08677ac1774770f30d5a21ec95f98976d1894530c2cef45cef9f52aac72a"
+    },
+    {
+      "path": "references/sabre3d-research/sources/US20180251907A1.pdf",
+      "bytes": 1093186,
+      "sha256": "5a79c2d41911e79d670f255a7c4151daa171ec6053f1c2731edd0f5dbcaa10ad"
+    },
+    {
+      "path": "references/sabre3d-research/sources/US9455139B2-wetting.pdf",
+      "bytes": 3382447,
+      "sha256": "d969b3c4b52d6ddf6232d9c2360fd25b709d47a7292b7e54675d926f2153959f"
+    },
+    {
+      "path": "references/sabre3d-research/sources/US9677188B2-vacuum-cell.pdf",
+      "bytes": 3232990,
+      "sha256": "1b418e109aa09d2ac6474d19b6101cf896feeaf4d8ef590d25386a1164d8ad3f"
+    },
+    {
+      "path": "shared/SCIENTIFIC-NOTES.md",
+      "bytes": 14471,
+      "sha256": "0614691312c3c5c0be132d2611c1f43f458e0916bcd4cd09f80ef13dde59845c"
+    }
+  ],
+  "totalBytes": 80291329,
+  "largest": {
+    "path": "out/electroplating-principle.mp4",
+    "bytes": 15895486,
+    "sha256": "e8f283e3c1584dc7d1109dc964a3f8eed03661605bf70bc74df259ca3a4b0eba"
+  }
+}

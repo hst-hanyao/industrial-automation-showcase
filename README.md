@@ -31,3 +31,7 @@ npm run build
 推送到 `main` 后，`.github/workflows/deploy-pages.yml` 自动执行类型检查、Lint、测试、构建并发布 Pages。使用 `HashRouter` 与相对资源路径，支持项目子路径。
 
 实际访问地址以成功部署后的 `github-pages` 环境链接为准。公安联网备案号与图标须在真实记录确认后单独添加，不能从 ICP 编号推算。
+
+### 晶圆电镀设备演示
+
+`public/waferplt/` 随现有 Vite 构建复制到 `dist/waferplt/`，访问 [完整演示](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/) 或 [APT／PLT／SRD 总览](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/modules/)。包含预构建三维页、Anatomy 结构图、四段影片和公开专利证据；不包含 Windows 作者工具链。该内容属于公开专利教学重建，未验证真实设备或工艺配方。

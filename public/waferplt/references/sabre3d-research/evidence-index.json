@@ -1,0 +1,253 @@
+{
+  "retrieved_date": "2026-10-15",
+  "model_edited": false,
+  "sources": [
+    {
+      "id": "US12241173B2",
+      "title": "Wafer shielding for prevention of lipseal plate-out",
+      "owner": "Lam Research",
+      "priority": "2019-10-04",
+      "publication": "2025-03-04",
+      "file": "US12241173B2.pdf",
+      "pdf_url": "https://patentimages.storage.googleapis.com/a8/20/fe/afabb6038c70ef/US12241173.pdf",
+      "relevance": "正文明确举 SABRE 3D 为适用设备；简化腔体和成对工位架构。",
+      "limit": "适用设备举例，不是某一出厂配置的全套总装图。Fig.9 的 911 是离子阻性可透液元件，不是阴阳极液分隔膜。",
+      "figures": [
+        [
+          "US12241173B2-fig10-p12.png",
+          "Fig.10 / PDF 第12页",
+          "整机工位布局",
+          "前端 FOUP、前端机械手、中央转移区域和左右成对的电镀工位。正文允许上下叠层及不同工艺配置；本图只显示一层。"
+        ],
+        [
+          "US12241173B2-fig9-p11.png",
+          "Fig.9 / PDF 第11页",
+          "面朝下单腔剖面",
+          "901 槽体；903 电解液；905 阳极；907 旋转夹具；909 晶圆；911 离子阻性可透液元件；913 入口；915 流向。分隔膜是正文中的另一可选构件。"
+        ]
+      ],
+      "url": "https://patents.google.com/patent/US12241173B2/en",
+      "pdf_pages": 22,
+      "bytes": 2024692,
+      "sha256": "5b33ad1f1638edd7700e3a495d7bb6b54b1be2c1710f80b0ecba8c4523fec284"
+    },
+    {
+      "id": "US20180251907A1",
+      "title": "Wide lipseal for electroplating",
+      "owner": "Lam Research",
+      "priority": "2017-03-01",
+      "publication": "2018-09-06",
+      "file": "US20180251907A1.pdf",
+      "pdf_url": "https://patentimages.storage.googleapis.com/9e/37/21/145e78618de57c/US20180251907A1.pdf",
+      "relevance": "正文直接讨论 SABRE 3D、APT 后湿片及唇形密封；可用于夹持机构的形态参考。",
+      "limit": "附图为示例结构；不能据此认定所有 SABRE 3D 使用同样的密封尺寸及改型。",
+      "figures": [
+        [
+          "US20180251907A1-Fig1-2-PDFp2.png",
+          "Fig.1-2 / PDF 第2页",
+          "夹持头与边缘接触",
+          "cup / cone、主轴与驱动机构、contact fingers 和 lipseal 的位置关系。"
+        ],
+        [
+          "US20180251907A1-Fig3-4-PDFp3.png",
+          "Fig.3-4 / PDF 第3页",
+          "接触和密封局部",
+          "用于区分待镀面、电触点、杯体和弹性密封，不从示意图量取工程公差。"
+        ]
+      ],
+      "url": "https://patents.google.com/patent/US20180251907A1/en",
+      "pdf_pages": 9,
+      "bytes": 1093186,
+      "sha256": "5a79c2d41911e79d670f255a7c4151daa171ec6053f1c2731edd0f5dbcaa10ad"
+    },
+    {
+      "id": "US10094034B2",
+      "title": "Edge flow element for electroplating apparatus",
+      "owner": "Lam Research",
+      "priority": "2015-08-28",
+      "publication": "2018-10-09",
+      "file": "US10094034B2.pdf",
+      "pdf_url": "https://patentimages.storage.googleapis.com/39/63/b4/172362cc9eb554/US10094034.pdf",
+      "relevance": "Lam 的详细流场和流道构件实施例；正文将 SABRE 作为面朝下喷泉式设备实例。",
+      "limit": "没有足够证据认定该 edge-flow 改型已装在特定代际 SABRE 3D 上；应作为独立的公开专利结构方案。CIRP 与膜分开建模。",
+      "figures": [
+        [
+          "US10094034B2-Fig2-PDFp10.png",
+          "Fig.2 / PDF 第10页",
+          "流道构件爆炸图",
+          "cup 254、confinement ring 210、gasket 238、CIRP 206、inlet showerhead 242、adjustment rods 270、membrane frame 274。"
+        ],
+        [
+          "US10094034B2-Fig4-PDFp13.png",
+          "Fig.4 / PDF 第13页",
+          "横向流与下部供液剖面",
+          "区分膜 202、CIRP 206、下部 manifold 208、侧入口和相对出口。原页横置；保留原始方向，可点击查看原图或 PDF。"
+        ]
+      ],
+      "url": "https://patents.google.com/patent/US10094034B2/en",
+      "pdf_pages": 60,
+      "bytes": 7097447,
+      "sha256": "56f0b7372ca2d56f9e480717a4522715f825577a938330ae40adbe5160aff2ab"
+    },
+    {
+      "id": "US9677188B2",
+      "title": "Electrofill vacuum plating cell",
+      "owner": "Novellus Systems",
+      "priority": "2009-06-17",
+      "publication": "2017-06-13",
+      "file": "US9677188B2-vacuum-cell.pdf",
+      "pdf_url": "https://patentimages.storage.googleapis.com/74/c0/42/60aae9bb1e3d7a/US9677188.pdf",
+      "relevance": "Fig.13 正文直接举 SABRE 3D；可交叉核验成对工位和多层架构。",
+      "limit": "Fig.12 与 Fig.13 是不同实施例；不得拼成一张商业机的出厂结构图。真空电镀也是专利选项，不是所有 SABRE 3D 的标准状态。",
+      "figures": [
+        [
+          "US9677188B2-fig13-p15.png",
+          "Fig.13 / PDF 第15页",
+          "单层成对工位平台",
+          "图示四组 duet、合计八个电镀位置，前端三个 FOUP 位置。文字描述可上下叠层；八个不是所有商业配置的固定数量。"
+        ],
+        [
+          "US9677188B2-fig12-p14.png",
+          "Fig.12 / PDF 第14页",
+          "另一实施例的辅助系统",
+          "电镀与前后处理模块，以及后部药液槽、补液、稀释、过滤泵与控制区域。只作系统关系参考。"
+        ]
+      ],
+      "url": "https://patents.google.com/patent/US9677188B2/en",
+      "pdf_pages": 27,
+      "bytes": 3232990,
+      "sha256": "1b418e109aa09d2ac6474d19b6101cf896feeaf4d8ef590d25386a1164d8ad3f"
+    },
+    {
+      "id": "US9455139B2",
+      "title": "Methods and apparatus for wetting pretreatment for through resist metal plating",
+      "owner": "Novellus Systems",
+      "priority": "2009-06-17",
+      "publication": "2016-09-27",
+      "file": "US9455139B2-wetting.pdf",
+      "pdf_url": "https://patentimages.storage.googleapis.com/b6/36/eb/bbcb0f3c9134b0/US9455139.pdf",
+      "relevance": "through-resist 镀前润湿及转片的机械布局参考。",
+      "limit": "并未直接把 Fig.7 指定为 SABRE 3D 出厂布局；不要据此固定工位数量。日期以原文/专利首页为准。",
+      "figures": [
+        [
+          "US9455139B2-prewet-p5.png",
+          "Fig.2 / PDF 第5页",
+          "预湿腔机构立体图",
+          "旋转夹持、喷淋与腔体闭合机构，用于解释独立预湿工位；原页横置。不能把预湿朝向自动等同于正式电镀时的晶圆朝向。"
+        ],
+        [
+          "US9455139B2-fig7-p10.png",
+          "Fig.7 / PDF 第10页",
+          "预湿与干湿片交接",
+          "FOUP、干片机械手、转移机械手、预湿模块 1013、脱气单元 1015 和多个电镀位。"
+        ]
+      ],
+      "url": "https://patents.google.com/patent/US9455139B2/en",
+      "pdf_pages": 35,
+      "bytes": 3382447,
+      "sha256": "d969b3c4b52d6ddf6232d9c2360fd25b709d47a7292b7e54675d926f2153959f"
+    },
+    {
+      "id": "US20100200412A1",
+      "title": "Process for through silicon via filling",
+      "owner": "Novellus Systems",
+      "priority": "2008-08-18",
+      "publication": "2010-08-12",
+      "file": "US20100200412A1.pdf",
+      "pdf_url": "https://patentimages.storage.googleapis.com/73/92/42/499157e11650e1/US20100200412A1.pdf",
+      "relevance": "TSV 的工艺链、填孔形貌、腔体和系统示例；正文列 SABRE 等设备为适用工具。",
+      "limit": "该专利不专属于 SABRE 3D，且实验配方/孔尺寸不可直接写成当前量产配方。Fig.4 与成对工位图是不同布局。",
+      "figures": [
+        [
+          "US20100200412A1-p4.png",
+          "Fig.3 / PDF 第4页",
+          "TSV 电镀腔及循环",
+          "面朝下晶圆、电极、循环、过滤及温控等的原理连接。"
+        ],
+        [
+          "US20100200412A1-p5.png",
+          "Fig.4 / PDF 第5页",
+          "TSV 系统实施例",
+          "多个电镀位、镀后处理、搬运、药液与辅助区域。"
+        ],
+        [
+          "US20100200412A1-p8.png",
+          "Fig.7 / PDF 第8页",
+          "TSV 填充形貌序列",
+          "不同电镀时间的孔内沉积图。用于支持底部优先填充的微观讲解，不等同于模型自己的数值预测。"
+        ]
+      ],
+      "url": "https://patents.google.com/patent/US20100200412A1/en",
+      "pdf_pages": 19,
+      "bytes": 2251198,
+      "sha256": "2c3e8ec2fe0e25c90df67214c36abb3cbf0e54c363cbae6bde3834c2ace3a41a"
+    },
+    {
+      "id": "US20120138471A1",
+      "title": "Electroplating apparatus and process for wafer level packaging",
+      "owner": "Novellus Systems",
+      "priority": "2010-12-01",
+      "publication": "2012-06-07",
+      "file": "US20120138471A1.pdf",
+      "pdf_url": "https://patentimages.storage.googleapis.com/fd/f8/90/296a0deb35cbd9/US20120138471A1.pdf",
+      "relevance": "WLP 中 SnAg 共沉积的阴阳极液管理；正文以 SABRE 为喷泉式系统实例。",
+      "limit": "这是锡银体系的实施例，不能把图中的锡阳极/补加系统直接当成铜 TSV 槽。",
+      "figures": [
+        [
+          "US20120138471A1-p3.png",
+          "Fig.2A / PDF 第3页",
+          "WLP 锡银电镀回路",
+          "旋转晶圆、下方锡阳极、阴/阳极液分隔、补液和回液。"
+        ],
+        [
+          "US20120138471A1-p4.png",
+          "Fig.2B / PDF 第4页",
+          "另一种锡银储液方案",
+          "与 Fig.2A 对照查看储液与流体连接的变体，不将不同回路拼成一个已证实的商品槽。"
+        ]
+      ],
+      "url": "https://patents.google.com/patent/US20120138471A1/en",
+      "pdf_pages": 34,
+      "bytes": 3958166,
+      "sha256": "ceee08677ac1774770f30d5a21ec95f98976d1894530c2cef45cef9f52aac72a"
+    }
+  ],
+  "web_sources": [
+    {
+      "id": "WO2025174670A1",
+      "title": "Minimizing contamination within substrate cleaning chamber",
+      "url": "https://patents.google.com/patent/WO2025174670A1/en",
+      "note": "Lam；优先权 2024-02-16，公开 2025-08-21。正文 [0028]、[0031] 直接描述 SABRE 3D 模块化 APT；[0032] 解释 Fig.1A-1F 的装片、关腔/抽真空、喷淋、N2复压、旋转排液、开腔转片。已核文字与附图说明，未取得可目视核验的原始附图；不把新洁净/污染区阻挡改型说成已量产。"
+    },
+    {
+      "id": "LAM-CURRENT",
+      "title": "SABRE 3D Product Family",
+      "url": "https://www.lamresearch.com/product/sabre-3d/",
+      "note": "当前产品页：SABRE 3D / xT，TSV、RDL、铜柱、UBM、C4、Cu/SnAg、Ni/Au，多电镀及前后处理单元的可配置平台。"
+    },
+    {
+      "id": "NOVELLUS-2010",
+      "title": "SABRE 3D product introduction, 2010-07-12",
+      "url": "https://newsroom.lamresearch.com/2010-07-12-Novellus-Introduces-SABRE-R-3D-Electroplating-System-for-the-Advanced-Wafer-Level-Packaging-Market",
+      "note": "历史发布明确模块化、干式密封电接触/clamshell、SmartDose、APT、TurboCell、XMM。不能将这些功能全部视为每台现售机器的标配。"
+    },
+    {
+      "id": "LAM-VIDEO",
+      "title": "SABRE 3D official introduction and video",
+      "url": "https://newsroom.lamresearch.com/blog-sabre-3d-advanced-packaging-interconnects",
+      "note": "Lam 官方网页含视频。核实官方来源；本次未逐帧核验，未据视频推断内部机构或编造时间戳。"
+    },
+    {
+      "id": "LAM-FOWLP",
+      "title": "Copper Electrodeposition for Fan-Out Wafer-Level Packaging",
+      "url": "https://newsroom.lamresearch.com/Copper-Electrodeposition-for-Fan-Out-Wafer-Level-Packaging",
+      "note": "Lam 的扇出晶圆级封装技术文章，介绍 SABRE 3D 的 Durendal 技术与铜 megapillar；可研究应用和均匀性，但不是内部总装图来源。"
+    },
+    {
+      "id": "IMEC-2015",
+      "title": "Advanced metallization scheme for 3×50μm via middle TSV and beyond",
+      "url": "https://imec-publications.be/entities/publication/5506ba66-29f7-4d76-8d81-df7160bf172d",
+      "note": "imec / Lam 合作论文，ECTC 2015，66-72页。已核机构库题录；全文下载需 request-a-copy，未绕过获取。此轮不以未取得全文来论证设备内部结构。"
+    }
+  ]
+}
