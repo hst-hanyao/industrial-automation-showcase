@@ -1,9 +1,23 @@
 {
   "createdAt": "2026-10-15T12:17:16.390Z",
-  "updatedAt": "2026-10-15T15:32:16.199654+00:00",
+  "updatedAt": "2026-10-16T07:35:38.686Z",
   "basePath": "/industrial-automation-showcase/waferplt/",
-  "kind": "Static teaching assets; original patent PDFs and page images excluded",
+  "kind": "Static files for the unified, manually controlled wafer electroplating teaching workspace",
+  "entry": "index.html",
+  "videoPolicy": "Local backup only; no videos, video players or video links are published",
+  "controls": "Two columns: module structure and process steps; paused by default; stop at each step boundary",
+  "scope": "Files copied from public/waferplt; generated robot entry and Vite bundles are checked separately after build",
   "files": [
+    {
+      "path": "README.md",
+      "bytes": 3121,
+      "sha256": "5dcd95aec4d34e85410b027bddd4f7c1ff4562e234b93346620196bf3c91ff76"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.txt",
+      "bytes": 4232,
+      "sha256": "9f851b82d66c522fbc646ab3922e96a972a5520a27017cc9787575497cc2d9e6"
+    },
     {
       "path": "anatomy/electroplating-anatomy-light.html",
       "bytes": 509901,
@@ -16,18 +30,18 @@
     },
     {
       "path": "docs/research/APT-structure.md",
-      "bytes": 7874,
-      "sha256": "eeb7feab9e80afa8a878c1beabf3eccedd649f360c96a695ee8c4cc90cca5e76"
+      "bytes": 7626,
+      "sha256": "38226c485335882e7716b8818ba0eb7534e724ca4bfd8de111e8738cb378d34c"
     },
     {
       "path": "docs/research/PLT-structure.md",
-      "bytes": 3488,
-      "sha256": "84fc6c81a8443e8d5dbc655274d291186024585eeb5fb581f90ff14e45704c87"
+      "bytes": 3508,
+      "sha256": "562726c2911add0530ef0fbc65451266cb2a3adf3ceb91f66632c1c41da57d55"
     },
     {
       "path": "docs/research/SRD-structure.md",
-      "bytes": 10390,
-      "sha256": "28221b527e4a16689e24ed1deb3e0b32830cd59b6b48815682405feb18be79f2"
+      "bytes": 10264,
+      "sha256": "60359d6eb9cfa6f37279edb6617fe893e672f23f3b6dc841563f79197b2a86a8"
     },
     {
       "path": "filing.css",
@@ -36,13 +50,13 @@
     },
     {
       "path": "index.html",
-      "bytes": 10666,
-      "sha256": "af1171054f1bf867b97e12724682a5ea5ae700a39e1179a67e526a5e1e18d5c2"
+      "bytes": 4775,
+      "sha256": "c9de973e47f2784eddcbc0a6cfcd7f2ffd54c9e9ced5e5d8f8f7de841cfc2b2e"
     },
     {
       "path": "machine/electroplating-machine.html",
-      "bytes": 901386,
-      "sha256": "ef1a973e5c222a07c8f5362f956571794eae9775a102e7a7d4accbbe36bd2397"
+      "bytes": 903265,
+      "sha256": "1accc4124cc7275baa48742b0feea78c7d907589118277a59a4d413cb21aac73"
     },
     {
       "path": "modules/apt-anatomy-light.html",
@@ -56,13 +70,13 @@
     },
     {
       "path": "modules/apt.html",
-      "bytes": 877245,
-      "sha256": "3a449be524b6b5aa591d087dccf275d57b67d1860c38672b82ea6695aef140a7"
+      "bytes": 877421,
+      "sha256": "c4a97583505563e9a39baa53971ff84e0142afff40a22b6ad393ef62a1bce43e"
     },
     {
       "path": "modules/index.html",
-      "bytes": 8972,
-      "sha256": "badd993f0f04015bc05eca8108542ab565efa02d8a22c6aec93109cff9580d4c"
+      "bytes": 526,
+      "sha256": "726768561dba48d4a640c24abb84c87dc4ca4287b7924848655c0671aa3d2e97"
     },
     {
       "path": "modules/plt-anatomy-light.html",
@@ -76,8 +90,8 @@
     },
     {
       "path": "modules/plt.html",
-      "bytes": 878226,
-      "sha256": "a4a50e0077ae34682988bea4039e960445f9efdcd0f2bc90913858b9bbd17404"
+      "bytes": 878402,
+      "sha256": "5e060cde3ae08ce074ab2de706ea17f95be4a5464c23f2f047f9bcc7ad81dde6"
     },
     {
       "path": "modules/srd-anatomy-light.html",
@@ -91,13 +105,8 @@
     },
     {
       "path": "modules/srd.html",
-      "bytes": 881038,
-      "sha256": "5a4e5c7c3c4f0cae2d2c960ab027f7da40cd9fb28189c9173f6c3b555f085d1f"
-    },
-    {
-      "path": "out/electroplating-principle.mp4",
-      "bytes": 15895486,
-      "sha256": "e8f283e3c1584dc7d1109dc964a3f8eed03661605bf70bc74df259ca3a4b0eba"
+      "bytes": 881214,
+      "sha256": "a3a9501d6400129ef735f61272d46fd234b1f9f368627187061edfd3bac7632f"
     },
     {
       "path": "out/modules/apt-poster.jpg",
@@ -105,34 +114,14 @@
       "sha256": "9e7589d23115659d83eee5deae814ad52341ab80e0e5fdfc71d13b983fca03e1"
     },
     {
-      "path": "out/modules/apt.mp4",
-      "bytes": 9631561,
-      "sha256": "d72f3ace610130e97192a5c0300fdf3eaa19b90a2484031bb63c2e43bc60dae1"
-    },
-    {
-      "path": "out/modules/artifacts.json",
-      "bytes": 1588,
-      "sha256": "6e98dd831f5800d7782fb5e74821c6d2d788db704b20eff5e07659c48a7b96ed"
-    },
-    {
       "path": "out/modules/plt-poster.jpg",
       "bytes": 101044,
       "sha256": "c0dacbfcd679effd1324fdeb0ba177f9423dce7e9000f0fdca6c3774134ecb19"
     },
     {
-      "path": "out/modules/plt.mp4",
-      "bytes": 9865419,
-      "sha256": "0dd9cc0df034e081ea0efdbd1768ceb492acc4e80069d023bdc9023462a7c683"
-    },
-    {
       "path": "out/modules/srd-poster.jpg",
       "bytes": 106917,
       "sha256": "61bff61281da8310996697fbfe2c0c41b86725254f95b6384a1b2e786ea984ef"
-    },
-    {
-      "path": "out/modules/srd.mp4",
-      "bytes": 11921335,
-      "sha256": "34ce370afb7938c7ff80f5784b954513a2b53d3cc8b9b5b18484ee8974774e40"
     },
     {
       "path": "out/preview.png",
@@ -145,29 +134,34 @@
       "sha256": "094994cb2010fb379e2e4d00288a0e786112a580c76e7a65ca8d3f5f8b203389"
     },
     {
-      "path": "out/robots-overview.mp4",
-      "bytes": 2031509,
-      "sha256": "c19bf8c7392a38d5a42993cc2e760c122a2baa3682353e74ab9193b5e0e77d36"
-    },
-    {
-      "path": "README.md",
-      "bytes": 2122,
-      "sha256": "ecfb47bd4b53bd7c1d9c4193cf5a8f6542a522fc4cefb7cc01610548e47640c8"
-    },
-    {
       "path": "references/sabre3d-research/evidence-index.json",
-      "bytes": 9789,
-      "sha256": "bcf1fabeb2f67d7c4f1ee784e00767cb5e3c3fd4f3c6fc73119962bdd55925ae"
+      "bytes": 8539,
+      "sha256": "164f2c919ff1916786f0dd6d3977ad75901610f955f5dc2792090d938093d185"
     },
     {
       "path": "references/sabre3d-research/index.html",
-      "bytes": 14575,
-      "sha256": "fb9d547389844662dc240e6e9849ce8b94fd64b6b97adb4f84239ce34874c2ec"
+      "bytes": 13828,
+      "sha256": "1275f835247d2ea9e4cd38134a8af55b7940546e762a0680f30cdbd399c768ef"
     },
     {
       "path": "shared/SCIENTIFIC-NOTES.md",
-      "bytes": 14471,
-      "sha256": "0614691312c3c5c0be132d2611c1f43f458e0916bcd4cd09f80ef13dde59845c"
+      "bytes": 14246,
+      "sha256": "b8040a56a36140eeecdcf1feaa3c14987aae90656a1d6a321a55c8906142aa77"
+    },
+    {
+      "path": "shared/model-teaching.js",
+      "bytes": 18345,
+      "sha256": "b3cae84fe89382aae0f3c442b06c42292acca00c969cc009a18e30bd88cb5f4d"
+    },
+    {
+      "path": "shared/platform-handling.js",
+      "bytes": 41437,
+      "sha256": "90fa119927c2448887b1662ce932c03ec66a91f32a231c728abf561a224b44d2"
+    },
+    {
+      "path": "shared/smooth-camera.js",
+      "bytes": 6301,
+      "sha256": "1ea95613ce5fae2a80acfdc4e1e32f3b5c8982ad3a40ea0e552fea242cabb33f"
     },
     {
       "path": "teaching-notice.css",
@@ -180,15 +174,20 @@
       "sha256": "177844921b07cf69b7c461884ba2a8abb7d4ceb1a6544c70932a071081c99504"
     },
     {
-      "path": "THIRD-PARTY-NOTICES.txt",
-      "bytes": 4232,
-      "sha256": "9f851b82d66c522fbc646ab3922e96a972a5520a27017cc9787575497cc2d9e6"
+      "path": "teaching-workbench.css",
+      "bytes": 9340,
+      "sha256": "ea2a65239ffa4f30f069eb3056116caa9caf09e2b2c8dd40fe07729acb4532e2"
+    },
+    {
+      "path": "teaching-workbench.js",
+      "bytes": 20538,
+      "sha256": "117d8de250c868d583c61c2b8472d613e26852a53aade3114f60e47e051df0a6"
     }
   ],
-  "totalBytes": 58176840,
+  "totalBytes": 8912396,
   "largest": {
-    "path": "out/electroplating-principle.mp4",
-    "bytes": 15895486,
-    "sha256": "e8f283e3c1584dc7d1109dc964a3f8eed03661605bf70bc74df259ca3a4b0eba"
+    "path": "machine/electroplating-machine.html",
+    "bytes": 903265,
+    "sha256": "1accc4124cc7275baa48742b0feea78c7d907589118277a59a4d413cb21aac73"
   }
 }

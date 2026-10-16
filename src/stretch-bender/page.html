@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eeefea">
+  <link rel="icon" href="data:,">
+  <title>三维拉弯机 · 十六轴工作台</title>
+  <meta name="description" content="按参考图重建的双侧八轴三维拉弯机。以图片姿态为零位，独立设置全部十六轴位置与角度。">
+  <style>/* BENDER_STYLES */</style>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="../" aria-label="返回工业自动化展台"><span class="brand-symbol" aria-hidden="true">◎</span><span>工业设备研究室<small>MECHANISM STUDIES</small></span></a>
+    <div class="page-identity"><span class="eyebrow">NO. 02 / MOTION STUDY</span><strong>三维拉弯机</strong></div>
+    <div class="head-actions"><button id="reference-open" class="quiet">参考图片 <span aria-hidden="true">↗</span></button><span class="ready-state" id="ready-state">正在构建场景</span></div>
+  </header>
+  <main class="workbench">
+    <section class="viewport" aria-label="拉弯机三维视图">
+      <div class="scene-heading"><span class="eyebrow">3D STRETCH BENDING MACHINE</span><h1>空间拉弯，逐轴观察。</h1><p>左右各八轴 · 图片姿态为零位</p></div>
+      <div id="stage" class="stage" aria-label="拖动旋转三维模型，滚轮缩放"></div>
+      <div class="scene-state"><span class="state-dot"></span><span id="pose-state">图片零位</span><span class="state-count"><b id="changed-count">00</b> / 16 轴已调整</span></div>
+      <div class="scene-help">拖动旋转 · 滚轮缩放 · 右键平移</div>
+      <div id="part-labels" class="part-labels" aria-hidden="true"></div>
+      <div class="scene-tools"><div class="view-controls" role="group" aria-label="观察视角"><button data-view="reference" class="active" aria-pressed="true">参考视角</button><button data-view="front" aria-pressed="false">正视</button><button data-view="top" aria-pressed="false">俯视</button><button data-view="left" aria-pressed="false">左侧</button><button data-view="right" aria-pressed="false">右侧</button></div><button id="labels-toggle" aria-pressed="false">部件标签</button><button id="focus-selection">聚焦选中轴</button></div>
+      <div class="position-strip"><span class="coordinate-label">夹头位置 <small>床身坐标 / mm</small></span><div><span class="side-dot left-dot">L</span><output id="left-position">X —　Y —　Z —</output></div><div><span class="side-dot right-dot">R</span><output id="right-position">X —　Y —　Z —</output></div></div>
+      <div id="render-error" class="render-error" hidden><strong>三维场景暂时无法显示</strong><p id="render-error-message"></p><button id="retry-render">重新加载</button></div>
+      <div id="film-caption" class="film-caption" hidden></div>
+    </section>
+    <aside class="control-panel" aria-label="十六轴独立控制">
+      <div class="panel-heading"><div><span class="eyebrow">AXIS POSITIONING</span><h2>轴位置设定</h2></div><span class="axis-total">16<span>独立轴</span></span></div>
+      <div class="side-tabs" role="tablist" aria-label="选择机构侧别"><button id="side-left" role="tab" aria-selected="true" aria-controls="axis-panel" data-side="left"><b>L</b> 左侧机构 <span id="left-count">0 / 8</span></button><button id="side-right" role="tab" aria-selected="false" aria-controls="axis-panel" data-side="right" tabindex="-1"><b>R</b> 右侧机构 <span id="right-count">0 / 8</span></button></div>
+      <div class="panel-actions"><span>数值相对图片零位</span><button id="reset-side">左侧归零 <span aria-hidden="true">↺</span></button></div>
+      <div id="axis-panel" role="tabpanel" aria-labelledby="side-left" class="axis-list"></div>
+      <div class="selection-note"><span id="selection-index" class="selection-index">01</span><div><strong id="selection-title">下层滑台</strong><p id="selection-description"></p></div></div>
+      <details class="chain-note"><summary>带动关系与坐标</summary><ol id="chain-list"></ol><p>下层滑台带着弯曲回转中心平移；上层滑台不改变回转中心。弯曲轴只带动上层及其机构旋转，下层不随它转动。</p><p>旋转方向按各级自身坐标计算。单动引申轴时，电机与导轨保持不动，滑块与夹头沿导轨移动。</p><p>毫米比例与滑块范围为按图估算，可直接输入范围外的数值。上下滑台为带编码器的异步电机。</p></details>
+      <div class="pose-actions"><button id="pose-open" class="secondary">保存 / 载入姿态</button><button id="reset-all" class="primary">整机归零 <span aria-hidden="true">↺</span></button></div>
+      <p id="message" role="status" aria-live="polite" class="message">十六轴均可独立设定，左右分别保留数值。</p>
+    </aside>
+  </main>
+  <footer class="footnote"><span>图像参考重建 · 尺寸按比例估算</span><span>零位可复现 / 姿态可保存</span><a href="../waferplt/">晶圆电镀工作台 ↗</a></footer>
+  <dialog id="reference-dialog" aria-labelledby="reference-title"><div class="dialog-head"><div><span class="eyebrow">REFERENCE / ZERO POSE</span><h2 id="reference-title">图片姿态 = 所有轴的零位</h2></div><button data-close="reference-dialog" aria-label="关闭参考图片">×</button></div><img class="reference-image" src="data:image/png;base64,REFERENCE_IMAGE_DATA" alt="用于重建外观与确定零位的三维拉弯机参考图"><p>保留图中的初始安装位置与角度，所有轴值从 0 开始。背面与遮挡细节按已确认的机构关系补全。</p><h3>实机结构参考</h3><img class="reference-image" src="data:image/png;base64,MACHINE_PHOTO_DATA" alt="用户标注的实机照片：红框为内侧弯曲回转座，绿框为两层水平拖链"><p>实机照片用于校正内侧回转座、转臂与水平拖链。弯曲中心随下层移动，不受上层位移影响；零位仍以原始参考图为准。</p></dialog>
+  <dialog id="pose-dialog" aria-labelledby="pose-title"><div class="dialog-head"><div><span class="eyebrow">16 AXIS / POSE</span><h2 id="pose-title">保存与载入姿态</h2></div><button data-close="pose-dialog" aria-label="关闭姿态面板">×</button></div><p>保存左右全部十六轴的当前位置。也可以编辑下面的数值，再载入这组姿态。</p><label class="json-label" for="pose-json">姿态数据 · 直线轴 mm / 旋转轴 °</label><textarea id="pose-json" spellcheck="false" rows="15"></textarea><p id="pose-error" role="alert"></p><div class="dialog-actions"><button id="download-pose" class="secondary">导出 JSON</button><label class="file-button secondary">选择文件<input id="import-file" type="file" accept=".json,application/json"></label><button id="apply-json" class="primary">载入此姿态</button></div></dialog>
+  <noscript><p>请开启 JavaScript 以显示三维设备及轴控制。</p></noscript>
+  <script>/* BENDER_SCRIPT */</script>
+</body>
+</html>

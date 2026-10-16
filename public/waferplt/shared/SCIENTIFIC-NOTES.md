@@ -1,8 +1,10 @@
 # 铜电镀教学模型的科学范围 · v2
 
-v2 将整机搬运、面朝下单晶圆电镀腔及 TSV／WLP 微结构连接为三个观察尺度。结构来自 Lam／Novellus 等公开专利的不同实施例，运动与形貌用于解释工序和机理。它不是特定商业机的工程图、工业实测数据或量产工艺预测；不能把公开专利中的“适用设备示例”解释成某台 SABRE 3D 的完整实装清单。
+v2 将整机搬运、面朝下单晶圆电镀腔及 TSV／WLP 微结构连接为三个观察尺度。结构来自公开专利的不同实施例，运动与形貌用于解释工序和机理。它不是特定商业机的工程图、工业实测数据或量产工艺预测；不能把公开专利中的“适用设备示例”解释成某台 商业电镀平台 的完整实装清单。
 
 Anatomy 暗／亮色等轴测图保留为 **v1 基础原理参考**，本轮没有重画该 SVG。它解释单晶圆模块、循环和法拉第沉积量，不承诺与 v2 的平台布局、部件或分镜逐项一致。
+
+统一教学工作区默认暂停，切换结构或选择步骤时仍保持暂停；执行当前步骤后在边界停下，由讲解者决定何时继续。下文保留科学假设与文献定位，不能代替实际设备操作规程。
 
 ## 三个尺度与工艺路线
 
@@ -20,7 +22,7 @@ TSV 的深孔、绝缘层、阻挡层和连续种子层在进入本段填铜前�
 
 晶圆直径固定为 **300 mm**。整机平台预设包络约 **2.80 m × 5.20 m**，用于建立可读的搬运与工位关系，不是实机测绘尺寸。除晶圆直径这一选定规格外，腔体大小、工位数、间距、机械手、轨迹、行程、速度、材质外观和节拍均为教学重建参数；未执行真实机器人碰撞认证、洁净验证或产能标定。
 
-单腔使用面朝下晶圆和下方铜阳极。所选流道方案具有由下向上的供液与侧向流；这些流路来自特定公开实施例，不能概括为所有喷泉腔或所有 SABRE 3D 的统一结构。**CIRP（离子电阻／透过元件）与阴阳极液分隔膜是两个部件**：前者用于影响电流／流动分布，后者可用于分隔两侧液体。模型不求解它们的电阻、选择性、压降或化学隔离效果。
+单腔使用面朝下晶圆和下方铜阳极。所选流道方案具有由下向上的供液与侧向流；这些流路来自特定公开实施例，不能概括为所有喷泉腔或所有 商业电镀平台 的统一结构。**CIRP（离子电阻／透过元件）与阴阳极液分隔膜是两个部件**：前者用于影响电流／流动分布，后者可用于分隔两侧液体。模型不求解它们的电阻、选择性、压降或化学隔离效果。
 
 ## 可计算的内容
 
@@ -65,7 +67,7 @@ progress = clamp(Q / Qreference, 0, 1)
 
 微结构组件没有内部计时器，不从 `time` 或 `currentA` 独立计算增长；宿主统一传入 `progress`。`active` 控制离子示踪相位与状态显示，宿主在断电时保持进度。这样可以在暂停、切换或受控回放时共用同一个累计结果，但不赋予图形预测药液、电位、添加剂或传质作用的能力。
 
-v2 影片规格为 **48 秒、1600×900、24 fps、静音、中文字幕**。影片按分镜压缩或重置各示例阶段的工艺时间，TSV／铜柱／RDL 的展示速度可以不同；影片时长与画面切换均不是量产周期。影片内定量读数仍来自对应示例上下文的法拉第累计。
+原录制视频已转为维护者本地归档，不随网站发布。录制中的压缩阶段时长和画面切换不代表量产周期；网站教学以交互模型的手动步骤控制为准。
 
 ## 动画科学约束
 
@@ -84,12 +86,12 @@ v2 影片规格为 **48 秒、1600×900、24 fps、静音、中文字幕**。影
 
 | 原始专利页面 | 使用范围 | 可还原内容与边界 |
 | --- | --- | --- |
-| [US12241173B2 — Wafer shielding for prevention of lipseal plate-out](https://patents.google.com/patent/US12241173B2/en) | FIG. 9：PDF p11；FIG. 10：p12 | 面朝下单腔与多工位平台关系；正文列 SABRE 3D 为适用设备示例。图 9 的 911 是离子电阻／透过元件，不是分隔膜；新密封方案不据此认定已出货 |
-| [US20180251907A1 — Wide lipseal for electroplating](https://patents.google.com/patent/US20180251907A1/en) | FIG. 1／2：PDF p2；FIG. 3／4：p3 | cup／cone、转轴、唇形密封与边缘电接触；正文直接讨论 Sabre 3D，但图仍是示例结构，不是实机 CAD |
-| [US10094034B2 — Edge flow element for electroplating apparatus](https://patents.google.com/patent/US10094034B2/en) | FIG. 2：PDF p10；FIG. 4：p13 | CIRP、限流环、膜框、下方供液与横向流入口／出口；未证明 SABRE 3D 商业机必然采用这一升级方案 |
-| [US20100200412A1 — Process For Through Silicon Via Filling](https://patents.google.com/patent/US20100200412A1/en) | FIG. 1：PDF p2；FIG. 2：p3；FIG. 3／4：p4／5 | TSV 结构、工艺流程、电镀与前后处理集成；正文同时列 Sabre、Slim Cell、Raider，不能当作 SABRE 3D 专属配置 |
-| [US9469912B2 — Pretreatment method for photoresist wafer processing](https://patents.google.com/patent/US9469912B2/en) | FIG. 1A／1B：PDF p4／5；FIG. 2／3：p6 | WLP 胶模、UBM／种子层、电镀及后续去胶、蚀刻、回流路径；可选还原等离子预处理不等于 SABRE 3D 的标配模块 |
-| [WO2025174670A1 — Minimizing contamination within substrate cleaning chamber](https://patents.google.com/patent/WO2025174670A1/en) | 正文 [0028]／[0031]；FIG. 1A–1F 的流程说明 | 正文直接说明 SABRE 3D 模块化 APT 的清洗／润湿用途；新防污染屏障与自动清腔是实施例，不据此声称商业实装。未核原 PDF 页码，不用于精确尺寸复原 |
+| [US12241173B2 — Wafer shielding for prevention of lipseal plate-out](https://patents.google.com/patent/US12241173B2/en) | FIG. 9：PDF p11；FIG. 10：p12 | 面朝下单腔与多工位平台关系；正文列 商业电镀平台 为适用设备示例。图 9 的 911 是离子电阻／透过元件，不是分隔膜；新密封方案不据此认定已出货 |
+| [US20180251907A1 — Wide lipseal for electroplating](https://patents.google.com/patent/US20180251907A1/en) | FIG. 1／2：PDF p2；FIG. 3／4：p3 | cup／cone、转轴、唇形密封与边缘电接触；正文直接讨论 商业电镀平台，但图仍是示例结构，不是实机 CAD |
+| [US10094034B2 — Edge flow element for electroplating apparatus](https://patents.google.com/patent/US10094034B2/en) | FIG. 2：PDF p10；FIG. 4：p13 | CIRP、限流环、膜框、下方供液与横向流入口／出口；未证明 商业电镀平台 商业机必然采用这一升级方案 |
+| [US20100200412A1 — Process For Through Silicon Via Filling](https://patents.google.com/patent/US20100200412A1/en) | FIG. 1：PDF p2；FIG. 2：p3；FIG. 3／4：p4／5 | TSV 结构、工艺流程、电镀与前后处理集成；正文列出多种设备示例，不能当作某一商业电镀平台的专属配置 |
+| [US9469912B2 — Pretreatment method for photoresist wafer processing](https://patents.google.com/patent/US9469912B2/en) | FIG. 1A／1B：PDF p4／5；FIG. 2／3：p6 | WLP 胶模、UBM／种子层、电镀及后续去胶、蚀刻、回流路径；可选还原等离子预处理不等于 商业电镀平台 的标配模块 |
+| [WO2025174670A1 — Minimizing contamination within substrate cleaning chamber](https://patents.google.com/patent/WO2025174670A1/en) | 正文 [0028]／[0031]；FIG. 1A–1F 的流程说明 | 正文直接说明 商业电镀平台 模块化 APT 的清洗／润湿用途；新防污染屏障与自动清腔是实施例，不据此声称商业实装。未核原 PDF 页码，不用于精确尺寸复原 |
 
 这些专利分属不同时间与发明主题。本模型将它们用于解释平台、夹持、流路和工序关系，不宣称它们来自同一型号、代际或已验证配置。WO2025174670A1 的 FIG. 2 是无晶圆自动清腔循环，不能混入正常晶圆预湿流程。
 
@@ -99,12 +101,11 @@ v2 影片规格为 **48 秒、1600×900、24 fps、静音、中文字幕**。影
 - [Josell et al. 2001，Superconformal Electrodeposition in Submicron Features，NIST 原文](https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=853028)，DOI [10.1103/PhysRevLett.87.016102](https://doi.org/10.1103/PhysRevLett.87.016102)：CEAC、局部覆盖率与几何演化。
 - [Moffat et al. 2002，Superconformal Electrodeposition Using Derivitized Substrates，NIST 原文](https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=853171)，DOI [10.1149/1.1521290](https://doi.org/10.1149/1.1521290)：催化剂覆盖率的实验验证及过低/过高覆盖率的边界。
 - [Josell and Moffat 2018，Superconformal Copper Deposition in Through Silicon Vias by Suppression-Breakdown，NIST](https://www.nist.gov/publications/superconformal-copper-deposition-through-silicon-vias-suppression-breakdown)，DOI [10.1149/2.0061802jes](https://doi.org/10.1149/2.0061802jes)：TSV 抑制层失效、S-NDR、浓度/电位/流动依赖。
-- [Lam Research，Tech Brief: Elements of Electroplating](https://newsroom.lamresearch.com/Tech-Brief-Elements-of-Electroplating)：电子参与还原，液体成分、流动和温度影响沉积。
 - [NIST Chemistry WebBook，Copper](https://webbook.nist.gov/cgi/cbook.cgi?Name=Copper)：摩尔质量。
 - [NIST，Composition of COPPER](https://physics.nist.gov/cgi-bin/Star/compos.pl?matno=029&mode=text)：密度。
 
-## 验证范围
+## 历史验证记录与当前边界
 
-公式与状态检查验证单位换算、法拉第总量和累计历史。本次还完成最终 HTML 上的 32 项整体交互检查、10 项首页检查、四轮结构和布局复核，以及 48 秒影片的帧数、时长、完整解码、异常粉色帧和九个关键帧的检查。结果分别保存在 `checks/v2-interaction-results.json`、`checks/hub-results.json`、`out/v2-review-report.json` 和 `out/video-validation.json`。这些是本地软件与媒体产物的验证，组件、截图或公式通过不能用来推断工艺性能。
+原作者记录包含公式、累计历史、交互、布局及录制媒体检查。这些记录描述此前版本的本地软件与媒体产物，不能作为本次统一教学工作区已经验证通过的证据；当前结果以本轮实际执行的检查为准。公式、组件或截图通过不能推断工艺性能。
 
 此交付没有验证真实电镀腔、药液、局部电流分布、晶圆均匀性、填孔质量、硬件、机器人运行或生产过程。

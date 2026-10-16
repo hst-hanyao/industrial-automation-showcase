@@ -1,21 +1,21 @@
 # SRD 清洗／旋转干燥：结构证据与动画约束
 
-核查日期：2026-10-15。范围：供本地 SABRE 3D 教学项目使用的单晶圆 SRD 结构研究。这里把“直接公开的结构”“普通 SRD 工序”和“本项目的教学选择”分开记录。公开专利不能证明某台商业 SABRE 3D 的完整实装配置。
+核查日期：2026-10-15。范围：供本地 商业电镀平台 教学项目使用的单晶圆 SRD 结构研究。这里把“直接公开的结构”“普通 SRD 工序”和“本项目的教学选择”分开记录。公开专利不能证明某台商业 商业电镀平台 的完整实装配置。
 
 ## 结论与采用方案
 
-本轮默认 SRD 演示采用 **边缘夹持 → 晶圆旋转并用 DIW 漂洗正背面 → 停水、旋转排液 → 继续甩干 → 减速停转、松夹取片**。承液碗、挡液唇、下部排液以及边缘夹爪应真实可见。上方喷淋与下方喷嘴为独立液路；下方喷嘴不能被不透水的实心托盘挡住。此顺序与 Lam 的普通 SRD 背景说明相符；夹爪采用其另一公开实施例的翻转机构，属于明确标注的教学组合。[US6578853B1，Background 和 FIG.2A／2B、8A／8B](https://patents.google.com/patent/US6578853B1/en)。
+本轮默认 SRD 演示采用 **边缘夹持 → 晶圆旋转并用 DIW 漂洗正背面 → 停水、旋转排液 → 继续甩干 → 减速停转、松夹取片**。承液碗、挡液唇、下部排液以及边缘夹爪应真实可见。上方喷淋与下方喷嘴为独立液路；下方喷嘴不能被不透水的实心托盘挡住。此顺序与公开专利的普通 SRD 背景说明相符；夹爪采用另一公开实施例的翻转机构，属于明确标注的教学组合。[US6578853B1，Background 和 FIG.2A／2B、8A／8B](https://patents.google.com/patent/US6578853B1/en)。
 
-Lam 当前 SABRE 3D 产品页只公开“可配置的多电镀及前后处理单元”，未给 SRD 内部总装、精确尺寸、气体配方或喷嘴数量。因此本项目可以说明其工艺位置，不能把下面的通用 SRD 组合冠名为商业机原装剖面。[Lam SABRE 3D 产品页](https://www.lamresearch.com/product/sabre-3d/)。
+公开工艺资料不足以确定 SRD 的内部总装、精确尺寸、气体配方或喷嘴数量。因此本项目可以说明其工艺位置，下面的通用 SRD 组合仅作为教学结构示例。
 
 ## 可核对的第一手资料
 
 | 资料 | 原文定位与实际核查 | 可用于本项目的内容 | 适用边界 |
 | --- | --- | --- | --- |
-| [US6578853B1 — Chuck assembly for use in a spin, rinse, and dry module](https://patents.google.com/patent/US6578853B1/en)；Lam，2003-06-17 公开 | [原 PDF](https://patentimages.storage.googleapis.com/50/81/3d/4d3f5eac711c52/US6578853.pdf)，共25页；FIG.2A／2B 为 PDF 第3／4页；FIG.8A／8B、9A／9B 在第11页。第3、11页已下载到临时目录并目视检查；正文 Background 说明停水后继续高速旋转；Detailed Description 解释楔块升降、连杆、夹爪翻转 | 圆形卡盘、背面板、三处示例夹爪、弹簧／连杆／楔块；楔块在低位时夹爪竖起夹片，高位时夹爪放平释放 | 旧 Lam SRD 专利；没有直接绑定 SABRE 3D。摘要对开闭位置存在自相矛盾文字，以正文及 FIG.8A／8B 为准。背景中的“四指升降式”与本发明的“三夹爪翻转式”应区分 |
-| [US6497241B1 — Hollow core spindle and spin, rinse, and dry module](https://patents.google.com/patent/US6497241B1/en)；Lam，2002-12-24 公开 | [原 PDF](https://patentimages.storage.googleapis.com/80/a1/a3/5305aa36de6690/US6497241.pdf)，共8页；FIG.1／2 为第2页，已目视检查；Detailed Description 以“FIG.2 is a simplified schematic diagram”起的段落与 FIG.3 说明 | 承液碗102、空心主轴104、背面板108、电机110、带传动110a、洁净空气116/118；通道可向背面中心送清洗流体；迷宫结构保护转动机构 | FIG.2 的116来自 ULPA 过滤空气，**不能写成 N₂**；喷嘴和夹指有的在简化图中省略。背面板与晶圆有间隙，不是真空吸盘贴满背面 |
-| [US8261758B2 — Apparatus and method for cleaning and removing liquids from front and back sides](https://patents.google.com/patent/US8261758B2/en)；Novellus，2012-09-11 公开 | FIG.2–5、7–8及其对应正文；本轮核到正文及图号关系，未声称逐页目视核验此 PDF | 圆柱腔、旋转平台15、支柱38a–c；固定清洗平台25、挡液板26、承液堰22；上下两套独立喷臂24/28、中心／边缘 DIW 喷嘴30/32 | 该方案含降低表面张力的蒸汽喷嘴34和边缘干燥喷嘴36；它是双面 Marangoni 方案，不能把这段特殊干燥顺序直接替代普通 SRD。普通模式只借助它理解喷淋与收液部件的空间关系 |
-| [US9732416B1 — Wafer chuck with aerodynamic design for turbulence reduction](https://patents.google.com/patent/US9732416B1/en)；Novellus，2017-08-15 公开 | FIG.4 及正文“The Post Electrofill Module (PEM) and Process”；FIG.6A–6B、8A–8C 及对应正文 | 排液口／管464；独立正面DIW438和背面DIW444；旋转边缘夹持；N₂430经阀432和喷口434向下供气以抑制液滴再夹带 | 这是含 EBR／背蚀的 PEM 方案，**不是纯 SRD 的 SABRE 3D 标配证据**。其“约5000 rpm”是对 SRD 的比较描述；不得据此设定商业配方。N₂默认不进入本轮普通 SRD 动画 |
+| [US6578853B1 — Chuck assembly for use in a spin, rinse, and dry module](https://patents.google.com/patent/US6578853B1/en)；2003-06-17 公开 | [原 PDF](https://patentimages.storage.googleapis.com/50/81/3d/4d3f5eac711c52/US6578853.pdf)，共25页；FIG.2A／2B 为 PDF 第3／4页；FIG.8A／8B、9A／9B 在第11页。第3、11页已下载到临时目录并目视检查；正文 Background 说明停水后继续高速旋转；Detailed Description 解释楔块升降、连杆、夹爪翻转 | 圆形卡盘、背面板、三处示例夹爪、弹簧／连杆／楔块；楔块在低位时夹爪竖起夹片，高位时夹爪放平释放 | 早期 SRD 专利；没有直接绑定 商业电镀平台。摘要对开闭位置存在自相矛盾文字，以正文及 FIG.8A／8B 为准。背景中的“四指升降式”与本发明的“三夹爪翻转式”应区分 |
+| [US6497241B1 — Hollow core spindle and spin, rinse, and dry module](https://patents.google.com/patent/US6497241B1/en)；2002-12-24 公开 | [原 PDF](https://patentimages.storage.googleapis.com/80/a1/a3/5305aa36de6690/US6497241.pdf)，共8页；FIG.1／2 为第2页，已目视检查；Detailed Description 以“FIG.2 is a simplified schematic diagram”起的段落与 FIG.3 说明 | 承液碗102、空心主轴104、背面板108、电机110、带传动110a、洁净空气116/118；通道可向背面中心送清洗流体；迷宫结构保护转动机构 | FIG.2 的116来自 ULPA 过滤空气，**不能写成 N₂**；喷嘴和夹指有的在简化图中省略。背面板与晶圆有间隙，不是真空吸盘贴满背面 |
+| [US8261758B2 — Apparatus and method for cleaning and removing liquids from front and back sides](https://patents.google.com/patent/US8261758B2/en)；2012-09-11 公开 | FIG.2–5、7–8及其对应正文；本轮核到正文及图号关系，未声称逐页目视核验此 PDF | 圆柱腔、旋转平台15、支柱38a–c；固定清洗平台25、挡液板26、承液堰22；上下两套独立喷臂24/28、中心／边缘 DIW 喷嘴30/32 | 该方案含降低表面张力的蒸汽喷嘴34和边缘干燥喷嘴36；它是双面 Marangoni 方案，不能把这段特殊干燥顺序直接替代普通 SRD。普通模式只借助它理解喷淋与收液部件的空间关系 |
+| [US9732416B1 — Wafer chuck with aerodynamic design for turbulence reduction](https://patents.google.com/patent/US9732416B1/en)；2017-08-15 公开 | FIG.4 及正文“The Post Electrofill Module (PEM) and Process”；FIG.6A–6B、8A–8C 及对应正文 | 排液口／管464；独立正面DIW438和背面DIW444；旋转边缘夹持；N₂430经阀432和喷口434向下供气以抑制液滴再夹带 | 这是含 EBR／背蚀的 PEM 方案，**不是纯 SRD 的 商业电镀平台 标配证据**。其“约5000 rpm”是对 SRD 的比较描述；不得据此设定商业配方。N₂默认不进入本轮普通 SRD 动画 |
 
 ## 结构 → 工序 → 动画映射
 
@@ -55,7 +55,7 @@ Lam 当前 SABRE 3D 产品页只公开“可配置的多电镀及前后处理单
 - **EBR／BSE／酸洗**：普通 SRD 只展示漂洗和干燥。若未来加入去边、背蚀、去氧化层，应独立成工艺选项，增加液体来源、废液管理及专门的专利依据，不用纯 DIW 流线代替蚀刻剂。
 - **IPA／Marangoni**：US8261758B2 的蒸汽使液体表面张力变化，并不等于“用 N₂吹干”。只有明确选择该特殊方案并写清材料与次序时才绘制。
 - **无晶圆清腔**：APT 防污染专利里的清腔循环不属于正常 SRD 晶圆流程。
-- **商业 SABRE 3D 的实装**：本轮未取得商用 SRD 总装图、BOM、尺寸、喷嘴分布、晶圆正反朝向转换机构、实机转速曲线、N₂流量或最终干燥判定。站间如需翻片，应明确标注“朝向示意”，不能让晶圆在镜头切换间无解释地反面。
+- **商业 商业电镀平台 的实装**：本轮未取得商用 SRD 总装图、BOM、尺寸、喷嘴分布、晶圆正反朝向转换机构、实机转速曲线、N₂流量或最终干燥判定。站间如需翻片，应明确标注“朝向示意”，不能让晶圆在镜头切换间无解释地反面。
 - **流体／洁净验收**：未运行 CFD、旋转件强度或偏心分析；未验证水痕、残铜、离子污染、颗粒、干燥时间、设备产能及真实湿片搬运。
 
 ## 制作与复核清单

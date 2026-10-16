@@ -4,11 +4,13 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/build-stretch-bender.mjs",
     "dev": "vite --host 127.0.0.1",
+    "build:stretch-bender": "node scripts/build-stretch-bender.mjs",
     "typecheck": "tsc -b --pretty false",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/build-stretch-bender.mjs && node scripts/check-teaching-publication.mjs --prepare && tsc -b && vite build && node scripts/check-teaching-publication.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

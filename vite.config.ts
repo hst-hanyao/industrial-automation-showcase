@@ -4,7 +4,21 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   base: './',
-  plugins: [react()],
+  plugins: [
+    {
+      name: 'device-subpage-index',
+      configureServer(server) {
+        server.middlewares.use((request, _response, next) => {
+          const url = new URL(request.url ?? '/', 'http://vite.local')
+          if (['/stretch-bender', '/stretch-bender/', '/waferplt', '/waferplt/'].includes(url.pathname)) {
+            request.url = `${url.pathname.replace(/\/$/, '')}/index.html${url.search}`
+          }
+          next()
+        })
+      },
+    },
+    react(),
+  ],
   build: {
     rolldownOptions: {
       input: {
