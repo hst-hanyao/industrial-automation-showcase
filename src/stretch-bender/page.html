@@ -13,7 +13,7 @@
   <header class="masthead">
     <a class="brand" href="../" aria-label="返回工业自动化展台"><span class="brand-symbol" aria-hidden="true">◎</span><span>工业设备研究室<small>MECHANISM STUDIES</small></span></a>
     <div class="page-identity"><span class="eyebrow">NO. 02 / MOTION STUDY</span><strong>三维拉弯机</strong></div>
-    <div class="head-actions"><button id="reference-open" class="quiet">参考图片 <span aria-hidden="true">↗</span></button><span class="ready-state" id="ready-state">正在构建场景</span></div>
+    <div class="head-actions"><span class="ready-state" id="ready-state">正在构建场景</span></div>
   </header>
   <main class="workbench">
     <section class="viewport" aria-label="拉弯机三维视图">
@@ -39,7 +39,6 @@
     </aside>
   </main>
   <footer class="footnote"><span>图像参考重建 · 尺寸按比例估算</span><span>零位可复现 / 姿态可保存</span><a href="../waferplt/">晶圆电镀工作台 ↗</a></footer>
-  <dialog id="reference-dialog" aria-labelledby="reference-title"><div class="dialog-head"><div><span class="eyebrow">REFERENCE / ZERO POSE</span><h2 id="reference-title">图片姿态 = 所有轴的零位</h2></div><button data-close="reference-dialog" aria-label="关闭参考图片">×</button></div><img class="reference-image" src="data:image/png;base64,REFERENCE_IMAGE_DATA" alt="用于重建外观与确定零位的三维拉弯机参考图"><p>保留图中的初始安装位置与角度，所有轴值从 0 开始。背面与遮挡细节按已确认的机构关系补全。</p><h3>实机结构参考</h3><img class="reference-image" src="data:image/png;base64,MACHINE_PHOTO_DATA" alt="用户标注的实机照片：红框为内侧弯曲回转座，绿框为两层水平拖链"><p>实机照片用于校正内侧回转座、转臂与水平拖链。弯曲中心随下层移动，不受上层位移影响；零位仍以原始参考图为准。</p></dialog>
   <dialog id="pose-dialog" aria-labelledby="pose-title"><div class="dialog-head"><div><span class="eyebrow">16 AXIS / POSE</span><h2 id="pose-title">保存与载入姿态</h2></div><button data-close="pose-dialog" aria-label="关闭姿态面板">×</button></div><p>保存左右全部十六轴的当前位置。也可以编辑下面的数值，再载入这组姿态。</p><label class="json-label" for="pose-json">姿态数据 · 直线轴 mm / 旋转轴 °</label><textarea id="pose-json" spellcheck="false" rows="15"></textarea><p id="pose-error" role="alert"></p><div class="dialog-actions"><button id="download-pose" class="secondary">导出 JSON</button><label class="file-button secondary">选择文件<input id="import-file" type="file" accept=".json,application/json"></label><button id="apply-json" class="primary">载入此姿态</button></div></dialog>
   <noscript><p>请开启 JavaScript 以显示三维设备及轴控制。</p></noscript>
   <script>/* BENDER_SCRIPT */</script>

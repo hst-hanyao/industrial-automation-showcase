@@ -29,7 +29,6 @@ const axisPanel = element('#axis-panel')
 const message = element('#message')
 const jsonArea = element<HTMLTextAreaElement>('#pose-json')
 const poseDialog = element<HTMLDialogElement>('#pose-dialog')
-const referenceDialog = element<HTMLDialogElement>('#reference-dialog')
 const filmMode = new URLSearchParams(location.search).has('film')
 let pose = zeroPose()
 let side: Side = 'left'
@@ -444,7 +443,6 @@ element('#labels-toggle').addEventListener('click', () => {
   labelElements.forEach((item) => { item.el.hidden = !labelsVisible })
   labelElements.forEach((item) => { item.line.style.display = labelsVisible ? '' : 'none' })
 })
-element('#reference-open').addEventListener('click', () => referenceDialog.showModal())
 element('#pose-open').addEventListener('click', () => {
   jsonArea.value = JSON.stringify(poseDocument(), null, 2)
   element('#pose-error').textContent = ''

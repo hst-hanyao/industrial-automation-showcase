@@ -14,13 +14,9 @@ const js = generated.output.find((item) => item.type === 'chunk')?.code
 if (!js) throw new Error('Stretch bender bundle was not generated')
 const template = await fs.readFile(path.join(source, 'page.html'), 'utf8')
 const style = await fs.readFile(path.join(source, 'style.css'), 'utf8')
-const reference = await fs.readFile(path.join(source, 'reference.png'))
-const machineReference = await fs.readFile(path.join(source, 'machine-reference.png'))
 const licenses = await fs.readFile(path.join(source, 'THIRD-PARTY-NOTICES.txt'), 'utf8')
 const html = template
   .replace('/* BENDER_STYLES */', () => style)
-  .replace('REFERENCE_IMAGE_DATA', () => reference.toString('base64'))
-  .replace('MACHINE_PHOTO_DATA', () => machineReference.toString('base64'))
   .replace('/* BENDER_SCRIPT */', () => js.replaceAll('</script', '<\\/script'))
   .replace('</body>', () => `<!--\n${licenses.replaceAll('--', '—')}\n-->\n</body>`)
 await fs.mkdir(output, { recursive: true })
