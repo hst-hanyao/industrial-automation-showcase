@@ -13,7 +13,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { DIMENSIONS } from './kinematics';
+import { DIMENSIONS, type AxisId } from './kinematics';
 
 export type BenderSide = 'left' | 'right';
 export type BenderSideNodes = Record<
@@ -30,6 +30,7 @@ export interface BenderAnchor {
 
 type XYZ = readonly [number, number, number];
 type Axis = 'x' | 'y' | 'z';
+type VisualJointId = Exclude<keyof BenderSideNodes, 'mirror'>;
 type MaterialMap = ReturnType<typeof createBenderMaterials>;
 
 export function createBenderMaterials() {
@@ -116,9 +117,10 @@ class Parts {
       if (!merged) throw new Error(`Could not merge stretch-bender assembly ${parent.name}`);
       merged.computeBoundingSphere(); this.resources.add(merged);
       const mesh = new THREE.Mesh(merged, material);
-      mesh.name = `${parent.name}:${material.name || material.uuid.slice(0, 6)}`;
+      const assemblyName = parent.userData.logicalJointName ?? parent.name;
+      mesh.name = `${assemblyName}:${material.name || material.uuid.slice(0, 6)}`;
       mesh.castShadow = true; mesh.receiveShadow = true;
-      mesh.userData.assembly = parent.name;
+      mesh.userData.assembly = assemblyName;
       mesh.userData.side = parent.userData.side;
       mesh.userData.axis = parent.userData.axis;
       parent.add(mesh);
@@ -146,8 +148,12 @@ function rectangleBolts(parts: Parts, parent: THREE.Object3D, width: number, dep
   parts.bolts(parent, [-1, 1].flatMap(sx => [-1, 1].map(sy => [x + sx * (width / 2 - inset), y + sy * (depth / 2 - inset), z] as XYZ)), material);
 }
 
-function motor(parts: Parts, parent: THREE.Object3D, m: MaterialMap, center: XYZ, axis: Axis, radius = .095, length = .22) {
-  const a = group(parent, `${parent.name}:motor`, center);
+function motor(parts: Parts, parent: THREE.Object3D, m: MaterialMap, center: XYZ, axis: Axis, radius = .095, length = .22, drivesAxis?: AxisId) {
+  const a = group(parent, `${parent.userData.logicalJointName ?? parent.name}:motor`, center);
+  // A stator belongs to its fixed support for motion, but picking selects the
+  // joint it DRIVES rather than that support (e.g. swing motor carried by Z).
+  a.userData.side = parent.userData.side;
+  a.userData.axis = drivesAxis ?? parent.userData.axis;
   // Motors are static inside their owning assembly and merged with it below.
   parts.cylinder(a, radius, length, [0, 0, 0], m.graphite, axis);
   const along = (offset: number): XYZ => axis === 'x' ? [offset, 0, 0] : axis === 'y' ? [0, offset, 0] : [0, 0, offset];
@@ -288,6 +294,28 @@ function sideAssembly(parts: Parts, parent: THREE.Group, side: BenderSide, m: Ma
   const nodes: BenderSideNodes = { lower, upper, mirror, bend, frame, z, swing, heading, stretch, chuck, grip };
   for (const [axis, node] of Object.entries(nodes)) { node.userData.side = side; node.userData.axis = axis; }
 
+  // Logical transforms remain proper rotations and exactly match FK. Every
+  // joint has its OWN visual child; downstream joints never inherit a visual
+  // reflection. Canonical geometry is authored once in left-side coordinates.
+  // Before the inward-facing head adapter, right parts reflect local X. After
+  // its Rz(pi), local-Y reflection cancels the unwanted fore/aft inversion.
+  const visualNodes = {} as Record<VisualJointId, THREE.Group>;
+  for (const axis of ['lower', 'bend', 'upper', 'frame', 'z', 'swing', 'heading', 'stretch', 'chuck', 'grip'] as const) {
+    const visual = group(nodes[axis], `${side}:${axis}:visual`);
+    visual.userData.side = side; visual.userData.axis = axis;
+    visual.userData.logicalJointName = nodes[axis].name;
+    if (side === 'right') {
+      if (axis === 'lower' || axis === 'bend' || axis === 'upper') visual.scale.x = -1;
+      else visual.scale.y = -1;
+    }
+    visualNodes[axis] = visual;
+  }
+
+  {
+  const { lower, bend, upper, frame, z, swing, heading, stretch, chuck, grip } = visualNodes;
+  const inward = 1;
+  const pivotInset = DIMENSIONS.bendPivotInsetX;
+
   // The lower saddle has a genuine turntable pocket, so its stationary support
   // does not occupy the same solid volume as the rotary bearing above it.
   const lowerOutline = new THREE.Shape();
@@ -346,7 +374,7 @@ function sideAssembly(parts: Parts, parent: THREE.Group, side: BenderSide, m: Ma
   }
   parts.box(upper, [.75, .76, .040], [0, 0, .005], m.white, .012);
   rectangleBolts(parts, upper, .75, .76, .030, m.steel);
-  motor(parts, bend, m, [railOriginX - .39, .27, -.004], 'x', .058, .14);
+  motor(parts, bend, m, [railOriginX - .39, .27, -.004], 'x', .058, .14, 'upper');
   parts.box(bend, [.10, .14, .060], [-inward * 1.55, inward * .26, .035], m.graphite, .006);
   parts.box(upper, [.075, .12, .13], [-inward * .23, inward * .26, .06], m.aluminium, .006);
   // This riser closes the stack to the original upright foot height (1.0175 m)
@@ -373,7 +401,7 @@ function sideAssembly(parts: Parts, parent: THREE.Group, side: BenderSide, m: Ma
   parts.cylinder(z, .042, .11, [-.065, 0, .02], m.brass);
   parts.box(z, [.27, .45, .29], [.035, 0, .015], m.white, .016);
   rectangleBolts(parts, z, .27, .45, .165, m.steel, .035, 0, .025);
-  motor(parts, frame, m, [-.065, 0, 1.83], 'z', .088, .23);
+  motor(parts, frame, m, [-.065, 0, 1.83], 'z', .088, .23, 'z');
   parts.box(frame, [.43, .61, .38], [-.24, 0, 1.62], m.aluminium, .015);
   parts.box(frame, [.018, .49, .29], [-.465, 0, 1.62], m.white, .006);
   for (const y of [-.29, .29]) parts.box(frame, [.31, .015, .28], [-.24, y, 1.62], m.whiteEdge, .007);
@@ -389,7 +417,7 @@ function sideAssembly(parts: Parts, parent: THREE.Group, side: BenderSide, m: Ma
     parts.cylinder(z, .072, .025, [0, y + (y < 0 ? -.04 : .04), 0], m.steel, 'y');
     parts.boltCircle(z, .083, [0, y + (y < 0 ? -.031 : .031), 0], m.black, 'y', 6, .007);
   }
-  motor(parts, z, m, [0, -.39, 0], 'y', .085, .19);
+  motor(parts, z, m, [0, -.39, 0], 'y', .085, .19, 'swing');
   parts.cylinder(swing, .039, .49, [0, 0, 0], m.bright, 'y');
   parts.box(swing, [.70, .33, .10], [-.14, 0, .035], m.aluminium, .015);
   parts.box(swing, [.25, .25, .115], [0, 0, .075], m.graphite, .016);
@@ -398,7 +426,7 @@ function sideAssembly(parts: Parts, parent: THREE.Group, side: BenderSide, m: Ma
   parts.cylinder(heading, .151, .047, [0, 0, -.01], m.graphite);
   parts.cylinder(heading, .132, .032, [0, 0, .026], m.steel);
   parts.boltCircle(heading, .12, [0, 0, .045], m.black, 'z', 8, .007);
-  motor(parts, swing, m, [-.24, .02, .20], 'z', .064, .14);
+  motor(parts, swing, m, [-.24, .02, .20], 'z', .064, .14, 'heading');
   parts.box(heading, [1.54, .30, .072], [-.12, 0, -.055], m.aluminium, .012);
   for (const y of [-.112, .112]) {
     parts.box(heading, [1.43, .043, .028], [-.12, y, -.005], m.graphite, .004);
@@ -416,7 +444,7 @@ function sideAssembly(parts: Parts, parent: THREE.Group, side: BenderSide, m: Ma
     parts.box(heading, [.08, .19, .12], [x, 0, .027], m.aluminium, .008);
     parts.cylinder(heading, .038, .025, [x + (x < 0 ? -.05 : .05), 0, .045], m.graphite, 'x');
   }
-  motor(parts, heading, m, [-.97, 0, .055], 'x', .09, .23);
+  motor(parts, heading, m, [-.97, 0, .055], 'x', .09, .23, 'stretch');
   parts.box(heading, [.17, .24, .045], [-.96, 0, -.075], m.aluminium, .006);
 
   // Linear carriage and chuck rotation are intentionally different nodes.
@@ -447,6 +475,7 @@ function sideAssembly(parts: Parts, parent: THREE.Group, side: BenderSide, m: Ma
   parts.pipe(frame, [[-.38, .327, 1.47], [-.50, .40, 1.11], [-.29, .40, .77], [-.13, .317, .71]], .011, m.rubber);
   parts.cylinder(frame, .022, .035, [-.38, .32, 1.47], m.brass, 'y');
   parts.cylinder(frame, .022, .035, [-.13, .305, .71], m.brass, 'y');
+  }
   return nodes;
 }
 
@@ -454,11 +483,12 @@ function dragChain(parts: Parts, frame: THREE.Group, zNode: THREE.Group, m: Mate
   const count = 55;
   const geometry = new RoundedBoxGeometry(.096, .105, .043, 1, .008);
   const links = new THREE.InstancedMesh(geometry, m.rubber, count);
-  links.name = `${frame.name}:vertical-energy-chain`; links.castShadow = true; links.receiveShadow = true;
+  const assemblyName = frame.userData.logicalJointName ?? frame.name;
+  links.name = `${assemblyName}:vertical-energy-chain`; links.castShadow = true; links.receiveShadow = true;
   frame.add(links); parts.resources.add(geometry);
   const pinGeo = new THREE.CylinderGeometry(.007, .007, .111, 8); pinGeo.rotateX(Math.PI / 2);
   const pins = new THREE.InstancedMesh(pinGeo, m.graphite, count);
-  pins.name = `${frame.name}:energy-chain-pins`; frame.add(pins); parts.resources.add(pinGeo);
+  pins.name = `${assemblyName}:energy-chain-pins`; frame.add(pins); parts.resources.add(pinGeo);
   const matrix = new THREE.Matrix4(), q = new THREE.Quaternion(), scale = new THREE.Vector3(1, 1, 1);
   const from = new THREE.Vector3(0, 0, 1);
   let previousZ = Number.NaN;
@@ -496,7 +526,7 @@ function horizontalDragChain(parts: Parts, parent: THREE.Group, side: BenderSide
 }) {
   const carrier = group(parent, `${side}:${axis}-horizontal-energy-chain`);
   carrier.userData.side = side; carrier.userData.axis = axis;
-  if (side === 'right') carrier.rotation.z = Math.PI;
+  if (side === 'right') carrier.scale.x = -1;
   const count = axis === 'lower' ? 70 : 60;
   const walls: THREE.BufferGeometry[] = [];
   for (const y of [-.051, .051]) {
@@ -623,8 +653,9 @@ export function buildBender() {
     const inward = side === 'left' ? 1 : -1;
     const fixedMount = group(staticParts, `${side}:lower-chain-fixed-mount`);
     fixedMount.userData.side = side; fixedMount.userData.axis = 'lower';
-    parts.box(fixedMount, [.12, .12, .06], [-inward * 2.30, -inward * .64, .66], materials.graphite, .007);
-    parts.box(fixedMount, [.98, .14, .025], [-inward * 2.66, -inward * .68, .6325], materials.black, .005);
+    if (side === 'right') fixedMount.scale.x = -1;
+    parts.box(fixedMount, [.12, .12, .06], [-2.30, -.64, .66], materials.graphite, .007);
+    parts.box(fixedMount, [.98, .14, .025], [-2.66, -.68, .6325], materials.black, .005);
     const lowerUpdate = horizontalDragChain(parts, staticParts, side, 'lower', materials, {
       fixedX: -2.30, mobileX: () => inward * s.lower.position.x - .50, y: -.68, z: .67, radius: .075, length: 2.20,
     });
@@ -633,7 +664,9 @@ export function buildBender() {
     });
     return [lowerUpdate, upperUpdate];
   });
-  const chainUpdates = [dragChain(parts, left.frame, left.z, materials), dragChain(parts, right.frame, right.z, materials)];
+  const leftFrameVisual = left.frame.getObjectByName('left:frame:visual') as THREE.Group;
+  const rightFrameVisual = right.frame.getObjectByName('right:frame:visual') as THREE.Group;
+  const chainUpdates = [dragChain(parts, leftFrameVisual, left.z, materials), dragChain(parts, rightFrameVisual, right.z, materials)];
   parts.flush();
   const plaque = nameplate(staticParts, parts.resources);
   const anchors: BenderAnchor[] = [
@@ -644,7 +677,12 @@ export function buildBender() {
   const names = { lower: '下层滑台', upper: '上层滑台', bend: '拉弯轴', z: 'Z 轴', swing: '摆臂旋转', heading: '引申旋转', stretch: '引申轴', chuck: '夹头旋转' };
   const positions: Record<keyof typeof names, XYZ> = { lower: [-.5, -.48, .06], upper: [.16, -.33, .08], bend: [0, -.23, .07], z: [.04, -.26, .12], swing: [0, -.43, 0], heading: [-.24, .02, .11], stretch: [-.06, -.10, .15], chuck: [.16, 0, .05] };
   for (const side of ['left', 'right'] as const) for (const axis of Object.keys(names) as (keyof typeof names)[]) {
-    anchors.push({ id: `${side}:${axis}`, label: `${side === 'left' ? '左' : '右'} · ${names[axis]}`, side, node: sides[side][axis], local: new THREE.Vector3(...positions[axis]) });
+    const local = new THREE.Vector3(...positions[axis]);
+    if (side === 'right') {
+      if (axis === 'lower' || axis === 'bend' || axis === 'upper') local.x *= -1;
+      else local.y *= -1;
+    }
+    anchors.push({ id: `${side}:${axis}`, label: `${side === 'left' ? '左' : '右'} · ${names[axis]}`, side, node: sides[side][axis], local });
   }
   function updateDetails() {
     for (const update of horizontalUpdates) update();
