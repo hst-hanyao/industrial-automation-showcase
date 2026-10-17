@@ -57,8 +57,8 @@ npm run build
 
 ## 发布
 
-推送 `main` 后，`.github/workflows/deploy-pages.yml` 执行类型检查、Lint、测试、构建与 Pages 发布。使用 HashRouter 和相对资源路径，支持项目子路径。此次本地调整不代表远程站点已更新；实际发布状态以对应提交和 Actions 记录为准。
+GitHub Pages 已于 2026-10-17 按要求关闭，仓库 Pages 设置的发布分支为 `None`。`.github/workflows/deploy-pages.yml` 现仅执行类型检查、Lint、测试和构建，不再上传 Pages 工件或部署站点；推送 `main` 和手动触发仍可验证代码。生成的 `dist` 保留密码入口、HashRouter 和相对资源路径，可供其他静态托管使用。
 
-公开入口为 [工业自动化能力图谱](https://hst-hanyao.github.io/industrial-automation-showcase/) 和 [晶圆电镀工艺 3D 教学演示](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/)。自定义域名由项目所有者维护。
+停用前的 GitHub Pages 地址为 [工业自动化能力图谱](https://hst-hanyao.github.io/industrial-automation-showcase/) 和 [晶圆电镀工艺 3D 教学演示](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/)。关闭后，原站点及子页已实测返回 404；自定义域名或其他托管由项目所有者单独维护。
 
 此前的 7 份原始专利 PDF 与 15 张原始专利页图片已移出公开目录，历史备份位置见 `CHECKPOINT.md`。公开目录仅保留必要的文献号、出处文字、适用边界与第三方许可；本次不改写 Git 历史。
