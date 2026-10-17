@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#f5f6f8">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./access.css">
+  <title>访问验证</title>
+  <script defer src="./access.js" data-site-access-login></script>
+</head>
+<body>
+  <main class="access-shell">
+    <section class="access-card" aria-labelledby="access-title">
+      <div class="access-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="11" rx="3"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path><path d="M12 14v3"></path></svg>
+      </div>
+      <p class="access-eyebrow">工业自动化能力图谱</p>
+      <h1 id="access-title">访问验证</h1>
+      <p class="access-intro">请输入访问密码后继续。</p>
+      <form id="access-form" class="access-form">
+        <label for="access-password">访问密码</label>
+        <input id="access-password" type="password" inputmode="numeric" autocomplete="current-password" required maxlength="64" aria-describedby="access-error" placeholder="输入访问密码">
+        <p id="access-error" class="access-error" role="alert" hidden></p>
+        <button id="access-submit" type="submit" disabled>进入网页<span aria-hidden="true">→</span></button>
+      </form>
+      <noscript><p class="access-error">请启用 JavaScript 后刷新页面，以完成访问验证。</p></noscript>
+      <p class="access-note">验证仅在当前标签页有效，8 小时后需重新输入。</p>
+    </section>
+  </main>
+</body>
+</html>
