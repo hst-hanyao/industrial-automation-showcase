@@ -10,7 +10,7 @@ export function withSiteAccess(html: string, relativeFile: string): string {
   const file = relativeFile.replaceAll('\\', '/').replace(/^\/+/, '')
   if (file === loginPage || html.includes(marker)) return html
   const script = path.posix.relative(path.posix.dirname(file), 'site-access/access.js')
-    .split('/').map((part) => encodeURIComponent(part)).join('/')
+    .split('/').map((part) => encodeURIComponent(part)).join('/') + '?v=2'
   // Synchronous and first in <head>: neither page styles nor a failed script
   // may reveal content before the session check has completed.
   const gate = `\n<style ${marker}>html{visibility:hidden!important}</style>\n<script src="${script}"></script>\n`

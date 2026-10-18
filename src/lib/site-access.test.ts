@@ -20,8 +20,10 @@ describe('static site display gate coverage', () => {
   it.each(entries)('guards $relative before any page script or automatic redirect', ({ file, relative }) => {
     const html = withSiteAccess(fs.readFileSync(file, 'utf8'), relative)
     const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? ''
-    expect(head.trimStart()).toMatch(/^<style id="site-access-lock">html\{visibility:hidden!important\}<\/style>\s*<script src="[^"]*site-access\/access.js"><\/script>/)
-    const scriptPath = head.match(/<script src="([^"]+)"/)?.[1] ?? ''
+    expect(head.trimStart()).toMatch(/^<style id="site-access-lock">html\{visibility:hidden!important\}<\/style>\s*<script src="[^"]*site-access\/access\.js\?v=2"><\/script>/)
+    const scriptUrl = head.match(/<script src="([^"]+)"/)?.[1] ?? ''
+    const [scriptPath = '', revision] = scriptUrl.split('?')
+    expect(revision).toBe('v=2')
     expect(path.posix.normalize(path.posix.join(path.posix.dirname(relative.replaceAll('\\', '/')), scriptPath))).toBe('site-access/access.js')
   })
 

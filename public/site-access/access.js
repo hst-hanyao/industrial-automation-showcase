@@ -12,9 +12,10 @@
   const accessDirectory = new URL('.', script.src)
   const siteBase = new URL('../', accessDirectory)
   const loginUrl = new URL('index.html', accessDirectory)
-  const storageKey = `site-access:v1:${siteBase.pathname}`
+  const sessionVersion = 2
+  const storageKey = `site-access:v${sessionVersion}:${siteBase.pathname}`
   const sessionLifetime = 8 * 60 * 60 * 1000
-  const expectedDigest = '78b609feda1d37ea394b973e1c4c488e57c6e92afd1b2b9ac198d243385baee1'
+  const expectedDigest = '3a6925bc1f4e8ccc2b155c1ab27987ca58251aa8126815c3ba41996a2299d017'
   const loginMode = script.hasAttribute('data-site-access-login')
   let verifiedUntil = 0
 
@@ -29,7 +30,7 @@
       return false
     }
     const now = Date.now()
-    const valid = session?.version === 1 && session?.verified === true
+    const valid = session?.version === sessionVersion && session?.verified === true
       && Number.isFinite(session.issuedAt) && Number.isFinite(session.expiresAt)
       && session.issuedAt <= now && session.expiresAt > now
       && session.expiresAt - session.issuedAt === sessionLifetime
@@ -157,7 +158,7 @@
       }
 
       const issuedAt = Date.now()
-      const session = { version: 1, verified: true, issuedAt, expiresAt: issuedAt + sessionLifetime }
+      const session = { version: sessionVersion, verified: true, issuedAt, expiresAt: issuedAt + sessionLifetime }
       try {
         window.sessionStorage.setItem(storageKey, JSON.stringify(session))
         if (!sessionValid()) throw new Error('Session was not saved')
