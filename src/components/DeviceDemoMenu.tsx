@@ -86,7 +86,7 @@ export function DeviceDemoMenu({ onOpen }: DeviceDemoMenuProps) {
             <span><b>三维拉弯机</b><small>左右 16 轴独立调节</small></span>
             <span className="device-demo-menu__arrow" aria-hidden="true">↗</span>
           </a>
-          <a href={`${import.meta.env.BASE_URL}plc-architecture/`} onClick={() => setOpen(false)}>
+          <a href={import.meta.env.BASE_URL} onClick={() => setOpen(false)}>
             <span className="device-demo-menu__number" aria-hidden="true">03</span>
             <span><b>PLC 架构交互</b><small>程序职责、单片交接与操作流程</small></span>
             <span className="device-demo-menu__arrow" aria-hidden="true">↗</span>

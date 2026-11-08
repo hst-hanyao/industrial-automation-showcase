@@ -13,6 +13,7 @@ export default defineConfig({
     rolldownOptions: {
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        capabilityMap: fileURLToPath(new URL('./capability-map/index.html', import.meta.url)),
         handling: fileURLToPath(new URL('./waferplt/robots/index.html', import.meta.url)),
       },
     },
