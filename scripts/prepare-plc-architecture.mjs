@@ -53,6 +53,45 @@ for (const id of ['exportJson', 'exportHtml', 'importButton', 'helpButton']) {
 }
 html = html.replace('核对后请保存或导出。', '核对后可按 Ctrl+S 保存。')
 
+const demoMenu = `<details id="plcDemoMenu" class="plc-demo-menu" data-host-only>
+      <summary class="btn" aria-label="选择3D演示">3D 演示 <span class="plc-demo-chevron" aria-hidden="true">⌄</span></summary>
+      <nav class="plc-demo-list" aria-label="3D 演示">
+        <a href="/waferplt/"><b>晶圆电镀工艺</b><small>工艺流程与设备模块</small></a>
+        <a href="/stretch-bender/"><b>三维拉弯机</b><small>左右 16 轴独立调节</small></a>
+      </nav>
+    </details>`
+replaceOnce(/ {2}<\/div>\r?\n {2}<div class="topline">/, `    ${demoMenu}\n  </div>\n  <div class="topline">`, 'header demo menu position')
+const demoStyles = `.header-main>div:first-child{min-width:0}.plc-demo-menu{position:relative;flex-shrink:0;z-index:40}.plc-demo-menu>summary{list-style:none;min-height:40px;gap:8px}.plc-demo-menu>summary::-webkit-details-marker{display:none}.plc-demo-menu>summary:focus-visible{outline:3px solid #50b7a7;outline-offset:3px}.plc-demo-chevron{transition:transform 140ms ease}.plc-demo-menu[open] .plc-demo-chevron{transform:rotate(180deg)}.plc-demo-list{position:absolute;right:0;top:calc(100% + 8px);width:260px;max-width:calc(100vw - 32px);padding:8px;display:grid;gap:4px;border:1px solid var(--line);border-radius:8px;background:#fff;box-shadow:0 12px 32px #1e30361c}.plc-demo-menu:not([open]) .plc-demo-list{display:none}.plc-demo-list a{display:block;padding:10px 12px;border-radius:5px;color:var(--ink);text-decoration:none}.plc-demo-list a:hover,.plc-demo-list a:focus-visible{background:var(--teal-soft)}.plc-demo-list b,.plc-demo-list small{display:block}.plc-demo-list b{font-size:13px}.plc-demo-list small{margin-top:3px;font-size:11px;color:var(--muted)}@media(max-width:820px){.header-main{display:flex;align-items:center;gap:12px}.plc-demo-menu>summary{padding:7px 10px;white-space:nowrap}}`
+html = html.replace('</head>', `<style data-host-only id="plc-demo-styles">${demoStyles}</style>\n</head>`)
+const demoRuntime = `(() => {
+  const menu = document.getElementById('plcDemoMenu');
+  const trigger = menu.querySelector('summary');
+  const links = [...menu.querySelectorAll('a')];
+  document.addEventListener('pointerdown', event => {
+    if (menu.open && !menu.contains(event.target)) menu.open = false;
+  });
+  menu.addEventListener('focusout', event => {
+    if (!menu.contains(event.relatedTarget)) menu.open = false;
+  });
+  menu.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu.open) {
+      event.preventDefault(); event.stopPropagation(); menu.open = false; trigger.focus(); return;
+    }
+    if (event.target === trigger && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
+      event.preventDefault(); menu.open = true;
+      links[event.key === 'ArrowUp' ? links.length - 1 : 0]?.focus(); return;
+    }
+    const index = links.indexOf(event.target);
+    if (!menu.open || index < 0 || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? links.length - 1
+      : (index + (event.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+    links[next]?.focus();
+  });
+  for (const link of links) link.addEventListener('click', () => { menu.open = false; });
+})();`
+html = html.replace('</body>', `<script id="plc-demo-runtime" data-host-only>${demoRuntime}</script>\n</body>`)
+
 // The site's existing build injects a login display script into public HTML.
 // Strip that host-only script when exporting, so downloaded HTML remains offline.
 const exportAnchor = 'function exportHtml(){const doc=document.documentElement.cloneNode(true);'
@@ -68,8 +107,8 @@ const filings = '<footer data-host-only class="page-footer" aria-label="网站�
 if (html.split('</footer>').length !== 2) throw new Error('PLC footer changed; review existing filing links.')
 html = html.replace('</footer>', '</footer>\n' + filings)
 
-for (const id of ['document-runtime', 'application-script']) {
-  const match = html.match(new RegExp('<script id="' + id + '">([\\s\\S]*?)<\\/script>'))
+for (const id of ['document-runtime', 'application-script', 'plc-demo-runtime']) {
+  const match = html.match(new RegExp('<script id="' + id + '"[^>]*>([\\s\\S]*?)<\\/script>'))
   if (!match) throw new Error(`Missing script: ${id}`)
   new Script(match[1], { filename: id })
 }
