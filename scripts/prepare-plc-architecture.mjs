@@ -20,8 +20,38 @@ const data = JSON.parse(embedded[1])
 if (data.nodes?.length !== 24 || data.walkthrough?.length !== 11 || data.operationFlows?.length !== 3) {
   throw new Error('Unexpected PLC architecture version; review the package assumptions before updating.')
 }
+if (!original.includes('id="tab-framework"') || !original.includes('function renderFramework()')) {
+  throw new Error('Use the newer plc-framework-preview document containing the framework detail view.')
+}
 const sourceSha256 = createHash('sha256').update(original).digest('hex')
 let html = original
+
+function replaceOnce(pattern, replacement, label) {
+  const matches = typeof pattern === 'string' ? html.split(pattern).length - 1 : [...html.matchAll(new RegExp(pattern.source, 'gm'))].length
+  if (matches !== 1) throw new Error(`Expected one ${label}; found ${matches}. Review the source before packaging.`)
+  html = html.replace(pattern, replacement)
+}
+
+// Remove only the header content selected by the owner, retaining the view tabs.
+replaceOnce('<div class="kicker">WAFER ELECTROPLATING / CONTROL ARCHITECTURE</div>', '', 'header strapline')
+replaceOnce(/<p class="subtitle">[^\r\n]*?<\/p>/, '', 'header subtitle')
+replaceOnce(/^[ \t]*<div class="header-actions">[^\r\n]*?<\/div>[ \t]*\r?\n/m, '', 'header toolbar')
+replaceOnce(/<div class="save-state" id="saveState">[^\r\n]*?<\/div>/, '', 'draft status toolbar')
+
+// Keep the existing Ctrl+S draft shortcut and inspector editing without the toolbar.
+const saveBinding = html.match(/^[ \t]*\$\('saveDraft'\)\.addEventListener\('click',\(\)=>\{([^\r\n]*)\}\);[ \t]*\r?$/m)
+if (!saveBinding) throw new Error('Draft save binding changed; review the keyboard shortcut.')
+const saveBody = saveBinding[1]
+  .replace('已保存本机草稿。长期保存或分享，请导出完整网页。', '已保存本机草稿。')
+  .replace("+' 可导出完整网页备份。'", "")
+replaceOnce(saveBinding[0], `  function saveDraft(){${saveBody}}`, 'draft save handler')
+replaceOnce("$('saveDraft').click();", 'saveDraft();', 'Ctrl+S action')
+replaceOnce(/^[ \t]*function updateSaveState\(\)\{[^\r\n]*\}\r?\n/m, '', 'removed draft status renderer')
+html = html.replaceAll('updateSaveState();', '')
+for (const id of ['exportJson', 'exportHtml', 'importButton', 'helpButton']) {
+  replaceOnce(`$('${id}').addEventListener(`, `$('${id}')?.addEventListener(`, `${id} optional toolbar binding`)
+}
+html = html.replace('核对后请保存或导出。', '核对后可按 Ctrl+S 保存。')
 
 // The site's existing build injects a login display script into public HTML.
 // Strip that host-only script when exporting, so downloaded HTML remains offline.
@@ -30,8 +60,6 @@ if (html.split(exportAnchor).length !== 2) throw new Error('PLC export entry poi
 const cleanHost = String.raw`doc.querySelectorAll('[data-host-only],#site-access-lock,#hst-edge-session-lock,base').forEach(el=>el.remove());doc.style.removeProperty('visibility');doc.querySelectorAll('script[src]').forEach(el=>{if(/(?:^|\/)(?:site-access\/access|__access\/legacy-bridge)\.js(?:[?#]|$)/.test(el.getAttribute('src')||''))el.remove();});`
 html = html.replace(exportAnchor, exportAnchor + cleanHost)
 
-const headerAnchor = '<div class="header-actions">'
-if (html.split(headerAnchor).length !== 2) throw new Error('PLC header changed; review host navigation.')
 html = html.replace('</head>', `<meta data-host-only name="plc-source-sha256" content="${sourceSha256}">\n</head>`)
 // Preserve the existing public filing links when the document becomes the homepage.
 const filings = '<footer data-host-only class="page-footer" aria-label="网站备案信息" style="justify-content:center;flex-wrap:wrap;gap:10px 22px">'
@@ -51,6 +79,5 @@ if (html.match(/<script id="embedded-data" type="application\/json">([\s\S]*?)<\
 const target = path.join(root, 'public', 'plc-architecture', 'index.html')
 await fs.mkdir(path.dirname(target), { recursive: true })
 await fs.writeFile(path.join(root, 'index.html'), html, 'utf8')
-const alias = html.replace(headerAnchor, headerAnchor + '<a class="btn" data-host-only href="../" aria-label="返回 me 网站主页">返回首页</a>')
-await fs.writeFile(target, alias, 'utf8')
+await fs.writeFile(target, html, 'utf8')
 process.stdout.write(JSON.stringify({ homepage: '/', alias: '/plc-architecture/', sourceSha256, bytes: Buffer.byteLength(html), nodes: data.nodes.length }) + '\n')

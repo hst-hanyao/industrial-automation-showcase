@@ -1,6 +1,6 @@
 # PLC 架构交互说明与设备教学演示
 
-网站根路径 `/` 直接显示 PLC 架构交互文档，包含架构总览、单片执行、Unit ↔ Module 交互和操作流程；`/plc-architecture/` 保留为兼容地址。旧能力图谱及四个详情页保留在 `/capability-map/`，首页不提供入口。晶圆电镀、机器人及三维拉弯机的独立页面继续保留。文档维护方法见 [PLC 页面说明](docs/plc-architecture.md)。
+网站根路径 `/` 直接显示 PLC 架构交互文档，包含架构总览、单片执行、Unit ↔ Module 交互、操作流程和框架细化；`/plc-architecture/` 保留为兼容地址。旧能力图谱及四个详情页保留在 `/capability-map/`，首页不提供入口。晶圆电镀、机器人及三维拉弯机的独立页面继续保留。文档维护方法见 [PLC 页面说明](docs/plc-architecture.md)。
 
 生产 me 域名沿用现有 ESA 访问网关；下文“密码入口”描述仓库构建中的静态兼容层。
 
