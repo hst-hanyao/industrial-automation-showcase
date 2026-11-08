@@ -58,7 +58,7 @@ export function DeviceDemoMenu({ onOpen }: DeviceDemoMenuProps) {
     >
       <button ref={triggerRef} type="button" className="device-demo-menu__trigger"
         aria-expanded={open} aria-controls={panelId}
-        aria-label="选择三维设备演示"
+        aria-label="选择工程演示与说明"
         onClick={() => {
           if (!open) onOpen?.()
           setOpen((wasOpen) => !wasOpen)
@@ -70,12 +70,12 @@ export function DeviceDemoMenu({ onOpen }: DeviceDemoMenuProps) {
           }
         }}
       >
-        <span>3D 演示</span>
+        <span>工程演示</span>
         <span className="device-demo-menu__chevron" aria-hidden="true">⌄</span>
       </button>
       {open ? (
-        <nav ref={panelRef} id={panelId} className="device-demo-menu__panel" aria-label="三维设备演示">
-          <p className="device-demo-menu__heading">选择设备</p>
+        <nav ref={panelRef} id={panelId} className="device-demo-menu__panel" aria-label="工程演示与说明">
+          <p className="device-demo-menu__heading">选择内容</p>
           <a href={`${import.meta.env.BASE_URL}waferplt/`} onClick={() => setOpen(false)}>
             <span className="device-demo-menu__number" aria-hidden="true">01</span>
             <span><b>晶圆电镀工艺</b><small>工艺流程与设备模块</small></span>
@@ -84,6 +84,11 @@ export function DeviceDemoMenu({ onOpen }: DeviceDemoMenuProps) {
           <a href={`${import.meta.env.BASE_URL}stretch-bender/`} onClick={() => setOpen(false)}>
             <span className="device-demo-menu__number" aria-hidden="true">02</span>
             <span><b>三维拉弯机</b><small>左右 16 轴独立调节</small></span>
+            <span className="device-demo-menu__arrow" aria-hidden="true">↗</span>
+          </a>
+          <a href={`${import.meta.env.BASE_URL}plc-architecture/`} onClick={() => setOpen(false)}>
+            <span className="device-demo-menu__number" aria-hidden="true">03</span>
+            <span><b>PLC 架构交互</b><small>程序职责、单片交接与操作流程</small></span>
             <span className="device-demo-menu__arrow" aria-hidden="true">↗</span>
           </a>
         </nav>
