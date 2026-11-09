@@ -2,7 +2,6 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { capabilities } from '../data/capabilities'
 import { CapabilityLink } from './CapabilityLink'
 import { DeviceDemoMenu } from './DeviceDemoMenu'
-import { IntentNavLink } from './IntentLink'
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -33,7 +32,7 @@ export function SiteHeader() {
         if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false)
       }}
     >
-      <IntentNavLink className="brand-lockup" to="/" aria-label="返回能力图谱主页" onClick={() => setMenuOpen(false)}>
+      <a className="brand-lockup" href="/" aria-label="返回 PLC 程序架构" onClick={() => setMenuOpen(false)}>
         <span className="brand-mark" aria-hidden="true">
           <i />
           <i />
@@ -41,9 +40,9 @@ export function SiteHeader() {
         </span>
         <span>
           <b>CONTROL / EVIDENCE</b>
-          <small>工业自动化能力图谱</small>
+          <small>PLC 程序架构</small>
         </span>
-      </IntentNavLink>
+      </a>
 
       <button ref={toggleRef} type="button" className="nav-toggle" aria-expanded={menuOpen}
         aria-controls={menuId} aria-label={menuOpen ? '关闭能力导航' : '展开能力导航'}
