@@ -167,7 +167,7 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
           <span>PREVIOUS / {neighbors.previous.order}</span>
           <strong>{neighbors.previous.primaryDocument?.title ?? neighbors.previous.title}</strong>
         </CapabilityLink>
-        <IntentLink to="/" className="project-pagination__home">
+        <IntentLink to="/capabilities" className="project-pagination__home">
           <span>CONTROL CORE</span>
           <strong>返回能力图谱</strong>
         </IntentLink>

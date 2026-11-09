@@ -39,7 +39,6 @@ export interface Capability {
   readonly heroMedia?: MediaAsset
   readonly sections: readonly EvidenceSection[]
   readonly primaryDocument?: {
-    readonly href: string
     readonly title: string
     readonly lead: string
     readonly proofLine: string
@@ -112,7 +111,6 @@ export const capabilities: readonly Capability[] = [
     accentSoft: '#64748b',
     tags: ['TwinCAT', 'IEC 61131-3', 'State Machine', 'Task Model'],
     primaryDocument: {
-      href: '/plc-architecture/',
       title: 'PLC 程序框架',
       lead: '以晶圆电镀设备为例，查看 PLC 任务划分、整机与腔室交接、自动操作流程及 PackML 状态流转。',
       proofLine: '交互式架构说明 + 单片执行流程 + PackML 双语说明',

@@ -1,0 +1,15 @@
+<div class="workspace">
+  <section class="canvas-panel" aria-label="架构与流程">
+    <div class="canvas-toolbar"><div class="canvas-caption"><span class="caption-number mono" id="viewNumber">01</span><span id="viewCaption">程序架构与职责</span></div><div class="canvas-tools"><label class="search"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg><input id="searchInput" type="search" placeholder="查找流程或说明…" aria-label="查找流程或说明"></label><div id="zoomTools" style="display:flex;align-items:center;gap:4px"><button id="zoomOut" class="btn icon" aria-label="缩小架构图">−</button><span class="zoom-value mono" id="zoomValue">100%</span><button id="zoomIn" class="btn icon" aria-label="放大架构图">+</button><button id="fitWidth" class="btn small">适应宽度</button></div></div></div>
+    <div class="search-results" id="searchResults" hidden aria-label="搜索结果"></div>
+    <section id="view-architecture" role="tabpanel" aria-labelledby="tab-architecture"><div class="mobile-map-hint">可左右、上下滑动图谱。点击节点后，说明显示在图谱下方。</div><div class="canvas-scroll" id="canvasScroll"><div class="board-holder" id="boardHolder"><div class="board" id="board"></div></div></div></section>
+    <section id="view-walkthrough" role="tabpanel" aria-labelledby="tab-walkthrough" hidden><div class="flow-view" id="walkthroughContent"></div></section>
+    <section id="view-exchanges" role="tabpanel" aria-labelledby="tab-exchanges" hidden><div class="exchange-view" id="exchangeContent"></div></section>
+    <section id="view-operations" role="tabpanel" aria-labelledby="tab-operations" hidden><div class="operation-view" id="operationContent"></div></section>
+    <section id="view-framework" role="tabpanel" aria-labelledby="tab-framework" hidden><div class="framework-view" id="frameworkContent"></div></section>
+  </section>
+  <aside class="inspector" id="inspector" aria-label="流程说明与编辑"><div class="inspector-top"><span>流程说明 <strong id="selectionCount"></strong></span><button class="btn small" id="editToggle" aria-pressed="false">编辑本项说明</button></div><div class="inspector-scroll" id="inspectorContent"></div><div class="inspector-bottom"><span id="detailId" class="mono"></span><button class="btn small" id="restoreNode">恢复本项初稿</button></div></aside>
+</div>
+<footer class="page-footer"><span>基于《PLC程序架构图.drawio》及本轮职责讨论整理 · 用于架构讨论与说明修订</span><span>页面操作仅修改说明文档 · 不连接或控制设备</span></footer>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="referenceDialog" class="reference-dialog"><div class="reference-header"><h2 id="referenceTitle">参考初稿</h2><p>此处仅供阅读，不会替换当前文档。需要时可用“恢复本项初稿”。</p></div><div id="referenceContent" class="reference-content"></div><div class="reference-footer"><span>初稿随导出文件一同保留</span><button class="btn primary" id="closeReference">返回我的文档</button></div></dialog>

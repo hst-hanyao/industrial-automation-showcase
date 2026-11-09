@@ -8,10 +8,6 @@ interface CapabilityLinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElemen
 }
 
 export function CapabilityLink({ capability, highlightActive, className, ...props }: CapabilityLinkProps) {
-  if (capability.primaryDocument) {
-    return <a href={capability.primaryDocument.href} className={className} {...props} />
-  }
-
   if (highlightActive) {
     return (
       <IntentNavLink

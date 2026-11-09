@@ -2,11 +2,13 @@ import { describe, expect, it } from 'vitest'
 import { isShowcaseRoute, showcaseRoutePaths } from './routes'
 
 describe('route manifest', () => {
-  it('contains the homepage and four detail routes', () => {
+  it('contains the homepage, capability map, four capabilities, and PLC case', () => {
     expect(showcaseRoutePaths).toEqual([
       '/',
+      '/capabilities',
       '/hmi',
       '/plc',
+      '/plc/case',
       '/motion',
       '/vision',
     ])

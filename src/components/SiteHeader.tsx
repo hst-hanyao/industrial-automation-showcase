@@ -32,7 +32,7 @@ export function SiteHeader() {
         if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false)
       }}
     >
-      <a className="brand-lockup" href="/" aria-label="返回 PLC 程序架构" onClick={() => setMenuOpen(false)}>
+      <div className="brand-lockup">
         <span className="brand-mark" aria-hidden="true">
           <i />
           <i />
@@ -42,7 +42,7 @@ export function SiteHeader() {
           <b>CONTROL / EVIDENCE</b>
           <small>PLC 程序架构</small>
         </span>
-      </a>
+      </div>
 
       <button ref={toggleRef} type="button" className="nav-toggle" aria-expanded={menuOpen}
         aria-controls={menuId} aria-label={menuOpen ? '关闭能力导航' : '展开能力导航'}

@@ -19,11 +19,6 @@
   min-width: 0;
   padding: 0 22px;
   border-right: 1px solid var(--line);
-  transition: background-color 180ms ease;
-}
-
-.brand-lockup:hover {
-  background: var(--ink-raised);
 }
 
 .brand-lockup > span:last-child {

@@ -1,9 +1,106 @@
-import { DetailPage } from '../components/DetailPage'
-import { getCapability } from '../data/capabilities'
+import { lazy, Suspense, useLayoutEffect, useRef, type KeyboardEvent } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { usePageMeta } from '../hooks/usePageMeta'
+import { mountArchitecture } from '../plc/architecture-runtime'
+import architectureMarkup from '../plc/architecture.html?raw'
+import '../plc/architecture.css'
+import '../styles/hmi.css'
+import '../styles/plc-page.css'
 
-const capability = getCapability('plc')
+const PlcPackmlPanel = lazy(() => import('./PlcPackmlPanel'))
+const views = [
+  { id: 'architecture', label: '架构总览' },
+  { id: 'walkthrough', label: '单片执行流程' },
+  { id: 'exchanges', label: 'Unit ↔ Module 交互' },
+  { id: 'operations', label: '操作流程' },
+  { id: 'framework', label: '框架细化' },
+  { id: 'packml', label: 'PackML 状态机' },
+] as const
 
 export default function PlcPage() {
-  return <DetailPage capability={capability} />
-}
+  const [search, setSearch] = useSearchParams()
+  const view = views.find(({ id }) => id === search.get('view'))?.id ?? 'architecture'
+  const architectureRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const runtimeRef = useRef<ReturnType<typeof mountArchitecture> | null>(null)
+  usePageMeta('PLC 程序架构', headingRef)
 
+  useLayoutEffect(() => {
+    const root = architectureRef.current!
+    root.innerHTML = architectureMarkup
+    const runtime = mountArchitecture(root)
+    runtimeRef.current = runtime
+    return () => {
+      runtime.destroy()
+      runtimeRef.current = null
+      root.replaceChildren()
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    if (view !== 'packml') runtimeRef.current?.setView(view)
+  }, [view])
+
+  function selectView(id: typeof view) {
+    setSearch(id === 'architecture' ? {} : { view: id }, { preventScrollReset: true })
+  }
+
+  function onTabKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End']
+    if (!keys.includes(event.key)) return
+    event.preventDefault()
+    const index = views.findIndex(({ id }) => id === view)
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? views.length - 1
+      : (index + (event.key === 'ArrowRight' ? 1 : -1) + views.length) % views.length
+    const tab = views[next]
+    if (!tab) return
+    selectView(tab.id)
+    event.currentTarget.querySelector<HTMLButtonElement>('#tab-' + tab.id)?.focus()
+  }
+
+  return (
+    <main id="main-content" className="detail-page plc-page" tabIndex={-1}>
+      <section className="detail-hero detail-hero--architecture">
+        <div className="detail-hero__index" aria-hidden="true"><span>02</span><i /><small>04</small></div>
+        <div className="detail-hero__copy">
+          <p className="eyebrow">PLC / CONTROL</p>
+          <h1 ref={headingRef} tabIndex={-1}>PLC 程序架构</h1>
+          <p className="detail-hero__lead">以晶圆电镀设备为例，查看 PLC 任务划分、整机与腔室交接、设备操作流程及 PackML 状态流转。</p>
+          <div className="tag-row">
+            {['TwinCAT', 'IEC 61131-3', 'PackML'].map((tag) => <span key={tag} translate="no">{tag}</span>)}
+          </div>
+        </div>
+        <div className="detail-hero__visual hmi-explorer plc-explorer">
+          <div className="hmi-explorer__toolbar">
+            <div><p className="hmi-explorer__eyebrow">ARCHITECTURE / CONTROL</p><h2>程序框架与运行流程</h2></div>
+          </div>
+          <div className="hmi-chain-tabs" role="tablist" aria-label="PLC 说明视图" onKeyDown={onTabKeyDown}>
+            {views.map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                id={'tab-' + id}
+                aria-controls={'view-' + id}
+                aria-selected={id === view}
+                tabIndex={id === view ? 0 : -1}
+                onClick={() => selectView(id)}
+              >{label}</button>
+            ))}
+          </div>
+          <div ref={architectureRef} className="plc-architecture" hidden={view === 'packml'} />
+          <div id="view-packml" role="tabpanel" aria-labelledby="tab-packml" hidden={view !== 'packml'}>
+            {view === 'packml' && (
+              <Suspense fallback={<p className="plc-panel-loading" role="status">正在加载 PackML 图表…</p>}>
+                <PlcPackmlPanel />
+              </Suspense>
+            )}
+          </div>
+        </div>
+        <div className="evidence-legend plc-reading-links">
+          <Link className="text-link" to="/plc/case">TwinCAT 官方案例复盘 <span aria-hidden="true">↗</span></Link>
+        </div>
+      </section>
+    </main>
+  )
+}

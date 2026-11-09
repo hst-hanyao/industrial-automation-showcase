@@ -6,7 +6,7 @@ import { ScrollTargetButton } from './ScrollTargetButton'
 import { SiteFooter } from './SiteFooter'
 import { SiteHeader } from './SiteHeader'
 
-const { home: HomePage, hmi: HmiPage, plc: PlcPage, motion: MotionPage, vision: VisionPage } = lazyPages
+const { home: HomePage, hmi: HmiPage, plc: PlcPage, plcCase: PlcCasePage, motion: MotionPage, vision: VisionPage } = lazyPages
 
 function LoadingRoute() {
   return (
@@ -18,6 +18,9 @@ function LoadingRoute() {
 
 export function AppShell() {
   const location = useLocation()
+  const isCapabilityMapEntry = document.body.dataset.defaultPage === 'capabilities'
+  const previousView = new URLSearchParams(window.location.search).get('view')
+  const initialPlcSearch = previousView ? new URLSearchParams({ view: previousView }).toString() : ''
 
   return (
     <div className="app-shell">
@@ -28,9 +31,13 @@ export function AppShell() {
       <RouteTransition routeKey={location.pathname} />
       <Suspense fallback={<LoadingRoute />}>
         <Routes location={location}>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={isCapabilityMapEntry
+            ? <HomePage />
+            : <Navigate to={{ pathname: '/plc', search: initialPlcSearch }} replace />} />
+          <Route path="/capabilities" element={<HomePage />} />
           <Route path="/hmi" element={<HmiPage />} />
           <Route path="/plc" element={<PlcPage />} />
+          <Route path="/plc/case" element={<PlcCasePage />} />
           <Route path="/motion" element={<MotionPage />} />
           <Route path="/vision" element={<VisionPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
