@@ -38,6 +38,24 @@ replaceOnce(/<p class="subtitle">[^\r\n]*?<\/p>/, '', 'header subtitle')
 replaceOnce(/^[ \t]*<div class="header-actions">[^\r\n]*?<\/div>[ \t]*\r?\n/m, '', 'header toolbar')
 replaceOnce(/<div class="save-state" id="saveState">[^\r\n]*?<\/div>/, '', 'draft status toolbar')
 
+// PackML is a separate document, so its link sits beside the in-page tablist.
+replaceOnce(
+  /(<button class="tab" id="tab-framework"[^>]*>[^<]*<\/button><\/nav>)(<\/div>)/,
+  '$1<a class="tab plc-packml-link" data-host-only href="/packml/">PackML 状态机</a>$2',
+  'PackML navigation position',
+)
+const packmlNavStyles = `.topline:has(>.plc-packml-link){justify-content:flex-start;gap:6px}.plc-packml-link{display:inline-block;text-decoration:none;white-space:nowrap}.plc-packml-link:hover,.plc-packml-link:focus-visible{background:var(--teal-soft);color:var(--teal)}.plc-packml-link:focus-visible{outline:2px solid var(--teal);outline-offset:2px}@media(max-width:820px){.plc-packml-link{margin-top:5px}}@media print{.plc-packml-link{display:none}}`
+html = html.replace('</head>', `<style data-host-only id="plc-packml-styles">${packmlNavStyles}</style>\n</head>`)
+
+// Let links on the PackML page return directly to any existing view.
+replaceOnce(
+  "buildLayout();renderInspector();setView('architecture');",
+  `const requestedView = new URLSearchParams(location.search).get('view');
+  const initialTab = [...document.querySelectorAll('[role="tablist"] [data-view]')].find(tab => tab.dataset.view === requestedView);
+  buildLayout();renderInspector();setView(initialTab?.dataset.view ?? 'architecture');`,
+  'initial framework view',
+)
+
 // Keep the existing Ctrl+S draft shortcut and inspector editing without the toolbar.
 const saveBinding = html.match(/^[ \t]*\$\('saveDraft'\)\.addEventListener\('click',\(\)=>\{([^\r\n]*)\}\);[ \t]*\r?$/m)
 if (!saveBinding) throw new Error('Draft save binding changed; review the keyboard shortcut.')

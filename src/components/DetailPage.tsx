@@ -8,6 +8,7 @@ import {
 import { useMotionMode } from '../features/motion/useMotionMode'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { gsap, useGSAP } from '../lib/gsap'
+import { CapabilityLink } from './CapabilityLink'
 import { IntentLink } from './IntentLink'
 import { MediaFrame } from './MediaFrame'
 import { TechnicalDiagram } from './TechnicalDiagram'
@@ -162,18 +163,18 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
       </div>
 
       <nav className="project-pagination" aria-label="相邻能力项目">
-        <IntentLink to={neighbors.previous.route}>
+        <CapabilityLink capability={neighbors.previous}>
           <span>PREVIOUS / {neighbors.previous.order}</span>
-          <strong>{neighbors.previous.title}</strong>
-        </IntentLink>
+          <strong>{neighbors.previous.primaryDocument?.title ?? neighbors.previous.title}</strong>
+        </CapabilityLink>
         <IntentLink to="/" className="project-pagination__home">
           <span>CONTROL CORE</span>
           <strong>返回能力图谱</strong>
         </IntentLink>
-        <IntentLink to={neighbors.next.route}>
+        <CapabilityLink capability={neighbors.next}>
           <span>NEXT / {neighbors.next.order}</span>
-          <strong>{neighbors.next.title}</strong>
-        </IntentLink>
+          <strong>{neighbors.next.primaryDocument?.title ?? neighbors.next.title}</strong>
+        </CapabilityLink>
       </nav>
     </main>
   )

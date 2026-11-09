@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { capabilities } from '../data/capabilities'
+import { CapabilityLink } from './CapabilityLink'
 import { DeviceDemoMenu } from './DeviceDemoMenu'
 import { IntentNavLink } from './IntentLink'
 
@@ -53,18 +54,17 @@ export function SiteHeader() {
 
       <nav id={menuId} className="primary-nav" aria-label="能力详情">
         {capabilities.map((capability) => (
-          <IntentNavLink
+          <CapabilityLink
             key={capability.id}
-            to={capability.route}
-            className={({ isActive }) =>
-              `nav-domain${isActive ? ' is-active' : ''}`
-            }
+            capability={capability}
+            className="nav-domain"
+            highlightActive
             style={{ '--nav-accent': capability.accent } as React.CSSProperties}
             onClick={() => setMenuOpen(false)}
           >
             <span>{capability.order}</span>
             <b>{capability.shortName}</b>
-          </IntentNavLink>
+          </CapabilityLink>
         ))}
       </nav>
 

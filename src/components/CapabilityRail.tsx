@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { capabilities } from '../data/capabilities'
 import { useMotionMode } from '../features/motion/useMotionMode'
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
-import { IntentLink } from './IntentLink'
+import { CapabilityLink } from './CapabilityLink'
 import { MediaFrame } from './MediaFrame'
 import { TechnicalDiagram } from './TechnicalDiagram'
 
@@ -84,16 +84,16 @@ export function CapabilityRail() {
             <i data-rail-fill />
           </div>
           {capabilities.map((capability) => (
-            <IntentLink
+            <CapabilityLink
               key={capability.id}
-              to={capability.route}
+              capability={capability}
               className="atlas-rail__node"
               data-rail-node
               style={{ '--node-accent': capability.accent } as React.CSSProperties}
             >
               <span>{capability.order}</span>
               <div><b>{capability.shortName}</b><small>{capability.EnglishName}</small></div>
-            </IntentLink>
+            </CapabilityLink>
           ))}
         </nav>
 
@@ -107,15 +107,15 @@ export function CapabilityRail() {
             >
               <div className="atlas-chapter__copy">
                 <p className="eyebrow">DOMAIN {capability.order} / {capability.EnglishName}</p>
-                <h3>{capability.title}</h3>
-                <p>{capability.lead}</p>
+                <h3>{capability.primaryDocument?.title ?? capability.title}</h3>
+                <p>{capability.primaryDocument?.lead ?? capability.lead}</p>
                 <dl>
-                  <div><dt>证据入口</dt><dd>{capability.proofLine}</dd></div>
+                  <div><dt>证据入口</dt><dd>{capability.primaryDocument?.proofLine ?? capability.proofLine}</dd></div>
                   <div><dt>内容标签</dt><dd>{capability.tags.join(' / ')}</dd></div>
                 </dl>
-                <IntentLink className="text-link" to={capability.route}>
-                  进入详情 <span aria-hidden="true">↗</span>
-                </IntentLink>
+                <CapabilityLink className="text-link" capability={capability}>
+                  {capability.primaryDocument ? '查看完整框架' : '进入详情'} <span aria-hidden="true">↗</span>
+                </CapabilityLink>
               </div>
 
               <div className="atlas-chapter__visual">

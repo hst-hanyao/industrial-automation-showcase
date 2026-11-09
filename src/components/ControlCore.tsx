@@ -1,6 +1,6 @@
 import { capabilities } from '../data/capabilities'
 import { getMediaUrl } from '../lib/media'
-import { IntentLink } from './IntentLink'
+import { CapabilityLink } from './CapabilityLink'
 import '../styles/home-concept.css'
 
 export function ControlCore() {
@@ -22,11 +22,11 @@ export function ControlCore() {
       </figure>
       <nav className="home-device__domains" aria-label="四项能力入口">
         {capabilities.map((capability) => (
-          <IntentLink key={capability.id} to={capability.route} className="home-device__domain">
+          <CapabilityLink key={capability.id} capability={capability} className="home-device__domain">
             <span>{capability.order}</span>
             <div><b>{capability.shortName}</b><small>{capability.EnglishName}</small></div>
             <i aria-hidden="true">↗</i>
-          </IntentLink>
+          </CapabilityLink>
         ))}
       </nav>
     </div>
