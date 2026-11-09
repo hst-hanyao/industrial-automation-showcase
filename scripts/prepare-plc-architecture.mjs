@@ -71,22 +71,23 @@ for (const id of ['exportJson', 'exportHtml', 'importButton', 'helpButton']) {
 }
 html = html.replace('核对后请保存或导出。', '核对后可按 Ctrl+S 保存。')
 
-// Keep the original site destinations available in the shell while only showing PLC views.
-const siteNav = `<nav class="plc-site-nav" aria-label="全站导航" hidden data-host-only>
-      <a href="/capability-map/#/hmi">上位机</a>
-      <a href="/plc-architecture/">PLC</a>
-      <a href="/capability-map/#/motion">运动控制</a>
-      <a href="/capability-map/#/vision">机器视觉</a>
-      <details>
-        <summary>3D 演示</summary>
-        <a href="/waferplt/">晶圆电镀工艺</a>
-        <a href="/stretch-bender/">三维拉弯机</a>
+const siteNav = `<nav class="plc-site-nav" aria-label="全站导航" data-host-only>
+      <a class="tab" href="/capability-map/#/hmi">上位机</a>
+      <a class="tab" href="/plc-architecture/" aria-current="location">PLC</a>
+      <a class="tab" href="/capability-map/#/motion">运动控制</a>
+      <a class="tab" href="/capability-map/#/vision">机器视觉</a>
+      <details class="plc-demo">
+        <summary class="tab">3D 演示</summary>
+        <div class="plc-demo-links">
+          <a href="/waferplt/">晶圆电镀工艺</a>
+          <a href="/stretch-bender/">三维拉弯机</a>
+        </div>
       </details>
     </nav>`
 replaceOnce(
   / {2}<\/div>\r?\n {2}<div class="topline plc-viewbar">/,
   `    ${siteNav}\n  </div>\n  <div class="topline plc-viewbar">`,
-  'hidden site navigation position',
+  'site navigation position',
 )
 
 // The site's existing build injects a login display script into public HTML.

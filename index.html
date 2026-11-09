@@ -147,15 +147,17 @@
 <header class="page-header">
   <div class="header-main">
     <div><div class="brand"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="10" y="2" width="8" height="6" rx="1"/><path d="M14 8v5M5 18v-5h18v5"/><rect x="1" y="18" width="8" height="7" rx="1"/><rect x="19" y="18" width="8" height="7" rx="1"/></svg></div><div><h1>PLC 程序架构 <span style="color:#91a39a;font-weight:400">/</span> 交互说明</h1></div></div></div>
-    <nav class="plc-site-nav" aria-label="全站导航" hidden data-host-only>
-      <a href="/capability-map/#/hmi">上位机</a>
-      <a href="/plc-architecture/">PLC</a>
-      <a href="/capability-map/#/motion">运动控制</a>
-      <a href="/capability-map/#/vision">机器视觉</a>
-      <details>
-        <summary>3D 演示</summary>
-        <a href="/waferplt/">晶圆电镀工艺</a>
-        <a href="/stretch-bender/">三维拉弯机</a>
+    <nav class="plc-site-nav" aria-label="全站导航" data-host-only>
+      <a class="tab" href="/capability-map/#/hmi">上位机</a>
+      <a class="tab" href="/plc-architecture/" aria-current="location">PLC</a>
+      <a class="tab" href="/capability-map/#/motion">运动控制</a>
+      <a class="tab" href="/capability-map/#/vision">机器视觉</a>
+      <details class="plc-demo">
+        <summary class="tab">3D 演示</summary>
+        <div class="plc-demo-links">
+          <a href="/waferplt/">晶圆电镀工艺</a>
+          <a href="/stretch-bender/">三维拉弯机</a>
+        </div>
       </details>
     </nav>
   </div>
