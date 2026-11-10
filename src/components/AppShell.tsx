@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Navigate, Route, Routes, useLocation, useMatch } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { lazyPages } from '../route-modules'
 import { RouteTransition } from './RouteTransition'
 import { ScrollTargetButton } from './ScrollTargetButton'
@@ -18,9 +18,7 @@ function LoadingRoute() {
 
 export function AppShell() {
   const location = useLocation()
-  const plcSection = useMatch('/plc/*')
   const isCapabilityMapEntry = document.body.dataset.defaultPage === 'capabilities'
-  const enteringPlc = location.pathname === '/' && !isCapabilityMapEntry
   const previousView = new URLSearchParams(window.location.search).get('view')
   const initialPlcSearch = previousView ? new URLSearchParams({ view: previousView }).toString() : ''
 
@@ -29,7 +27,7 @@ export function AppShell() {
       <ScrollTargetButton className="skip-link" targetId="main-content">
         跳到主要内容
       </ScrollTargetButton>
-      <SiteHeader showNavigation={!plcSection && !enteringPlc} />
+      <SiteHeader />
       <RouteTransition routeKey={location.pathname} />
       <Suspense fallback={<LoadingRoute />}>
         <Routes location={location}>

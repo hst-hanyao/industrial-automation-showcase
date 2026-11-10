@@ -3,7 +3,7 @@ import { capabilities } from '../data/capabilities'
 import { CapabilityLink } from './CapabilityLink'
 import { DeviceDemoMenu } from './DeviceDemoMenu'
 
-export function SiteHeader({ showNavigation }: { showNavigation: boolean }) {
+export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const menuId = useId()
   const toggleRef = useRef<HTMLButtonElement>(null)
@@ -20,7 +20,7 @@ export function SiteHeader({ showNavigation }: { showNavigation: boolean }) {
   }, [])
 
   return (
-    <header className={`site-header${showNavigation ? (menuOpen ? ' is-menu-open' : '') : ' site-header--title-only'}`}
+    <header className={`site-header${menuOpen ? ' is-menu-open' : ''}`}
       onKeyDown={(event) => {
         if (event.key === 'Escape' && menuOpen) {
           event.preventDefault()
@@ -44,34 +44,30 @@ export function SiteHeader({ showNavigation }: { showNavigation: boolean }) {
         </span>
       </div>
 
-      {showNavigation && (
-        <>
-          <button ref={toggleRef} type="button" className="nav-toggle" aria-expanded={menuOpen}
-            aria-controls={menuId} aria-label={menuOpen ? '关闭能力导航' : '展开能力导航'}
-            onClick={() => setMenuOpen((open) => !open)}>
-            <span aria-hidden="true">{menuOpen ? '×' : '☰'}</span>
-            <span>{menuOpen ? '关闭' : '导航'}</span>
-          </button>
+      <button ref={toggleRef} type="button" className="nav-toggle" aria-expanded={menuOpen}
+        aria-controls={menuId} aria-label={menuOpen ? '关闭能力导航' : '展开能力导航'}
+        onClick={() => setMenuOpen((open) => !open)}>
+        <span aria-hidden="true">{menuOpen ? '×' : '☰'}</span>
+        <span>{menuOpen ? '关闭' : '导航'}</span>
+      </button>
 
-          <nav id={menuId} className="primary-nav" aria-label="能力详情">
-            {capabilities.map((capability) => (
-              <CapabilityLink
-                key={capability.id}
-                capability={capability}
-                className="nav-domain"
-                highlightActive
-                style={{ '--nav-accent': capability.accent } as React.CSSProperties}
-                onClick={() => setMenuOpen(false)}
-              >
-                <span>{capability.order}</span>
-                <b>{capability.shortName}</b>
-              </CapabilityLink>
-            ))}
-          </nav>
+      <nav id={menuId} className="primary-nav" aria-label="能力详情">
+        {capabilities.map((capability) => (
+          <CapabilityLink
+            key={capability.id}
+            capability={capability}
+            className="nav-domain"
+            highlightActive
+            style={{ '--nav-accent': capability.accent } as React.CSSProperties}
+            onClick={() => setMenuOpen(false)}
+          >
+            <span>{capability.order}</span>
+            <b>{capability.shortName}</b>
+          </CapabilityLink>
+        ))}
+      </nav>
 
-          <DeviceDemoMenu onOpen={() => setMenuOpen(false)} />
-        </>
-      )}
+      <DeviceDemoMenu onOpen={() => setMenuOpen(false)} />
 
     </header>
   )
