@@ -3,7 +3,7 @@ import { capabilities } from '../data/capabilities'
 import { CapabilityLink } from './CapabilityLink'
 import { DeviceDemoMenu } from './DeviceDemoMenu'
 import { ExecutiveQuickTour } from './ExecutiveQuickTour'
-import { IntentNavLink } from './IntentLink'
+import { IntentLink, IntentNavLink } from './IntentLink'
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -37,17 +37,16 @@ export function SiteHeader() {
           if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false)
         }}
       >
-        <div className="brand-lockup">
+        <IntentLink to="/" className="brand-lockup" title="返回首页能力图谱">
           <span className="brand-mark" aria-hidden="true">
             <i />
             <i />
             <i />
           </span>
           <span>
-            <b>CONTROL / EVIDENCE</b>
-            <small>PLC 程序架构</small>
+            <b>能力图谱</b>
           </span>
-        </div>
+        </IntentLink>
 
         <button
           ref={toggleRef}
@@ -72,7 +71,6 @@ export function SiteHeader() {
               style={{ '--nav-accent': capability.accent } as React.CSSProperties}
               onClick={() => setMenuOpen(false)}
             >
-              <span>{capability.order}</span>
               <b>{capability.shortName}</b>
             </CapabilityLink>
           ))}
@@ -84,7 +82,6 @@ export function SiteHeader() {
             } as React.CSSProperties}
             onClick={() => setMenuOpen(false)}
           >
-            <span style={{ color: '#16a34a' }}>05</span>
             <b>问题排查</b>
           </IntentNavLink>
         </nav>
