@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { engineeringCases, type TroubleshootingCase } from '../data/engineering-cases'
 
-export function EngineeringCases() {
+interface EngineeringCasesProps {
+  readonly embedded?: boolean
+}
+
+export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
   const [activeId, setActiveId] = useState<string>(engineeringCases[0]?.id ?? '')
 
   const currentCase: TroubleshootingCase | undefined =
@@ -10,15 +14,21 @@ export function EngineeringCases() {
   if (!currentCase) return null
 
   return (
-    <section id="engineering-cases" className="eng-cases" aria-labelledby="eng-cases-title">
-      <div className="eng-cases__header">
-        <p className="eyebrow">FIELD ENGINEERING / TROUBLESHOOTING</p>
-        <h2 id="eng-cases-title">工程实战疑难攻坚与现场排查</h2>
-        <p>
-          记录在晶圆设备与自动化生产现场亲历的深水区难题：
-          从示波器抓波、电磁干扰分析到供电拓扑重构与并发握手协议，呈现完整的软硬件攻关闭环。
-        </p>
-      </div>
+    <section
+      id="engineering-cases"
+      className={`eng-cases${embedded ? ' is-embedded' : ''}`}
+      aria-labelledby={embedded ? undefined : 'eng-cases-title'}
+    >
+      {!embedded && (
+        <div className="eng-cases__header">
+          <p className="eyebrow">FIELD ENGINEERING / TROUBLESHOOTING</p>
+          <h2 id="eng-cases-title">工程实战疑难攻坚与现场排查</h2>
+          <p>
+            记录在晶圆设备与自动化生产现场亲历的深水区难题：
+            从示波器抓波、电磁干扰分析到供电拓扑重构与并发握手协议，呈现完整的软硬件攻关闭环。
+          </p>
+        </div>
+      )}
 
       <div className="eng-cases__tabs" role="tablist" aria-label="排查案例选择">
         {engineeringCases.map((item) => {

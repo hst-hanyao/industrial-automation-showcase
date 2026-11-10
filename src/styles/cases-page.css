@@ -1,0 +1,137 @@
+/* Cases Page - Detail Page Layout for Problem Troubleshooting */
+.cases-page {
+  --accent: #16a34a;
+  --accent-soft: #4ade80;
+  background: var(--ink);
+}
+
+.cases-hero {
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.cases-hero .detail-hero__copy h1 {
+  color: var(--bone);
+}
+
+.cases-hero .detail-hero__index span {
+  color: #16a34a;
+}
+
+.cases-hero .detail-hero__index i {
+  background: linear-gradient(#16a34a, transparent);
+}
+
+.cases-visual {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+}
+
+.eng-cases.is-embedded {
+  padding: 0;
+  border-top: 0;
+  background: transparent;
+}
+
+.cases-methods {
+  padding: clamp(48px, 6vw, 84px) var(--page-gutter);
+  border-top: 1px solid var(--line-strong);
+  background: var(--ink-raised);
+}
+
+.cases-methods__header {
+  max-width: 54rem;
+  margin-bottom: clamp(28px, 3.5vw, 44px);
+}
+
+.cases-methods__header .eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+}
+
+.cases-methods__header h2 {
+  margin: 0 0 14px;
+  color: var(--bone);
+  font-size: clamp(1.7rem, 2.5vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.cases-methods__header p {
+  margin: 0;
+  color: var(--bone-muted);
+  font-size: 1.02rem;
+  line-height: 1.68;
+}
+
+.cases-methods__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.cases-method-card {
+  padding: 24px 26px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--ink);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.cases-method-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.cases-method-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.cases-method-card__badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 4px;
+  background: rgba(22, 163, 74, 0.12);
+  color: #16a34a;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.cases-method-card__index {
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.85rem;
+  color: var(--bone-muted);
+}
+
+.cases-method-card h3 {
+  margin: 0 0 10px;
+  color: var(--bone);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.cases-method-card p {
+  margin: 0 0 14px;
+  color: var(--bone-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.cases-method-card__points {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--bone);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.cases-method-card__points li {
+  margin-bottom: 6px;
+}

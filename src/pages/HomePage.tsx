@@ -1,7 +1,5 @@
 import { useRef } from 'react'
-import { CapabilityRail } from '../components/CapabilityRail'
 import { ControlCore } from '../components/ControlCore'
-import { EngineeringCases } from '../components/EngineeringCases'
 import { IntentLink } from '../components/IntentLink'
 import { ScrollTargetButton } from '../components/ScrollTargetButton'
 import { TechStackMatrix } from '../components/TechStackMatrix'
@@ -10,7 +8,6 @@ import { useMotionMode } from '../features/motion/useMotionMode'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { gsap, useGSAP } from '../lib/gsap'
 import '../styles/tech-stack.css'
-import '../styles/engineering-cases.css'
 
 export default function HomePage() {
   const rootRef = useRef<HTMLElement>(null)
@@ -62,15 +59,12 @@ export default function HomePage() {
           </p>
           <div className="home-hero__actions" data-home-intro>
             <IntentLink className="primary-action" to="/hmi">从上位机进入 <span aria-hidden="true">↗</span></IntentLink>
-            <ScrollTargetButton className="secondary-action" targetId="capability-atlas">
-              四域图谱 <span aria-hidden="true">↓</span>
-            </ScrollTargetButton>
             <ScrollTargetButton className="secondary-action" targetId="tech-matrix">
               技术矩阵 <span aria-hidden="true">⚙</span>
             </ScrollTargetButton>
-            <ScrollTargetButton className="secondary-action" targetId="engineering-cases">
-              实战排查 <span aria-hidden="true">★</span>
-            </ScrollTargetButton>
+            <IntentLink className="secondary-action" to="/cases">
+              问题排查 <span aria-hidden="true">★</span>
+            </IntentLink>
           </div>
         </div>
 
@@ -89,18 +83,16 @@ export default function HomePage() {
         </p>
       </section>
 
-      <div id="capability-atlas" tabIndex={-1}>
-        <CapabilityRail />
-      </div>
-
       <TechStackMatrix />
 
-      <EngineeringCases />
-
       <section className="home-closing">
-        <p className="eyebrow">ENGINEERING CASES</p>
+        <p className="eyebrow">CONTROL &amp; FEEDBACK LOOP</p>
         <h2>从操作界面出发，<br />追踪命令与反馈。</h2>
-        <IntentLink className="primary-action" to="/hmi">开始浏览完整链路 <span aria-hidden="true">→</span></IntentLink>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '24px' }}>
+          <IntentLink className="primary-action" to="/hmi">从上位机进入 <span aria-hidden="true">→</span></IntentLink>
+          <IntentLink className="secondary-action" to="/plc">查看 PLC 架构 <span aria-hidden="true">→</span></IntentLink>
+          <IntentLink className="secondary-action" to="/cases">查看问题排查 <span aria-hidden="true">→</span></IntentLink>
+        </div>
       </section>
     </main>
   )

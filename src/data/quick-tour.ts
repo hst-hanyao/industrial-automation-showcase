@@ -73,7 +73,7 @@ export const tourItems: readonly TourItem[] = [
       '案例 02：TwinCAT 跨任务并发与上位机异步读写撕裂，单写者与 SequenceID 握手',
       '案例 03：RS-485 单线悬空伪差模压差，双线同步切断规程与总线偏置防呆',
     ],
-    actionText: '查看现场排查实战',
-    route: '/#engineering-cases',
+    actionText: '查看问题排查详情',
+    route: '/cases',
   },
 ] as const

@@ -1,16 +1,15 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { capabilities } from '../data/capabilities'
 import { CapabilityLink } from './CapabilityLink'
 import { DeviceDemoMenu } from './DeviceDemoMenu'
 import { ExecutiveQuickTour } from './ExecutiveQuickTour'
+import { IntentNavLink } from './IntentLink'
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [tourOpen, setTourOpen] = useState(false)
   const menuId = useId()
   const toggleRef = useRef<HTMLButtonElement>(null)
-  const navigate = useNavigate()
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false)
@@ -22,19 +21,6 @@ export function SiteHeader() {
       desktop.removeEventListener('change', closeMenu)
     }
   }, [])
-
-  function handleCasesClick() {
-    setMenuOpen(false)
-    const el = document.getElementById('engineering-cases')
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      navigate('/')
-      setTimeout(() => {
-        document.getElementById('engineering-cases')?.scrollIntoView({ behavior: 'smooth' })
-      }, 150)
-    }
-  }
 
   return (
     <>
@@ -90,22 +76,17 @@ export function SiteHeader() {
               <b>{capability.shortName}</b>
             </CapabilityLink>
           ))}
-          <button
-            type="button"
-            className="nav-domain nav-domain--cases"
+          <IntentNavLink
+            to="/cases"
+            className={({ isActive }) => `nav-domain nav-domain--cases${isActive ? ' is-active' : ''}`}
             style={{
               '--nav-accent': '#16a34a',
-              background: 'none',
-              border: 'none',
-              textAlign: 'left',
-              cursor: 'pointer',
-              font: 'inherit',
             } as React.CSSProperties}
-            onClick={handleCasesClick}
+            onClick={() => setMenuOpen(false)}
           >
             <span style={{ color: '#16a34a' }}>05</span>
-            <b>实战排查</b>
-          </button>
+            <b>问题排查</b>
+          </IntentNavLink>
         </nav>
 
         <div className="header-actions">

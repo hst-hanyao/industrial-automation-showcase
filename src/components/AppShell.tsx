@@ -6,7 +6,15 @@ import { ScrollTargetButton } from './ScrollTargetButton'
 import { SiteFooter } from './SiteFooter'
 import { SiteHeader } from './SiteHeader'
 
-const { home: HomePage, hmi: HmiPage, plc: PlcPage, plcCase: PlcCasePage, motion: MotionPage, vision: VisionPage } = lazyPages
+const {
+  home: HomePage,
+  hmi: HmiPage,
+  plc: PlcPage,
+  plcCase: PlcCasePage,
+  motion: MotionPage,
+  vision: VisionPage,
+  cases: CasesPage,
+} = lazyPages
 
 function LoadingRoute() {
   return (
@@ -40,6 +48,7 @@ export function AppShell() {
           <Route path="/plc/case" element={<PlcCasePage />} />
           <Route path="/motion" element={<MotionPage />} />
           <Route path="/vision" element={<VisionPage />} />
+          <Route path="/cases" element={<CasesPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>

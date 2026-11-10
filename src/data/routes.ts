@@ -1,4 +1,4 @@
-export const showcaseRoutePaths = ['/', '/capabilities', '/hmi', '/plc', '/plc/case', '/motion', '/vision'] as const
+export const showcaseRoutePaths = ['/', '/capabilities', '/hmi', '/plc', '/plc/case', '/motion', '/vision', '/cases'] as const
 
 export type ShowcaseRoutePath = (typeof showcaseRoutePaths)[number]
 
