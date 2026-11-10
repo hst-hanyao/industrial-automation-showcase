@@ -11,13 +11,17 @@
 </head>
 <body>
   <header class="masthead">
-    <a class="brand" href="../" aria-label="返回工业自动化展台"><span class="brand-symbol" aria-hidden="true">◎</span><span>工业设备研究室<small>MECHANISM STUDIES</small></span></a>
-    <div class="page-identity"><span class="eyebrow">NO. 02 / MOTION STUDY</span><strong>三维拉弯机</strong></div>
-    <div class="head-actions"><span class="ready-state" id="ready-state">正在构建场景</span></div>
+    <a class="brand" href="../" aria-label="返回首页能力图谱"><span class="brand-symbol" aria-hidden="true">◎</span><span>能力图谱 · 工业设备研究室</span></a>
+    <div class="page-identity"><span class="eyebrow">3D 运动学仿真</span><strong>十六轴三维拉弯机</strong></div>
+    <div class="head-actions">
+      <a class="nav-btn nav-btn--switch" href="../waferplt/" title="切换到晶圆电镀机 3D 工作台"><span>晶圆电镀机 3D</span> <span aria-hidden="true">↗</span></a>
+      <a class="nav-btn nav-btn--back" href="../" title="返回首页能力图谱"><span aria-hidden="true">←</span> <span>返回首页</span></a>
+      <span class="ready-state" id="ready-state">正在构建场景</span>
+    </div>
   </header>
   <main class="workbench">
     <section class="viewport" aria-label="拉弯机三维视图">
-      <div class="scene-heading"><span class="eyebrow">3D STRETCH BENDING MACHINE</span><h1>空间拉弯，逐轴观察。</h1><p>左右各八轴 · 图片姿态为零位</p></div>
+      <div class="scene-heading"><span class="eyebrow">三维数字孪生工作台</span><h1>空间拉弯，逐轴观察。</h1><p>左右各八轴 · 图片姿态为零位</p></div>
       <div id="stage" class="stage" aria-label="拖动旋转三维模型，滚轮缩放"></div>
       <div class="scene-state"><span class="state-dot"></span><span id="pose-state">图片零位</span><span class="state-count"><b id="changed-count">00</b> / 16 轴已调整</span></div>
       <div class="scene-help">拖动旋转 · 滚轮缩放 · 右键平移</div>
@@ -28,7 +32,7 @@
       <div id="film-caption" class="film-caption" hidden></div>
     </section>
     <aside class="control-panel" aria-label="十六轴独立控制">
-      <div class="panel-heading"><div><span class="eyebrow">AXIS POSITIONING</span><h2>轴位置设定</h2></div><span class="axis-total">16<span>独立轴</span></span></div>
+      <div class="panel-heading"><div><span class="eyebrow">十六轴独立设定</span><h2>轴位置设定</h2></div><span class="axis-total">16<span>独立轴</span></span></div>
       <div class="side-tabs" role="tablist" aria-label="选择机构侧别"><button id="side-left" role="tab" aria-selected="true" aria-controls="axis-panel" data-side="left"><b>L</b> 左侧机构 <span id="left-count">0 / 8</span></button><button id="side-right" role="tab" aria-selected="false" aria-controls="axis-panel" data-side="right" tabindex="-1"><b>R</b> 右侧机构 <span id="right-count">0 / 8</span></button></div>
       <div class="panel-actions"><span>数值相对图片零位</span><button id="reset-side">左侧归零 <span aria-hidden="true">↺</span></button></div>
       <div id="axis-panel" role="tabpanel" aria-labelledby="side-left" class="axis-list"></div>
@@ -38,8 +42,8 @@
       <p id="message" role="status" aria-live="polite" class="message">十六轴均可独立设定，左右分别保留数值。</p>
     </aside>
   </main>
-  <footer class="footnote"><span>图像参考重建 · 尺寸按比例估算</span><span>零位可复现 / 姿态可保存</span><a href="../waferplt/">晶圆电镀工作台 ↗</a></footer>
-  <dialog id="pose-dialog" aria-labelledby="pose-title"><div class="dialog-head"><div><span class="eyebrow">16 AXIS / POSE</span><h2 id="pose-title">保存与载入姿态</h2></div><button data-close="pose-dialog" aria-label="关闭姿态面板">×</button></div><p>保存左右全部十六轴的当前位置。也可以编辑下面的数值，再载入这组姿态。</p><label class="json-label" for="pose-json">姿态数据 · 直线轴 mm / 旋转轴 °</label><textarea id="pose-json" spellcheck="false" rows="15"></textarea><p id="pose-error" role="alert"></p><div class="dialog-actions"><button id="download-pose" class="secondary">导出 JSON</button><label class="file-button secondary">选择文件<input id="import-file" type="file" accept=".json,application/json"></label><button id="apply-json" class="primary">载入此姿态</button></div></dialog>
+  <footer class="footnote"><span>图像参考重建 · 尺寸按比例估算</span><span>零位可复现 / 姿态可保存</span><a href="../waferplt/">进入晶圆电镀机 3D 工作台 ↗</a><a href="../">返回首页能力图谱 ↗</a></footer>
+  <dialog id="pose-dialog" aria-labelledby="pose-title"><div class="dialog-head"><div><span class="eyebrow">十六轴姿态数据</span><h2 id="pose-title">保存与载入姿态</h2></div><button data-close="pose-dialog" aria-label="关闭姿态面板">×</button></div><p>保存左右全部十六轴的当前位置。也可以编辑下面的数值，再载入这组姿态。</p><label class="json-label" for="pose-json">姿态数据 · 直线轴 mm / 旋转轴 °</label><textarea id="pose-json" spellcheck="false" rows="15"></textarea><p id="pose-error" role="alert"></p><div class="dialog-actions"><button id="download-pose" class="secondary">导出 JSON</button><label class="file-button secondary">选择文件<input id="import-file" type="file" accept=".json,application/json"></label><button id="apply-json" class="primary">载入此姿态</button></div></dialog>
   <noscript><p>请开启 JavaScript 以显示三维设备及轴控制。</p></noscript>
   <script>/* BENDER_SCRIPT */</script>
 </body>

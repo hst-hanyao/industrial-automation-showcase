@@ -1,6 +1,6 @@
 {
   "createdAt": "2026-10-15T12:17:16.390Z",
-  "updatedAt": "2026-11-10T06:28:34.493Z",
+  "updatedAt": "2026-11-10T06:39:24.887Z",
   "basePath": "/industrial-automation-showcase/waferplt/",
   "kind": "Static files for the unified, manually controlled wafer electroplating teaching workspace",
   "entry": "index.html",
@@ -50,8 +50,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 4900,
-      "sha256": "cc3faea2ec7638316a384ce9924d9dc2021fbcd6d6d90616702afc145abb1f30"
+      "bytes": 5604,
+      "sha256": "5332c4c7e05f2be3a34c9e623acee04c736e62427dc71cb7ba74d5746ff97bf9"
     },
     {
       "path": "machine/electroplating-machine.html",
@@ -175,8 +175,8 @@
     },
     {
       "path": "teaching-workbench.css",
-      "bytes": 9340,
-      "sha256": "ea2a65239ffa4f30f069eb3056116caa9caf09e2b2c8dd40fe07729acb4532e2"
+      "bytes": 10655,
+      "sha256": "b3c162afa6ca5cf5a12cda3afad1977367148ceb68fd6802cbb63ffa4ce8959e"
     },
     {
       "path": "teaching-workbench.js",
@@ -184,7 +184,7 @@
       "sha256": "117d8de250c868d583c61c2b8472d613e26852a53aade3114f60e47e051df0a6"
     }
   ],
-  "totalBytes": 8914330,
+  "totalBytes": 8916349,
   "largest": {
     "path": "machine/electroplating-machine.html",
     "bytes": 903393,
