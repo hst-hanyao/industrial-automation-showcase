@@ -52,7 +52,7 @@ function fromLegacy(node) {
 
 function render(doc) {
   const clean = normalize(doc);
-  if (!clean.sections.length) return '<p class="document-empty">此节点当前无本机说明，可恢复发布版或编辑</p>';
+  if (!clean.sections.length) return '<p class="document-empty">此节点当前无本机说明，可恢复参考说明或编辑</p>';
   return clean.sections.map(s => `<section class="free-section" data-section-id="${escape(s.id)}">${s.title ? `<h3 class="free-section-title">${escape(s.title)}</h3>` : ''}<div class="rich-content">${s.html}</div></section>`).join('');
 }
 

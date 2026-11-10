@@ -111,7 +111,6 @@ export function CapabilityRail() {
                 <p>{capability.primaryDocument?.lead ?? capability.lead}</p>
                 <dl>
                   <div><dt>展示内容</dt><dd>{capability.primaryDocument?.proofLine ?? capability.proofLine}</dd></div>
-                  <div><dt>内容状态</dt><dd>已完成</dd></div>
                   <div><dt>内容标签</dt><dd>{capability.tags.join(' / ')}</dd></div>
                 </dl>
                 <CapabilityLink className="text-link" capability={capability}>

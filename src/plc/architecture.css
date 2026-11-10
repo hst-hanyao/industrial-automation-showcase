@@ -105,7 +105,6 @@
 :where(.plc-architecture) .detail-kicker { font: 10px Bahnschrift,"Microsoft YaHei UI",sans-serif; letter-spacing: 1.5px; color: var(--signal); text-transform: uppercase }
 :where(.plc-architecture) .detail-title { font-size: 25px; line-height: 1.35; margin: 10px 0 5px; letter-spacing: .3px; overflow-wrap: anywhere }
 :where(.plc-architecture) .detail-subtitle { color: var(--muted); font-size: 12px; margin-bottom: 15px; white-space: pre-wrap }
-:where(.plc-architecture) .detail-status { font-size: 10px; border: 1px solid #e1dfd4; background: #f7f6f0; padding: 2px 7px; border-radius: 4px; display: inline-block; margin-bottom: 18px; color: #7d7663 }
 :where(.plc-architecture) .detail-summary { font-size: 14px; line-height: 1.9; white-space: pre-wrap; padding-bottom: 20px; margin-bottom: 19px; border-bottom: 1px solid var(--line-strong) }
 :where(.plc-architecture) .detail-section { margin-bottom: 22px }
 :where(.plc-architecture) .detail-section h3 { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .5px; color: var(--signal); font-weight: 600; margin: 0 0 7px }
@@ -365,7 +364,6 @@
 :where(.plc-architecture) .framework-hero { display: flex; justify-content: space-between; gap: 20px; align-items: start; border-bottom: 1px solid var(--line-strong); padding-bottom: 19px; margin-bottom: 18px }
 :where(.plc-architecture) .framework-hero h2 { font-size: 20px; margin: 5px 0 6px }
 :where(.plc-architecture) .framework-hero p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.85; max-width: 690px }
-:where(.plc-architecture) .framework-tag { border: 1px solid #e8d9bc; color: #806339; background: #fbf5e9; border-radius: 4px; padding: 5px 9px; font-size: 10px; white-space: nowrap }
 :where(.plc-architecture) .framework-nav { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 20px }
 :where(.plc-architecture) .framework-nav button { border: 1px solid var(--line-strong); background: white; border-radius: 5px; padding: 8px 11px; font-size: 12px; text-align: left }
 :where(.plc-architecture) .framework-nav button[aria-pressed=true] { background: var(--bone); border-color: var(--bone); color: white }
@@ -406,7 +404,6 @@
 @media(max-width:820px) {
   :where(.plc-architecture) .framework-view { height: auto; min-height: 0; padding: 18px }
   :where(.plc-architecture) .framework-hero { display: block }
-  :where(.plc-architecture) .framework-tag { display: inline-block; margin-top: 12px }
   :where(.plc-architecture) .framework-panel { padding: 16px }
   :where(.plc-architecture) .framework-scan { grid-template-columns: 1fr }
   :where(.plc-architecture) .framework-flow { grid-template-columns: 1fr 1fr }

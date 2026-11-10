@@ -18,9 +18,9 @@ function LoadingRoute() {
 
 export function AppShell() {
   const location = useLocation()
-  const isCapabilityMapEntry = document.body.dataset.defaultPage === 'capabilities'
-  const previousView = new URLSearchParams(window.location.search).get('view')
-  const initialPlcSearch = previousView ? new URLSearchParams({ view: previousView }).toString() : ''
+  const previousView = document.body.dataset.defaultPage === 'capabilities'
+    ? null
+    : new URLSearchParams(window.location.search).get('view')
 
   return (
     <div className="app-shell">
@@ -31,9 +31,9 @@ export function AppShell() {
       <RouteTransition routeKey={location.pathname} />
       <Suspense fallback={<LoadingRoute />}>
         <Routes location={location}>
-          <Route path="/" element={isCapabilityMapEntry
-            ? <HomePage />
-            : <Navigate to={{ pathname: '/plc', search: initialPlcSearch }} replace />} />
+          <Route path="/" element={previousView
+            ? <Navigate to={{ pathname: '/plc', search: new URLSearchParams({ view: previousView }).toString() }} replace />
+            : <HomePage />} />
           <Route path="/capabilities" element={<HomePage />} />
           <Route path="/hmi" element={<HmiPage />} />
           <Route path="/plc" element={<PlcPage />} />

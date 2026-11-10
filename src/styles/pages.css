@@ -441,7 +441,6 @@
 .evidence-legend span[data-kind="project"] { color: var(--signal); }
 .evidence-legend span[data-kind="review"] { color: var(--safety); }
 .evidence-legend span[data-kind="design"] { color: var(--cyan); }
-.evidence-legend small { margin-left: auto; color: var(--bone-muted); font-size: 0.75rem; }
 
 .detail-sections {
   display: grid;
@@ -648,7 +647,6 @@
   .detail-hero:not(.detail-hero--architecture) .detail-hero__copy h1 { font-size: clamp(1.75rem, 6vw, 2.1rem); }
   .evidence-legend { gap: 12px 16px; padding-top: 18px; }
   .evidence-legend p { flex-basis: 100%; }
-  .evidence-legend small { flex-basis: 100%; margin-left: 0; }
   .detail-block { padding-block: 36px; }
   .detail-block__header { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-bottom: 22px; }
   .detail-block__header > div { grid-template-columns: minmax(0, 1fr); gap: 10px; }

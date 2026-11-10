@@ -6,7 +6,8 @@ export function usePageMeta(
   focusDelayMs = 0,
 ) {
   useEffect(() => {
-    document.title = `${title} — 工业自动化能力图谱`
+    const siteTitle = '工业自动化能力图谱'
+    document.title = title === siteTitle ? siteTitle : `${title} — ${siteTitle}`
     const initialFocus = document.activeElement
 
     const focusTimer = window.setTimeout(() => {
