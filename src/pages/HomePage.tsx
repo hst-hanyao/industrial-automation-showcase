@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { CapabilityRail } from '../components/CapabilityRail'
 import { ControlCore } from '../components/ControlCore'
 import { IntentLink } from '../components/IntentLink'
 import { ScrollTargetButton } from '../components/ScrollTargetButton'
@@ -50,7 +49,7 @@ export default function HomePage() {
         <div className="home-hero__frame" aria-hidden="true"><i /><i /><i /><i /></div>
 
         <div className="home-hero__copy">
-          <p className="eyebrow" data-home-intro>INDUSTRIAL AUTOMATION / ENGINEERING SHOWCASE</p>
+          <p className="eyebrow" data-home-intro>工业自动化 · 现场控制工程</p>
           <h1 id="home-title" ref={headingRef} tabIndex={-1} data-home-intro>
             <span>控制不是按钮。</span>
             <strong>它是一条可以追踪的闭环。</strong>
@@ -61,7 +60,7 @@ export default function HomePage() {
           <div className="home-hero__actions" data-home-intro>
             <IntentLink className="primary-action" to="/hmi">从上位机进入 <span aria-hidden="true">↗</span></IntentLink>
             <ScrollTargetButton className="secondary-action" targetId="tech-matrix">
-              技术矩阵 <span aria-hidden="true">⚙</span>
+              工程矩阵 <span aria-hidden="true">⚙</span>
             </ScrollTargetButton>
             <IntentLink className="secondary-action" to="/cases">
               问题排查 <span aria-hidden="true">★</span>
@@ -80,23 +79,11 @@ export default function HomePage() {
         </div>
 
         <p className="home-hero__scroll" aria-hidden="true" data-home-intro>
-          SCROLL TO TRACE <i />
+          向下滚动查看工程矩阵 <i />
         </p>
       </section>
 
-      <CapabilityRail />
-
       <TechStackMatrix />
-
-      <section className="home-closing">
-        <p className="eyebrow">CONTROL &amp; FEEDBACK LOOP</p>
-        <h2>从操作界面出发，<br />追踪命令与反馈。</h2>
-        <div className="home-closing__actions">
-          <IntentLink className="primary-action" to="/hmi">从上位机进入 <span aria-hidden="true">→</span></IntentLink>
-          <IntentLink className="secondary-action" to="/plc">查看 PLC 架构 <span aria-hidden="true">→</span></IntentLink>
-          <IntentLink className="secondary-action" to="/cases">查看问题排查 <span aria-hidden="true">→</span></IntentLink>
-        </div>
-      </section>
     </main>
   )
 }

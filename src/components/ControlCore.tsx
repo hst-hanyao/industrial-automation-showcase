@@ -1,7 +1,5 @@
-import { useRef, type CSSProperties, type PointerEvent } from 'react'
-import { capabilities } from '../data/capabilities'
+import { useRef, type PointerEvent } from 'react'
 import { getMediaUrl } from '../lib/media'
-import { CapabilityLink } from './CapabilityLink'
 import '../styles/home-concept.css'
 
 export function ControlCore() {
@@ -38,7 +36,7 @@ export function ControlCore() {
       onPointerLeave={handlePointerLeave}
     >
       <div className="home-device__label" aria-hidden="true">
-        <span>ENGINEERING / FOUR DOMAINS</span><span>01—04</span>
+        <span>半导体晶圆电镀设备概念模型</span>
       </div>
       <figure className="home-device__figure">
         <img
@@ -51,20 +49,6 @@ export function ControlCore() {
         />
         <figcaption><span>AI 生成</span>设备概念插画 · 非项目实拍</figcaption>
       </figure>
-      <nav className="home-device__domains" aria-label="四项能力入口">
-        {capabilities.map((capability) => (
-          <CapabilityLink
-            key={capability.id}
-            capability={capability}
-            className="home-device__domain"
-            style={{ '--domain-accent': capability.accent } as CSSProperties}
-          >
-            <span>{capability.order}</span>
-            <div><b>{capability.shortName}</b><small>{capability.EnglishName}</small></div>
-            <i aria-hidden="true">↗</i>
-          </CapabilityLink>
-        ))}
-      </nav>
     </div>
   )
 }

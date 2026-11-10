@@ -21,7 +21,7 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
     >
       {!embedded && (
         <div className="eng-cases__header">
-          <p className="eyebrow">FIELD ENGINEERING / TROUBLESHOOTING</p>
+          <p className="eyebrow">现场工程 · 疑难问题排查</p>
           <h2 id="eng-cases-title">工程实战疑难攻坚与现场排查</h2>
           <p>
             记录在晶圆设备与自动化生产现场亲历的深水区难题：
@@ -132,7 +132,7 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
 
         <footer className="case-card__footer">
           <div className="case-card__metric">
-            <span className="case-card__metric-label">VERIFIED METRIC</span>
+            <span className="case-card__metric-label">现场验证指标</span>
             <span className="case-card__metric-value">{currentCase.outcome.metric}</span>
           </div>
           <span className="case-card__outcome-desc">{currentCase.outcome.desc}</span>

@@ -59,7 +59,7 @@ export function ExecutiveQuickTour({ isOpen, onClose }: ExecutiveQuickTourProps)
       <div className="tour-modal">
         <header className="tour-modal__header">
           <div>
-            <p className="tour-modal__eyebrow">EXECUTIVE TOUR / 3-MINUTE HIGHLIGHTS</p>
+            <p className="tour-modal__eyebrow">精选导览 / 3分钟速览</p>
             <h2 id="tour-title" className="tour-modal__title">3 分钟面试官精选导览</h2>
             <p className="tour-modal__subtitle">
               专为技术负责人与面试官设计的快速阅览通道，一键穿透上位机、PLC、3D 运动学、双引擎视觉与实战排查核心资产。
