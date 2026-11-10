@@ -9,6 +9,7 @@ export interface TroubleshootingCase {
   readonly badge: string
   readonly category: string
   readonly title: string
+  readonly shortTitle: string
   readonly summary: string
   readonly symptom: {
     readonly overview: string
@@ -39,6 +40,7 @@ export const engineeringCases: readonly TroubleshootingCase[] = [
     badge: 'EMC & POWER ISOLATION',
     category: '电气布线 · 供电拓扑 · 抗干扰',
     title: '伺服电机启停干扰模拟量采样跳变与双电源隔离设计',
+    shortTitle: '伺服启停模拟量跳变与双电源隔离',
     summary: '针对提升轴与倾角轴伺服加减速瞬间引起的 4-20mA 模拟量跳变与误报警，实施双电源物理隔离（脏电/干净电分立）、强弱电分槽布线及 360° EMC 屏蔽接地改造。',
     symptom: {
       overview: 'PLT 腔室伺服电机（提升轴/倾角轴）高速运行及加减速瞬间，模拟量传感器产生剧烈高频跳变。',
@@ -96,6 +98,7 @@ export const engineeringCases: readonly TroubleshootingCase[] = [
     badge: 'CONCURRENCY & MEMORY INTEGRITY',
     category: 'TwinCAT 3 · 多任务调度 · 状态机防呆',
     title: 'TwinCAT 3 跨任务与上位机异步读写的指令撕裂与握手防呆',
+    shortTitle: 'TwinCAT 跨任务握手与指令防撕裂',
     summary: '针对上位机与 PLC 之间偶发的脉冲指令漏采与状态不一致，推行单写者内存管理原则（Single Writer Rule），并以带 SequenceID 的请求-应答握手协议替代一次性脉冲。',
     symptom: {
       overview: '自动化连续运行时，上位机下发动作指令后界面显示已置位，但 PLC 偶发不执行动作且无报警。',
@@ -140,6 +143,60 @@ export const engineeringCases: readonly TroubleshootingCase[] = [
     outcome: {
       metric: '连续 100,000+ 次动作指令零丢失',
       desc: '彻底根除了跨任务异步数据撕裂，自动电镀与取放片工步交接流畅连贯，大幅提升了上位机与 PLC 交互的健壮性。',
+    },
+  },
+  {
+    id: 'case-03-rs485-differential-floating',
+    index: '03',
+    badge: 'RS-485 & DIFFERENTIAL BUS',
+    category: '现场总线 · 差分信号 · 调试防呆',
+    title: 'RS-485 差分单线悬空伪压差与广播配址全机误触发',
+    shortTitle: 'RS-485 单线悬空伪压差与广播防串址',
+    summary: '针对通过拔除 485 A 线配置从站地址导致全机设备被误刷为同一地址的异常，深入差分电平物理机理，推行 A/B 双线彻底断开规范、总线上下拉失效保护偏置与离线预编址流程。',
+    symptom: {
+      overview: '现场多台 RS-485 仪表通过厂家广播软件配址，拔掉其余设备 A 线逐一配置后，发现全站设备被刷成同一个地址。',
+      details: [
+        '厂家配置工具通过 Modbus 广播报文下发从站地址修改指令，未带设备唯一硬件标识校验。',
+        '为避免逐台拆下设备，现场调试时采用单线隔离法：拔除其余所有从站的 485 A 线，保留 B 线接入，对保留完整 A/B 线的单台设备连续下发新地址指令。',
+        '遍历设置完成后，扫描总线发现所有从站均响应了最后一次下发的广播地址，全机从站地址发生严重冲突。',
+      ],
+    },
+    investigation: {
+      overview: '从单线断开到双线物理隔离对比测试，锁定 RS-485 差分电平的假性翻转机理。',
+      steps: [
+        '双线彻底隔离复测：将除待配设备外的所有从站 A 线与 B 线两根线同时拔掉，只保留单台设备完整接入总线。循环逐台操作后，每台从站地址均成功独立设定，未再出现串写。',
+        '总线电平测量：用万用表和示波器实测拔掉 A 线的设备端子，A 引脚悬空呈高阻态（对地约 0V），而 B 线由于仍与总线相连，当主机广播通信时，B 线电位随信号动态跳变（约 0.5V ~ 2.5V 摆动）。',
+        '差分门限分析：RS-485 接收器依据差分压差 V_AB = V_A - V_B 判定逻辑电平。悬空的 A 线（0V）与翻转的 B 线产生高达数百毫伏的动态负压差，越过了 -200mV 接收灵敏度阈值，误判为有效数据帧。',
+      ],
+    },
+    rootCause: {
+      overview: 'RS-485 差分压差接收机制与单线拔除后引脚悬空形成的伪差模电压耦合。',
+      points: [
+        '压差识别原理：RS-485 收发器（如 MAX485）仅检测 A 与 B 两线压差（V_AB > +200mV 为逻辑 1，V_AB < -200mV 为逻辑 0），与参考地无关。',
+        '单线悬空产生伪差分信号：拔除 A 线使其处于高阻抗悬空态（近似 0V），而留在总线上的 B 线在主机发送广播报文时频繁跃变，导致 V_AB = 0 - V_B 在 B 线上跳时直接形成负压差，被接收器解调为合法的起始位与串口字节。',
+        '广播协议无硬件特征约束：厂家配置软件下发无从站硬件 UID 过滤的裸广播报文，任何能解调报文的从站都会无条件覆写本地从站地址寄存器。',
+      ],
+    },
+    solution: {
+      overview: '确立“A/B 双线同步隔离规程 + 上下拉失效保护偏置 + 离线单机编程规范”。',
+      measures: [
+        {
+          title: '双线同步断开规程（现场物理隔离规范）',
+          desc: '严禁在 RS-485 差分总线上采用“拔单线”方式隔离节点；现场临时配置必须使用双极开关、拔掉完整端子排，或同时断开 A 与 B 两根信号线，彻底阻断任何共模向差模转化的通路。',
+        },
+        {
+          title: '总线上下拉失效保护偏置（Fail-safe Biasing）',
+          desc: '在总线主控侧或终端加装上下拉偏置电阻网络（A 线接上拉至 5V/3.3V，B 线接下拉至 GND），确保任一节点线缆断开或总线空闲浮空时，差分电压稳定保持在 V_AB ≥ +200mV 的确立逻辑 1（Mark 状态），杜绝悬空误识别。',
+        },
+        {
+          title: '进柜前离线批量预编址流程',
+          desc: '将从站设备配址工序前移至电柜组装阶段，建立离线单工位 USB-to-RS485 烧录夹具；设备安装进柜前已完成唯一地址分配与标签粘贴，杜绝在挂网联调时进行现场广播改址。',
+        },
+      ],
+    },
+    outcome: {
+      metric: '全站 50+ 节点 RS-485 从站独立编址 100% 成功',
+      desc: '彻底消除总线多设备地址冲突与通信假死，沉淀出《RS-485 现场差分总线调试与电平防呆规范》。',
     },
   },
 ] as const

@@ -33,7 +33,7 @@ export function EngineeringCases() {
               onClick={() => setActiveId(item.id)}
             >
               <span>{item.index}</span>
-              <b>{item.title.split('与')[0] ?? item.title}</b>
+              <b>{item.shortTitle}</b>
             </button>
           )
         })}
