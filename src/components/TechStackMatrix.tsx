@@ -1,8 +1,15 @@
-import { useRef } from 'react'
+import { useRef, type PointerEvent } from 'react'
 import { techDomains } from '../data/tech-stack'
 
 export function TechStackMatrix() {
   const rootRef = useRef<HTMLElement>(null)
+
+  function handleCardPointerMove(e: PointerEvent<HTMLElement>) {
+    const card = e.currentTarget
+    const rect = card.getBoundingClientRect()
+    card.style.setProperty('--mouse-x', `${(e.clientX - rect.left).toFixed(0)}px`)
+    card.style.setProperty('--mouse-y', `${(e.clientY - rect.top).toFixed(0)}px`)
+  }
 
   return (
     <section ref={rootRef} id="tech-matrix" className="tech-matrix" aria-labelledby="tech-matrix-title">
@@ -17,7 +24,11 @@ export function TechStackMatrix() {
 
       <div className="tech-matrix__grid">
         {techDomains.map((domain) => (
-          <article key={domain.id} className="tech-card">
+          <article
+            key={domain.id}
+            className="tech-card"
+            onPointerMove={handleCardPointerMove}
+          >
             <div className="tech-card__top">
               <span className="tech-card__badge">{domain.badge}</span>
               <span className="tech-card__index">{domain.index}</span>

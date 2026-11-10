@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { CapabilityRail } from '../components/CapabilityRail'
 import { ControlCore } from '../components/ControlCore'
 import { IntentLink } from '../components/IntentLink'
 import { ScrollTargetButton } from '../components/ScrollTargetButton'
@@ -83,12 +84,14 @@ export default function HomePage() {
         </p>
       </section>
 
+      <CapabilityRail />
+
       <TechStackMatrix />
 
       <section className="home-closing">
         <p className="eyebrow">CONTROL &amp; FEEDBACK LOOP</p>
         <h2>从操作界面出发，<br />追踪命令与反馈。</h2>
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '24px' }}>
+        <div className="home-closing__actions">
           <IntentLink className="primary-action" to="/hmi">从上位机进入 <span aria-hidden="true">→</span></IntentLink>
           <IntentLink className="secondary-action" to="/plc">查看 PLC 架构 <span aria-hidden="true">→</span></IntentLink>
           <IntentLink className="secondary-action" to="/cases">查看问题排查 <span aria-hidden="true">→</span></IntentLink>

@@ -7,6 +7,10 @@
 
 .cases-hero {
   border-bottom: 1px solid var(--line-strong);
+  background:
+    radial-gradient(850px circle at 12% 10%, rgba(22, 163, 74, 0.065), transparent 60%),
+    radial-gradient(800px circle at 88% 30%, rgba(37, 99, 235, 0.055), transparent 62%),
+    var(--ink);
 }
 
 .cases-hero .detail-hero__copy h1 {
@@ -26,6 +30,55 @@
   margin-top: 10px;
 }
 
+.cases-hero .evidence-legend {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding-top: 22px;
+}
+
+.cases-hero .evidence-legend > div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3px 12px;
+  align-items: center;
+  padding: 14px 18px;
+  border: 1px solid rgba(22, 163, 74, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 14px -6px rgba(15, 23, 42, 0.05);
+}
+
+.cases-hero .evidence-legend > div > span {
+  grid-row: 1 / 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 8px;
+  background: rgba(22, 163, 74, 0.1);
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.cases-hero .evidence-legend > div > span::before {
+  display: none;
+}
+
+.cases-hero .evidence-legend > div > b {
+  color: var(--bone);
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  font-size: 0.92rem;
+}
+
+.cases-hero .evidence-legend > div > small {
+  color: var(--bone-muted);
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  font-size: 0.76rem;
+}
+
 .eng-cases.is-embedded {
   padding: 0;
   border-top: 0;
@@ -33,14 +86,16 @@
 }
 
 .cases-methods {
-  padding: clamp(48px, 6vw, 84px) var(--page-gutter);
+  padding: clamp(56px, 6.5vw, 92px) var(--page-gutter);
   border-top: 1px solid var(--line-strong);
-  background: var(--ink-raised);
+  background:
+    radial-gradient(850px circle at 85% 20%, rgba(22, 163, 74, 0.055), transparent 60%),
+    linear-gradient(180deg, #f6faf8 0%, #eef5f1 50%, #f8fafc 100%);
 }
 
 .cases-methods__header {
   max-width: 54rem;
-  margin-bottom: clamp(28px, 3.5vw, 44px);
+  margin-bottom: clamp(32px, 4vw, 48px);
 }
 
 .cases-methods__header .eyebrow {
@@ -54,7 +109,7 @@
 .cases-methods__header h2 {
   margin: 0 0 14px;
   color: var(--bone);
-  font-size: clamp(1.7rem, 2.5vw, 2.3rem);
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
   font-weight: 700;
   line-height: 1.25;
 }
@@ -63,26 +118,39 @@
   margin: 0;
   color: var(--bone-muted);
   font-size: 1.02rem;
-  line-height: 1.68;
+  line-height: 1.72;
 }
 
 .cases-methods__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 22px;
 }
 
 .cases-method-card {
-  padding: 24px 26px;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  background: var(--ink);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  --mouse-x: 50%;
+  --mouse-y: 0%;
+  position: relative;
+  padding: 26px 26px;
+  border: 1px solid rgba(46, 65, 94, 0.16);
+  border-top: 3px solid #16a34a;
+  border-radius: 14px;
+  background:
+    radial-gradient(
+      360px circle at var(--mouse-x) var(--mouse-y),
+      rgba(22, 163, 74, 0.08),
+      transparent 70%
+    ),
+    rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 28px -10px rgba(15, 23, 42, 0.06);
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.24s ease, box-shadow 0.24s ease;
 }
 
 .cases-method-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
+  transform: translateY(-4px);
+  border-color: rgba(22, 163, 74, 0.45);
+  border-top-color: #16a34a;
+  box-shadow: 0 20px 44px -12px rgba(22, 163, 74, 0.14);
 }
 
 .cases-method-card__top {
@@ -90,35 +158,39 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
 }
 
 .cases-method-card__badge {
   display: inline-block;
-  padding: 3px 9px;
-  border-radius: 4px;
-  background: rgba(22, 163, 74, 0.12);
-  color: #16a34a;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: rgba(22, 163, 74, 0.1);
+  color: #15803d;
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
 }
 
 .cases-method-card__index {
   font-family: "Cascadia Code", Consolas, monospace;
   font-size: 0.85rem;
-  color: var(--bone-muted);
+  font-weight: 700;
+  color: #16a34a;
 }
 
 .cases-method-card h3 {
   margin: 0 0 10px;
   color: var(--bone);
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.18rem;
+  font-weight: 700;
   line-height: 1.35;
 }
 
 .cases-method-card p {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   color: var(--bone-muted);
   font-size: 0.92rem;
   line-height: 1.65;
@@ -128,10 +200,16 @@
   margin: 0;
   padding-left: 18px;
   color: var(--bone);
-  font-size: 0.88rem;
-  line-height: 1.6;
+  font-size: 0.87rem;
+  line-height: 1.65;
 }
 
 .cases-method-card__points li {
-  margin-bottom: 6px;
+  margin-bottom: 7px;
+}
+
+@media (max-width: 767px) {
+  .cases-hero .evidence-legend {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

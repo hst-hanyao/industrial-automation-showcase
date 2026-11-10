@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, type PointerEvent } from 'react'
 import { EngineeringCases } from '../components/EngineeringCases'
 import { IntentLink } from '../components/IntentLink'
 import { useMotionMode } from '../features/motion/useMotionMode'
@@ -60,6 +60,13 @@ export default function CasesPage() {
   const motionMode = useMotionMode()
 
   usePageMeta('现场工程与问题排查', headingRef, motionMode === 'reduced' ? 0 : 1160)
+
+  function handleCardPointerMove(e: PointerEvent<HTMLElement>) {
+    const card = e.currentTarget
+    const rect = card.getBoundingClientRect()
+    card.style.setProperty('--mouse-x', `${(e.clientX - rect.left).toFixed(0)}px`)
+    card.style.setProperty('--mouse-y', `${(e.clientY - rect.top).toFixed(0)}px`)
+  }
 
   useGSAP(
     () => {
@@ -164,7 +171,11 @@ export default function CasesPage() {
 
         <div className="cases-methods__grid">
           {fieldPrinciples.map((item) => (
-            <article key={item.index} className="cases-method-card">
+            <article
+              key={item.index}
+              className="cases-method-card"
+              onPointerMove={handleCardPointerMove}
+            >
               <div className="cases-method-card__top">
                 <span className="cases-method-card__badge">{item.badge}</span>
                 <span className="cases-method-card__index">{item.index}</span>

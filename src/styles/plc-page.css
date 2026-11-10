@@ -1,14 +1,15 @@
 .plc-page { --accent: var(--signal); }
 .plc-page .detail-hero__index { align-self: start; }
 .plc-explorer .hmi-chain-tabs button[aria-selected="true"] {
-  border-color: var(--signal);
-  background: #eff5ff;
-  color: var(--signal-hover);
+  border-color: transparent;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  box-shadow: 0 6px 16px -4px rgba(37, 99, 235, 0.38);
 }
 .plc-explorer .plc-architecture .workspace {
   max-width: none;
-  padding: 12px;
-  gap: 12px;
+  padding: 14px;
+  gap: 14px;
   background:
     linear-gradient(#edf1f6 1px, transparent 1px),
     linear-gradient(90deg, #edf1f6 1px, transparent 1px),
@@ -16,7 +17,11 @@
   background-size: 24px 24px;
 }
 .plc-explorer .plc-architecture .canvas-panel,
-.plc-explorer .plc-architecture .inspector { border-color: var(--control-border); border-radius: 5px; }
+.plc-explorer .plc-architecture .inspector {
+  border-color: rgba(46, 65, 94, 0.22);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px -8px rgba(15, 23, 42, 0.06);
+}
 .plc-explorer .plc-architecture .inspector { top: auto; }
 @media (min-width: 821px) {
   .plc-explorer .plc-architecture .inspector { top: calc(var(--header-height) + 12px); }

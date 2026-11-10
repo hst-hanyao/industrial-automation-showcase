@@ -23,16 +23,34 @@ function drawSignalField(
 ) {
   context.clearRect(0, 0, width, height)
 
-  const offsetX = (pointer.x - 0.5) * 16
-  const offsetY = (pointer.y - 0.5) * 10
-  const resolved = nodes.map((node) => ({
-    x: node.x * width + offsetX * (node.x - 0.5),
-    y: node.y * height + offsetY * (node.y - 0.5),
-  }))
+  const offsetX = (pointer.x - 0.5) * 26
+  const offsetY = (pointer.y - 0.5) * 18
+  const resolved = nodes.map((node, i) => {
+    const depth = 0.6 + (i % 2) * 0.5
+    return {
+      x: node.x * width + offsetX * depth,
+      y: node.y * height + offsetY * depth,
+    }
+  })
 
   context.save()
+
+  const pointerGlow = context.createRadialGradient(
+    pointer.x * width,
+    pointer.y * height,
+    10,
+    pointer.x * width,
+    pointer.y * height,
+    Math.max(width, height) * 0.42,
+  )
+  pointerGlow.addColorStop(0, 'rgba(37, 99, 235, 0.09)')
+  pointerGlow.addColorStop(0.5, 'rgba(14, 116, 144, 0.035)')
+  pointerGlow.addColorStop(1, 'rgba(255, 255, 255, 0)')
+  context.fillStyle = pointerGlow
+  context.fillRect(0, 0, width, height)
+
   context.lineWidth = 1
-  context.strokeStyle = 'rgba(46, 65, 94, 0.08)'
+  context.strokeStyle = 'rgba(46, 65, 94, 0.065)'
 
   for (let x = 0; x <= width; x += 64) {
     context.beginPath()
@@ -46,6 +64,18 @@ function drawSignalField(
     context.moveTo(0, y + 0.5)
     context.lineTo(width, y + 0.5)
     context.stroke()
+  }
+
+  context.strokeStyle = 'rgba(37, 99, 235, 0.18)'
+  for (let x = 64; x < width; x += 192) {
+    for (let y = 64; y < height; y += 192) {
+      context.beginPath()
+      context.moveTo(x - 3.5, y + 0.5)
+      context.lineTo(x + 4.5, y + 0.5)
+      context.moveTo(x + 0.5, y - 3.5)
+      context.lineTo(x + 0.5, y + 4.5)
+      context.stroke()
+    }
   }
 
   const segments = [
@@ -64,44 +94,107 @@ function drawSignalField(
     context.stroke()
   }
 
+  const firstNode = resolved[0]!
+  const lastNode = resolved[3]!
+  context.save()
+  context.setLineDash([5, 5])
+  context.lineWidth = 1.2
+  context.strokeStyle = 'rgba(14, 116, 144, 0.22)'
+  context.beginPath()
+  context.moveTo(lastNode.x, lastNode.y)
+  context.lineTo(firstNode.x, lastNode.y)
+  context.lineTo(firstNode.x, firstNode.y)
+  context.stroke()
+  context.restore()
+
   segments.forEach(([start, end], index) => {
     const local = (progress + index * 0.29) % 1
     const cornerX = end.x
     const horizontalLength = Math.abs(cornerX - start.x)
     const verticalLength = Math.abs(end.y - start.y)
     const total = horizontalLength + verticalLength
-    const distance = local * total
+    if (total <= 0) return
 
-    let pulseX = start.x
-    let pulseY = start.y
-    if (distance <= horizontalLength) {
-      const direction = Math.sign(cornerX - start.x)
-      pulseX += direction * distance
-    } else {
-      pulseX = cornerX
-      const direction = Math.sign(end.y - start.y)
-      pulseY += direction * (distance - horizontalLength)
+    const pointAt = (t: number) => {
+      const clamped = ((t % 1) + 1) % 1
+      const dist = clamped * total
+      if (dist <= horizontalLength) {
+        return {
+          x: start.x + Math.sign(cornerX - start.x) * dist,
+          y: start.y,
+        }
+      }
+      return {
+        x: cornerX,
+        y: start.y + Math.sign(end.y - start.y) * (dist - horizontalLength),
+      }
     }
 
+    const color = index === 1 ? '#0e7490' : '#2563eb'
+    for (let step = 6; step >= 1; step--) {
+      const tailPos = pointAt(local - step * 0.016)
+      context.beginPath()
+      context.arc(tailPos.x, tailPos.y, Math.max(1, 3.2 - step * 0.4), 0, Math.PI * 2)
+      context.fillStyle = index === 1
+        ? `rgba(14, 116, 144, ${(0.42 - step * 0.06).toFixed(2)})`
+        : `rgba(37, 99, 235, ${(0.42 - step * 0.06).toFixed(2)})`
+      context.fill()
+    }
+
+    const head = pointAt(local)
     context.beginPath()
-    context.arc(pulseX, pulseY, 3.2, 0, Math.PI * 2)
-    context.fillStyle = index === 1 ? '#52657f' : '#2563eb'
-    context.shadowBlur = 6
-    context.shadowColor = context.fillStyle
+    context.arc(head.x, head.y, 4, 0, Math.PI * 2)
+    context.fillStyle = color
+    context.shadowBlur = 12
+    context.shadowColor = color
     context.fill()
     context.shadowBlur = 0
   })
 
+  {
+    const fbLocal = (progress * 0.85 + 0.5) % 1
+    const hLen = Math.abs(firstNode.x - lastNode.x)
+    const vLen = Math.abs(firstNode.y - lastNode.y)
+    const fbTotal = hLen + vLen
+    if (fbTotal > 0) {
+      const fbDist = fbLocal * fbTotal
+      const fbX = fbDist <= hLen
+        ? lastNode.x + Math.sign(firstNode.x - lastNode.x) * fbDist
+        : firstNode.x
+      const fbY = fbDist <= hLen
+        ? lastNode.y
+        : lastNode.y + Math.sign(firstNode.y - lastNode.y) * (fbDist - hLen)
+      context.beginPath()
+      context.arc(fbX, fbY, 3.2, 0, Math.PI * 2)
+      context.fillStyle = '#0e7490'
+      context.shadowBlur = 10
+      context.shadowColor = '#0e7490'
+      context.fill()
+      context.shadowBlur = 0
+    }
+  }
+
   for (const [index, node] of resolved.entries()) {
+    const pulseRadius = 12 + Math.sin(progress * Math.PI * 2 + index * 1.4) * 3.5
+    context.beginPath()
+    context.arc(node.x, node.y, pulseRadius, 0, Math.PI * 2)
+    context.strokeStyle = index === 2 ? 'rgba(14, 116, 144, 0.18)' : 'rgba(37, 99, 235, 0.18)'
+    context.lineWidth = 1
+    context.stroke()
+
     context.fillStyle = '#ffffff'
-    context.strokeStyle = index === 2 ? '#52657f' : 'rgba(37, 99, 235, 0.72)'
-    context.lineWidth = 1.5
+    context.strokeStyle = index === 2 ? '#0e7490' : 'rgba(37, 99, 235, 0.85)'
+    context.lineWidth = 1.6
     context.beginPath()
     context.rect(node.x - 8, node.y - 8, 16, 16)
     context.fill()
     context.stroke()
-    context.fillStyle = 'rgba(46, 65, 94, 0.74)'
-    context.font = '10px Cascadia Code, monospace'
+
+    context.fillStyle = index === 2 ? '#0e7490' : '#2563eb'
+    context.fillRect(node.x - 2.5, node.y - 2.5, 5, 5)
+
+    context.fillStyle = 'rgba(23, 32, 51, 0.78)'
+    context.font = '600 10px Cascadia Code, monospace'
     context.fillText(`0${index + 1}`, node.x + 14, node.y + 4)
   }
 
@@ -128,7 +221,7 @@ export function SignalField() {
     let intersecting = true
     let pageVisible = !document.hidden
     let lastProgress = 0
-    const autoplayDuration = 4800
+    const cycleDuration = 5600
 
     const resize = () => {
       const rect = root.getBoundingClientRect()
@@ -140,7 +233,7 @@ export function SignalField() {
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
-      drawSignalField(context, width, height, 0, pointerRef.current)
+      drawSignalField(context, width, height, lastProgress, pointerRef.current)
     }
 
     const onPointerMove = (event: PointerEvent) => {
@@ -161,17 +254,13 @@ export function SignalField() {
       }
 
       const elapsed = now - startTime
-      lastProgress = Math.min(elapsed / autoplayDuration, 1)
+      lastProgress = (elapsed % cycleDuration) / cycleDuration
       drawSignalField(context, width, height, lastProgress, pointerRef.current)
-      if (lastProgress < 1) {
-        frame = window.requestAnimationFrame(render)
-      } else {
-        frame = 0
-      }
+      frame = window.requestAnimationFrame(render)
     }
 
     const updateAnimationState = () => {
-      if (motionMode !== 'full' || lastProgress >= 1) return
+      if (motionMode !== 'full') return
 
       if (!intersecting || !pageVisible) {
         if (frame !== 0) window.cancelAnimationFrame(frame)
@@ -180,7 +269,7 @@ export function SignalField() {
       }
 
       if (frame === 0) {
-        startTime = performance.now() - lastProgress * autoplayDuration
+        startTime = performance.now() - lastProgress * cycleDuration
         frame = window.requestAnimationFrame(render)
       }
     }
@@ -206,8 +295,8 @@ export function SignalField() {
     resize()
 
     if (motionMode === 'full') {
-      root.addEventListener('pointermove', onPointerMove, { passive: true })
-      disposers.add(() => root.removeEventListener('pointermove', onPointerMove))
+      window.addEventListener('pointermove', onPointerMove, { passive: true })
+      disposers.add(() => window.removeEventListener('pointermove', onPointerMove))
       updateAnimationState()
       disposers.add(() => window.cancelAnimationFrame(frame))
     }
