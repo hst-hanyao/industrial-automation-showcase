@@ -5,7 +5,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <p className="local-status"><span aria-hidden="true" />STATIC SHOWCASE / NO BACKEND</p>
-      <p>内容按项目证据、源码或案例复盘、后续方向区分</p>
+      <p>展示内容已完成</p>
       <ScrollTargetButton targetId="main-content">回到本页顶部</ScrollTargetButton>
       <div className="site-footer__filings" aria-label="网站备案信息">
         <p className="site-footer__filing">

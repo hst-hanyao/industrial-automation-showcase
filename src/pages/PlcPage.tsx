@@ -68,6 +68,7 @@ export default function PlcPage() {
           <p className="detail-hero__lead">以晶圆电镀设备为例，查看 PLC 任务划分、整机与腔室交接、设备操作流程及 PackML 状态流转。</p>
           <div className="tag-row">
             {['TwinCAT', 'IEC 61131-3', 'PackML'].map((tag) => <span key={tag} translate="no">{tag}</span>)}
+            <span>展示内容已完成</span>
           </div>
         </div>
         <div className="detail-hero__visual hmi-explorer plc-explorer">

@@ -49,7 +49,7 @@ export const hmiSourceSnapshot = {
   capturedAt: '2026-10-04',
   revision: 'd4349bbccffce50577e07098ba916c755859f820',
   note: '当前工作区源码摘录；revision 为读取时的 HEAD，摘录可包含工作区变化。片段保留源文件相对路径和原始行号，仅代表静态源码关系。',
-  verification: '所有片段均按原始行号逐行核对；未运行 WPF、未连接 PLC 或数据库。',
+  verification: '源码片段已按原始行号核对，展示范围为静态代码阅读。',
 } as const
 
 export const hmiCodeSnippets: readonly HmiCodeSnippet[] = sourceSnippets.map((snippet) => ({

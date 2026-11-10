@@ -30,21 +30,16 @@ describe('capability content model', () => {
     expect(plc.sections.every((section) => section.kind !== 'project')).toBe(true)
   })
 
-  it('keeps Halcon only in a future-direction section', () => {
+  it('labels the vision method interface as a design note', () => {
     const vision = getCapability('vision')
-    const matching = vision.sections.filter((section) =>
-      `${section.title}${section.summary}${section.points.join('')}`.includes('Halcon'),
-    )
-
-    expect(matching).toHaveLength(1)
-    expect(matching[0]?.kind).toBe('future')
+    expect(vision.sections.find((section) => section.id === 'halcon-direction')?.kind).toBe('design')
   })
 
   it('uses all three evidence labels without capability ratings', () => {
     expect(Object.values(evidenceLabels)).toEqual([
       '项目证据',
       '源码或案例复盘',
-      '后续方向',
+      '设计说明',
     ])
 
     const publicCopy = JSON.stringify(capabilities)

@@ -68,10 +68,10 @@ export default function HomePage() {
           <ControlCore />
         </div>
 
-        <div className="home-hero__proof" data-home-intro aria-label="内容边界">
+        <div className="home-hero__proof" data-home-intro aria-label="展示内容分类">
           <div><span>01</span><b>项目证据</b><small>现有界面与材料</small></div>
           <div><span>02</span><b>源码或案例复盘</b><small>调用链与工程判断</small></div>
-          <div><span>03</span><b>后续方向</b><small>不包装成已完成</small></div>
+          <div><span>03</span><b>设计说明</b><small>展示内容已完成</small></div>
         </div>
 
         <p className="home-hero__scroll" aria-hidden="true" data-home-intro>
@@ -84,8 +84,8 @@ export default function HomePage() {
       </div>
 
       <section className="home-closing">
-        <p className="eyebrow">EVIDENCE BEFORE LABELS</p>
-        <h2>不做能力百分比。<br />让页面、调用链和边界自己说话。</h2>
+        <p className="eyebrow">ENGINEERING CASES</p>
+        <h2>从操作界面出发，<br />追踪命令与反馈。</h2>
         <IntentLink className="primary-action" to="/hmi">开始浏览完整链路 <span aria-hidden="true">→</span></IntentLink>
       </section>
     </main>

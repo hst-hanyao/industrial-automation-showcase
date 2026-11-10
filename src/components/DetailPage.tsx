@@ -13,7 +13,7 @@ import { IntentLink } from './IntentLink'
 import { MediaFrame } from './MediaFrame'
 import { TechnicalDiagram } from './TechnicalDiagram'
 
-const evidenceOrder: readonly EvidenceKind[] = ['project', 'review', 'future']
+const evidenceOrder: readonly EvidenceKind[] = ['project', 'review', 'design']
 
 interface DetailPageProps {
   readonly capability: Capability
@@ -115,7 +115,7 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
           {evidenceOrder.map((kind) => (
             <span key={kind} data-kind={kind}>{evidenceLabels[kind]}</span>
           ))}
-          <small>材料存在不等于个人能力评级</small>
+          <small>展示内容已完成</small>
         </aside>
       </section>
 
@@ -132,7 +132,7 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
             <header className="detail-block__header">
               <div>
                 <span className="evidence-badge" data-kind={section.kind}>
-                  {evidenceLabels[section.kind]}
+                  {evidenceLabels[section.kind]} · 已完成
                 </span>
                 <p className="eyebrow">{section.eyebrow}</p>
                 <h2>{section.title}</h2>

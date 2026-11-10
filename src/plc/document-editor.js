@@ -52,7 +52,7 @@ function fromLegacy(node) {
 
 function render(doc) {
   const clean = normalize(doc);
-  if (!clean.sections.length) return '<p class="document-empty">说明尚未填写，点击编辑开始写作</p>';
+  if (!clean.sections.length) return '<p class="document-empty">此节点当前无本机说明，可恢复发布版或编辑</p>';
   return clean.sections.map(s => `<section class="free-section" data-section-id="${escape(s.id)}">${s.title ? `<h3 class="free-section-title">${escape(s.title)}</h3>` : ''}<div class="rich-content">${s.html}</div></section>`).join('');
 }
 
@@ -96,7 +96,7 @@ function mount(container, options) {
       notify(next, kind);
       updateEmptyMarkers();
       return true;
-    } catch (error) { showError('本次内容尚未保存：' + error.message); return false; }
+    } catch (error) { showError('保存失败：' + error.message); return false; }
   }
   function updateEmptyMarkers() {
     for (const editor of sectionsHost.querySelectorAll('.rich-editor')) editor.dataset.empty = String(!editor.textContent.trim() && !editor.querySelector('table,hr'));

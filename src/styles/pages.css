@@ -440,7 +440,7 @@
 .evidence-legend span::before { width: 8px; height: 8px; border: 1px solid currentColor; content: ""; }
 .evidence-legend span[data-kind="project"] { color: var(--signal); }
 .evidence-legend span[data-kind="review"] { color: var(--safety); }
-.evidence-legend span[data-kind="future"] { color: var(--cyan); }
+.evidence-legend span[data-kind="design"] { color: var(--cyan); }
 .evidence-legend small { margin-left: auto; color: var(--bone-muted); font-size: 0.75rem; }
 
 .detail-sections {
@@ -484,7 +484,7 @@
 
 .evidence-badge[data-kind="project"] { color: var(--signal); }
 .evidence-badge[data-kind="review"] { color: var(--safety); }
-.evidence-badge[data-kind="future"] { color: var(--cyan); }
+.evidence-badge[data-kind="design"] { color: var(--cyan); }
 
 .detail-block__number {
   color: color-mix(in srgb, var(--accent) 44%, transparent);
