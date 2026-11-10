@@ -62,10 +62,17 @@
 .primary-nav {
   display: grid;
   min-width: 0;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .nav-toggle { display: none; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-inline: 8px 14px;
+}
 
 .device-demo-menu {
   position: relative;
@@ -781,7 +788,14 @@
   .nav-domain { grid-template-columns: 28px minmax(0, 1fr); align-content: center; align-items: center; min-height: 52px; padding-inline: 12px; border-right: 0; border-bottom: 1px solid var(--line); }
   .nav-domain::after { right: auto; top: 10px; bottom: 10px; left: 0; width: 2px; height: auto; }
   .nav-domain b { font-size: 1rem; }
-  .device-demo-menu { padding-inline: 6px 10px; }
+  .header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-inline: 8px 14px;
+}
+
+.device-demo-menu { padding-inline: 6px 10px; }
   .device-demo-menu__trigger { padding-inline: 9px; }
   .device-demo-menu__panel { right: 10px; width: min(300px, calc(100vw - 20px)); }
   .site-footer { grid-template-columns: minmax(0, 1fr); gap: 12px; padding-block: 24px; }

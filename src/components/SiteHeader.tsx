@@ -1,12 +1,16 @@
 import { useEffect, useId, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { capabilities } from '../data/capabilities'
 import { CapabilityLink } from './CapabilityLink'
 import { DeviceDemoMenu } from './DeviceDemoMenu'
+import { ExecutiveQuickTour } from './ExecutiveQuickTour'
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [tourOpen, setTourOpen] = useState(false)
   const menuId = useId()
   const toggleRef = useRef<HTMLButtonElement>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false)
@@ -19,56 +23,105 @@ export function SiteHeader() {
     }
   }, [])
 
+  function handleCasesClick() {
+    setMenuOpen(false)
+    const el = document.getElementById('engineering-cases')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      navigate('/')
+      setTimeout(() => {
+        document.getElementById('engineering-cases')?.scrollIntoView({ behavior: 'smooth' })
+      }, 150)
+    }
+  }
+
   return (
-    <header className={`site-header${menuOpen ? ' is-menu-open' : ''}`}
-      onKeyDown={(event) => {
-        if (event.key === 'Escape' && menuOpen) {
-          event.preventDefault()
-          setMenuOpen(false)
-          toggleRef.current?.focus()
-        }
-      }}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false)
-      }}
-    >
-      <div className="brand-lockup">
-        <span className="brand-mark" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-        </span>
-        <span>
-          <b>CONTROL / EVIDENCE</b>
-          <small>PLC 程序架构</small>
-        </span>
-      </div>
+    <>
+      <header
+        className={`site-header${menuOpen ? ' is-menu-open' : ''}`}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape' && menuOpen) {
+            event.preventDefault()
+            setMenuOpen(false)
+            toggleRef.current?.focus()
+          }
+        }}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false)
+        }}
+      >
+        <div className="brand-lockup">
+          <span className="brand-mark" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
+          <span>
+            <b>CONTROL / EVIDENCE</b>
+            <small>PLC 程序架构</small>
+          </span>
+        </div>
 
-      <button ref={toggleRef} type="button" className="nav-toggle" aria-expanded={menuOpen}
-        aria-controls={menuId} aria-label={menuOpen ? '关闭能力导航' : '展开能力导航'}
-        onClick={() => setMenuOpen((open) => !open)}>
-        <span aria-hidden="true">{menuOpen ? '×' : '☰'}</span>
-        <span>{menuOpen ? '关闭' : '导航'}</span>
-      </button>
+        <button
+          ref={toggleRef}
+          type="button"
+          className="nav-toggle"
+          aria-expanded={menuOpen}
+          aria-controls={menuId}
+          aria-label={menuOpen ? '关闭能力导航' : '展开能力导航'}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span aria-hidden="true">{menuOpen ? '×' : '☰'}</span>
+          <span>{menuOpen ? '关闭' : '导航'}</span>
+        </button>
 
-      <nav id={menuId} className="primary-nav" aria-label="能力详情">
-        {capabilities.map((capability) => (
-          <CapabilityLink
-            key={capability.id}
-            capability={capability}
-            className="nav-domain"
-            highlightActive
-            style={{ '--nav-accent': capability.accent } as React.CSSProperties}
-            onClick={() => setMenuOpen(false)}
+        <nav id={menuId} className="primary-nav" aria-label="能力详情">
+          {capabilities.map((capability) => (
+            <CapabilityLink
+              key={capability.id}
+              capability={capability}
+              className="nav-domain"
+              highlightActive
+              style={{ '--nav-accent': capability.accent } as React.CSSProperties}
+              onClick={() => setMenuOpen(false)}
+            >
+              <span>{capability.order}</span>
+              <b>{capability.shortName}</b>
+            </CapabilityLink>
+          ))}
+          <button
+            type="button"
+            className="nav-domain nav-domain--cases"
+            style={{
+              '--nav-accent': '#16a34a',
+              background: 'none',
+              border: 'none',
+              textAlign: 'left',
+              cursor: 'pointer',
+              font: 'inherit',
+            } as React.CSSProperties}
+            onClick={handleCasesClick}
           >
-            <span>{capability.order}</span>
-            <b>{capability.shortName}</b>
-          </CapabilityLink>
-        ))}
-      </nav>
+            <span style={{ color: '#16a34a' }}>05</span>
+            <b>实战排查</b>
+          </button>
+        </nav>
 
-      <DeviceDemoMenu onOpen={() => setMenuOpen(false)} />
+        <div className="header-actions">
+          <button
+            type="button"
+            className="tour-trigger-pill"
+            onClick={() => setTourOpen(true)}
+            title="打开 3 分钟精选导览"
+          >
+            <span>★</span> 3分钟速览
+          </button>
+          <DeviceDemoMenu onOpen={() => setMenuOpen(false)} />
+        </div>
+      </header>
 
-    </header>
+      <ExecutiveQuickTour isOpen={tourOpen} onClose={() => setTourOpen(false)} />
+    </>
   )
 }
