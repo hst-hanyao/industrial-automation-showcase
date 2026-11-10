@@ -1,4 +1,5 @@
 .plc-page { --accent: var(--signal); }
+.app-shell--plc-home .plc-page .detail-hero--architecture { grid-template-columns: minmax(0, 1fr); }
 .plc-page .detail-hero__index { align-self: start; }
 .plc-explorer .hmi-chain-tabs button[aria-selected="true"] {
   border-color: transparent;

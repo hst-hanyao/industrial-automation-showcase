@@ -140,6 +140,10 @@ pre,
   min-height: 100vh;
 }
 
+.app-shell--plc-home {
+  --header-height: 0px;
+}
+
 main {
   position: relative;
   min-width: 0;

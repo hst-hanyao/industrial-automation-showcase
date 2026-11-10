@@ -37,7 +37,7 @@ export function SiteHeader() {
           if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false)
         }}
       >
-        <IntentLink to="/" className="brand-lockup" title="返回首页能力图谱">
+        <IntentLink to="/capabilities" className="brand-lockup" title="返回能力图谱">
           <span className="brand-mark" aria-hidden="true">
             <i />
             <i />
