@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useMotionMode } from './useMotionMode'
 
-const SPOTLIGHT_SELECTOR = '.tech-card'
+const SPOTLIGHT_SELECTOR = '.tech-card, .detail-hero__visual'
 const RIPPLE_SELECTOR =
   '.primary-action, .secondary-action, .tech-card, .project-pagination a, .project-pagination button'
 const RELEASE_SELECTOR = '.primary-action, .secondary-action'
@@ -24,9 +24,11 @@ export function useShowcaseInteractions() {
     let clientY = 0
     let active: HTMLElement | null = null
 
-    const resetTilt = (element: HTMLElement) => {
+    const reset = (element: HTMLElement) => {
       element.style.setProperty('--tilt-rx', '0deg')
       element.style.setProperty('--tilt-ry', '0deg')
+      element.style.setProperty('--parallax-x', '0px')
+      element.style.setProperty('--parallax-y', '0px')
     }
 
     const apply = () => {
@@ -39,8 +41,14 @@ export function useShowcaseInteractions() {
       const y = ((clientY - rect.top) / rect.height) * 100
       element.style.setProperty('--mouse-x', `${x.toFixed(1)}%`)
       element.style.setProperty('--mouse-y', `${y.toFixed(1)}%`)
-      element.style.setProperty('--tilt-rx', `${((0.5 - y / 100) * 7).toFixed(2)}deg`)
-      element.style.setProperty('--tilt-ry', `${((x / 100 - 0.5) * 9).toFixed(2)}deg`)
+
+      if (element.matches('.tech-card')) {
+        element.style.setProperty('--tilt-rx', `${((0.5 - y / 100) * 7).toFixed(2)}deg`)
+        element.style.setProperty('--tilt-ry', `${((x / 100 - 0.5) * 9).toFixed(2)}deg`)
+      } else {
+        element.style.setProperty('--parallax-x', `${((x / 100 - 0.5) * 16).toFixed(1)}px`)
+        element.style.setProperty('--parallax-y', `${((y / 100 - 0.5) * 16).toFixed(1)}px`)
+      }
     }
 
     const onPointerMove = (event: PointerEvent) => {
@@ -50,7 +58,7 @@ export function useShowcaseInteractions() {
         ? event.target.closest<HTMLElement>(SPOTLIGHT_SELECTOR)
         : null
       if (target !== active) {
-        if (active) resetTilt(active)
+        if (active) reset(active)
         active = target
       }
       if (target && !frame) frame = requestAnimationFrame(apply)

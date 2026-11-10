@@ -27,9 +27,11 @@ function drawSignalField(
   const offsetY = (pointer.y - 0.5) * 18
   const resolved = nodes.map((node, i) => {
     const depth = 0.6 + (i % 2) * 0.5
+    const jitterX = Math.sin(progress * Math.PI * 6 + i * 2.1) * 2.4
+    const jitterY = Math.cos(progress * Math.PI * 4.6 + i * 1.7) * 2.4
     return {
-      x: node.x * width + offsetX * depth,
-      y: node.y * height + offsetY * depth,
+      x: node.x * width + offsetX * depth + jitterX,
+      y: node.y * height + offsetY * depth + jitterY,
     }
   })
 
@@ -66,6 +68,22 @@ function drawSignalField(
     context.stroke()
   }
 
+  {
+    const sweepX = ((progress * 0.72) % 1) * width
+    const band = context.createLinearGradient(sweepX - 110, 0, sweepX + 110, 0)
+    band.addColorStop(0, 'rgba(37, 99, 235, 0)')
+    band.addColorStop(0.5, 'rgba(37, 99, 235, 0.075)')
+    band.addColorStop(1, 'rgba(37, 99, 235, 0)')
+    context.fillStyle = band
+    context.fillRect(sweepX - 110, 0, 220, height)
+    context.strokeStyle = 'rgba(37, 99, 235, 0.26)'
+    context.lineWidth = 1
+    context.beginPath()
+    context.moveTo(sweepX + 0.5, 0)
+    context.lineTo(sweepX + 0.5, height)
+    context.stroke()
+  }
+
   context.strokeStyle = 'rgba(37, 99, 235, 0.18)'
   for (let x = 64; x < width; x += 192) {
     for (let y = 64; y < height; y += 192) {
@@ -92,6 +110,22 @@ function drawSignalField(
     context.lineTo(end.x, start.y)
     context.lineTo(end.x, end.y)
     context.stroke()
+  }
+
+  {
+    context.save()
+    context.setLineDash([2, 11])
+    context.lineDashOffset = -(progress * 260) % 13
+    context.lineWidth = 1.6
+    context.strokeStyle = 'rgba(37, 99, 235, 0.5)'
+    for (const [start, end] of segments) {
+      context.beginPath()
+      context.moveTo(start.x, start.y)
+      context.lineTo(end.x, start.y)
+      context.lineTo(end.x, end.y)
+      context.stroke()
+    }
+    context.restore()
   }
 
   const firstNode = resolved[0]!

@@ -181,5 +181,30 @@ html.is-shared-transition .detail-hero__visual { view-transition-name: none; }
   animation-duration: 320ms;
 }
 
+/* --- detail hero parallax layers --- */
+.detail-hero__visual .media-frame__viewport { overflow: hidden; }
+
+.detail-hero__visual .media-frame__viewport img {
+  transform: translate(var(--parallax-x, 0px), var(--parallax-y, 0px)) scale(1.05);
+  transition: transform var(--motion-enter) var(--motion-ease-enter);
+}
+
+.detail-hero__visual::before {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  content: "";
+  background: radial-gradient(
+    320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(37, 99, 235, 0.1),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--motion-enter) var(--motion-ease-enter);
+}
+
+.detail-hero__visual:hover::before { opacity: 1; }
+
 /* Every new effect is disabled by the global reduced-motion rules in base.css.
    The reveal fallback (cards stay visible) is handled in useRevealOnScroll. */
