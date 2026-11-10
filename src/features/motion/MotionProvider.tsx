@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import {
+  readExplicitMotionMode,
   reducedMotionQuery,
   resolveMotionMode,
   shouldReduceMotion,
@@ -23,10 +24,13 @@ export function MotionProvider({ children }: MotionProviderProps) {
   const [mode, setMode] = useState(readInitialMode)
 
   useEffect(() => {
+    // An explicit URL override is a presentation control: it must stay stable
+    // even when the operating system changes its motion preference mid-session.
+    if (readExplicitMotionMode(window.location.search)) return
+
     const mediaQuery = window.matchMedia(reducedMotionQuery)
-    const hasLocalOverride = shouldReduceMotion(false, window.location.search)
     const onChange = (event: MediaQueryListEvent) => {
-      setMode(resolveMotionMode(hasLocalOverride || event.matches))
+      setMode(resolveMotionMode(event.matches))
     }
 
     mediaQuery.addEventListener('change', onChange)

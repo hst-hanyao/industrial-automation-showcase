@@ -28,23 +28,33 @@ function renderRoute(path: string, defaultPage?: string) {
 afterEach(() => vi.unstubAllGlobals())
 
 describe('homepage layout', () => {
-  it('shows the PLC framework without navigation while retaining filings', () => {
+  it('opens on the capability map with full navigation', () => {
     const html = renderRoute('/')
-    expect(html).toContain('PLC架构测试页面')
-    expect(html).not.toContain('能力图谱测试页面')
-    expect(html).not.toContain('site-header')
-    expect(html).not.toContain('回到本页顶部')
+    expect(html).toContain('能力图谱测试页面')
+    expect(html).not.toContain('PLC架构测试页面')
+    expect(html).toContain('site-header')
+    expect(html).toContain('回到本页顶部')
     expect(html).toContain('网站备案信息')
   })
 
-  it('keeps the separate capability map and navigation', () => {
-    const html = renderRoute('/', 'capabilities')
+  it('keeps the separate capability map route and navigation', () => {
+    const html = renderRoute('/capabilities', 'capabilities')
     expect(html).toContain('能力图谱测试页面')
     expect(html).toContain('site-header')
     expect(html).toContain('回到本页顶部')
   })
 
-  it('keeps navigation on the original PLC route', () => {
+  it('keeps full navigation on every capability route', () => {
+    const routes = ['/hmi', '/plc', '/plc/case', '/motion', '/vision', '/cases']
+    for (const path of routes) {
+      const html = renderRoute(path)
+      expect(html).toContain('site-header')
+      expect(html).toContain('回到本页顶部')
+      expect(html).toContain('网站备案信息')
+    }
+  })
+
+  it('keeps the separate PLC route', () => {
     const html = renderRoute('/plc')
     expect(html).toContain('PLC架构测试页面')
     expect(html).toContain('site-header')

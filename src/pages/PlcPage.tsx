@@ -1,5 +1,5 @@
 import { lazy, Suspense, useLayoutEffect, useRef, type KeyboardEvent } from 'react'
-import { Link, useLocation, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { CapabilityLink } from '../components/CapabilityLink'
 import { IntentLink } from '../components/IntentLink'
 import { getCapabilityNeighbors } from '../data/capabilities'
@@ -22,8 +22,6 @@ const views = [
 
 export default function PlcPage() {
   const [search, setSearch] = useSearchParams()
-  const { pathname } = useLocation()
-  const isHome = pathname === '/' && document.body.dataset.defaultPage !== 'capabilities'
   const maintenance = search.get('edit') === '1'
   const view = views.find(({ id }) => id === search.get('view'))?.id ?? 'architecture'
   const architectureRef = useRef<HTMLDivElement>(null)
@@ -71,7 +69,7 @@ export default function PlcPage() {
   return (
     <main id="main-content" className="detail-page plc-page" tabIndex={-1}>
       <section className="detail-hero detail-hero--architecture">
-        {!isHome && <div className="detail-hero__index" aria-hidden="true"><span>02</span><i /><small>04</small></div>}
+        <div className="detail-hero__index" aria-hidden="true"><span>02</span><i /><small>04</small></div>
         <div className="detail-hero__copy">
           <p className="eyebrow">PLC · 核心控制程序</p>
           <h1 ref={headingRef} tabIndex={-1}>PLC 程序架构</h1>
@@ -107,12 +105,12 @@ export default function PlcPage() {
             )}
           </div>
         </div>
-        {!isHome && <div className="evidence-legend plc-reading-links">
+        <div className="evidence-legend plc-reading-links">
           <Link className="text-link" to="/plc/case">补充阅读：独立的 TwinCAT 官方案例复盘 <span aria-hidden="true">↗</span></Link>
-        </div>}
+        </div>
       </section>
 
-      {!isHome && <nav className="project-pagination" aria-label="相邻能力项目">
+      <nav className="project-pagination" aria-label="相邻能力项目">
         <CapabilityLink capability={neighbors.previous}>
           <span>上一页 · {neighbors.previous.order}</span>
           <strong>{neighbors.previous.primaryDocument?.title ?? neighbors.previous.title}</strong>
@@ -125,7 +123,7 @@ export default function PlcPage() {
           <span>下一页 · {neighbors.next.order}</span>
           <strong>{neighbors.next.primaryDocument?.title ?? neighbors.next.title}</strong>
         </CapabilityLink>
-      </nav>}
+      </nav>
     </main>
   )
 }

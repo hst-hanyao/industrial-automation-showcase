@@ -4,6 +4,7 @@ import { IntentLink } from '../components/IntentLink'
 import { ScrollTargetButton } from '../components/ScrollTargetButton'
 import { TechStackMatrix } from '../components/TechStackMatrix'
 import { SignalField } from '../features/signal-field/SignalField'
+import { MOTION } from '../features/motion/motion-tokens'
 import { useMotionMode } from '../features/motion/useMotionMode'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { gsap, useGSAP } from '../lib/gsap'
@@ -14,10 +15,12 @@ export default function HomePage() {
   const headingRef = useRef<HTMLHeadingElement>(null)
   const motionMode = useMotionMode()
 
+  // Route autofocus waits until the intro sequence finishes so it does not
+  // steal focus while the heading is still animating in.
   usePageMeta(
     '工业自动化能力图谱',
     headingRef,
-    motionMode === 'reduced' ? 0 : 1160,
+    motionMode === 'reduced' ? 0 : MOTION.focusDelay,
   )
 
   useGSAP(
@@ -32,11 +35,11 @@ export default function HomePage() {
       }
 
       gsap.timeline({ defaults: { ease: 'power3.out' } })
-        .fromTo(intro, { autoAlpha: 0, y: 42 }, {
+        .fromTo(intro, { autoAlpha: 0, y: MOTION.introShift }, {
           autoAlpha: 1,
           y: 0,
-          duration: 0.9,
-          stagger: 0.08,
+          duration: MOTION.intro / 1000,
+          stagger: MOTION.introStagger / 1000,
         })
     },
     { scope: rootRef, dependencies: [motionMode], revertOnUpdate: true },

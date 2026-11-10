@@ -22,6 +22,15 @@
   --shadow-elevated: 0 24px 54px -12px rgba(15, 23, 42, 0.11), 0 4px 16px rgba(37, 99, 235, 0.06);
   --header-height: 76px;
   --page-gutter: clamp(28px, 5vw, 88px);
+  /* Mirrors src/features/motion/motion-tokens.ts for CSS-driven transitions. */
+  --motion-enter: 240ms;
+  --motion-press: 100ms;
+  --motion-exit: 150ms;
+  --motion-reveal: 450ms;
+  --motion-ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --motion-shift: 8px;
   background: var(--ink);
   color: var(--bone);
 }
@@ -138,10 +147,6 @@ pre,
 .app-shell {
   min-width: 0;
   min-height: 100vh;
-}
-
-.app-shell--plc-home {
-  --header-height: 0px;
 }
 
 main {

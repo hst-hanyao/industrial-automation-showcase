@@ -26,23 +26,17 @@ function LoadingRoute() {
 
 export function AppShell() {
   const location = useLocation()
-  const previousView = document.body.dataset.defaultPage === 'capabilities'
-    ? null
-    : new URLSearchParams(window.location.search).get('view')
-  const isPlcHome = location.pathname === '/' && document.body.dataset.defaultPage !== 'capabilities' && !previousView
 
   return (
-    <div className={`app-shell${isPlcHome ? ' app-shell--plc-home' : ''}`}>
+    <div className="app-shell">
       <ScrollTargetButton className="skip-link" targetId="main-content">
         跳到主要内容
       </ScrollTargetButton>
-      {!isPlcHome && <SiteHeader />}
+      <SiteHeader />
       <RouteTransition routeKey={location.pathname} />
       <Suspense fallback={<LoadingRoute />}>
         <Routes location={location}>
-          <Route path="/" element={previousView
-            ? <Navigate to={{ pathname: '/plc', search: new URLSearchParams({ view: previousView }).toString() }} replace />
-            : isPlcHome ? <PlcPage /> : <HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/capabilities" element={<HomePage />} />
           <Route path="/hmi" element={<HmiPage />} />
           <Route path="/plc" element={<PlcPage />} />
@@ -53,7 +47,7 @@ export function AppShell() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
-      <SiteFooter minimal={isPlcHome} />
+      <SiteFooter />
     </div>
   )
 }
