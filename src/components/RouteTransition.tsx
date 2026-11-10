@@ -44,18 +44,31 @@ export function RouteTransition({ routeKey }: RouteTransitionProps) {
         return
       }
 
+      const sweep = (enabled: boolean) => {
+        if (enabled) {
+          root.classList.remove('is-sweeping')
+          void root.offsetWidth
+          root.classList.add('is-sweeping')
+        } else {
+          root.classList.remove('is-sweeping')
+        }
+      }
+
       const timeline = gsap.timeline({
         defaults: { ease: 'power4.inOut' },
         onStart: () => {
           root.style.pointerEvents = 'auto'
+          sweep(true)
           setInert()
         },
         onComplete: () => {
           root.style.pointerEvents = 'none'
+          sweep(false)
           clearInert()
         },
         onInterrupt: () => {
           root.style.pointerEvents = 'none'
+          sweep(false)
           clearInert()
         },
       })
@@ -74,7 +87,10 @@ export function RouteTransition({ routeKey }: RouteTransitionProps) {
 
       // gsap.context calls this on revert (revertOnUpdate / unmount), so `inert`
       // is removed even when the timeline is killed before onComplete.
-      return clearInert
+      return () => {
+        sweep(false)
+        clearInert()
+      }
     },
     {
       scope: rootRef,

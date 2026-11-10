@@ -28,19 +28,53 @@ export default function HomePage() {
       const root = rootRef.current
       if (!root) return
 
-      const intro = gsap.utils.toArray<HTMLElement>('[data-home-intro]', root)
+      const pick = (selector: string) => gsap.utils.toArray<HTMLElement>(selector, root)
+      const corners = pick('.home-hero__frame i')
+      const eyebrow = pick('.home-hero__copy .eyebrow')
+      const lines = pick('#home-title > *')
+      const lead = pick('.home-hero__lead')
+      const actions = pick('.home-hero__actions > *')
+      const core = pick('.home-hero__core')
+      const proof = pick('.home-hero__proof > div')
+      const hint = pick('.home-hero__scroll')
+      const all = [...corners, ...eyebrow, ...lines, ...lead, ...actions, ...core, ...proof, ...hint]
+
       if (motionMode === 'reduced') {
-        gsap.set(intro, { autoAlpha: 1, y: 0 })
+        gsap.set(all, {
+          autoAlpha: 1, x: 0, y: 0, scale: 1, rotateY: 0, skewY: 0, clipPath: 'none',
+        })
         return
       }
 
-      gsap.timeline({ defaults: { ease: 'power3.out' } })
-        .fromTo(intro, { autoAlpha: 0, y: MOTION.introShift }, {
-          autoAlpha: 1,
-          y: 0,
-          duration: MOTION.intro / 1000,
-          stagger: MOTION.introStagger / 1000,
-        })
+      const timeline = gsap.timeline({ defaults: { ease: 'power4.out' } })
+
+      timeline
+        .fromTo(corners, { opacity: 0, scale: 0.3 }, {
+          opacity: 1, scale: 1, duration: 0.34, stagger: 0.05,
+        }, 0)
+        .fromTo(eyebrow, { opacity: 0, clipPath: 'inset(0 100% 0 0)', x: -18 }, {
+          opacity: 1, clipPath: 'inset(0 0% 0 0)', x: 0, duration: 0.46,
+        }, 0.04)
+        .fromTo(lines, { opacity: 0, clipPath: 'inset(0 0 100% 0)', y: 26, skewY: 5 }, {
+          opacity: 1, clipPath: 'inset(0 0 0% 0)', y: 0, skewY: 0,
+          duration: 0.56, stagger: 0.085,
+        }, 0.1)
+        .fromTo(core, { opacity: 0, scale: 0.9, rotateY: -16, y: 34 }, {
+          opacity: 1, scale: 1, rotateY: 0, y: 0, duration: 0.62,
+        }, 0.14)
+        .fromTo(lead, { opacity: 0, y: 18 }, {
+          opacity: 1, y: 0, duration: 0.44,
+        }, 0.24)
+        .fromTo(actions, { opacity: 0, y: 22, scale: 0.92 }, {
+          opacity: 1, y: 0, scale: 1, duration: 0.44, stagger: 0.06,
+          ease: 'back.out(1.7)',
+        }, 0.3)
+        .fromTo(proof, { opacity: 0, y: 16 }, {
+          opacity: 1, y: 0, duration: 0.36, stagger: 0.06,
+        }, 0.38)
+        .fromTo(hint, { opacity: 0 }, {
+          opacity: 1, duration: 0.28,
+        }, 0.54)
     },
     { scope: rootRef, dependencies: [motionMode], revertOnUpdate: true },
   )

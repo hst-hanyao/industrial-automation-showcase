@@ -1,8 +1,10 @@
 import { useRef } from 'react'
 import { techDomains } from '../data/tech-stack'
+import { useRevealOnScroll } from '../features/motion/useRevealOnScroll'
 
 export function TechStackMatrix() {
   const rootRef = useRef<HTMLElement>(null)
+  useRevealOnScroll(rootRef, '.tech-card')
 
   return (
     <section ref={rootRef} id="tech-matrix" className="tech-matrix" aria-labelledby="tech-matrix-title">

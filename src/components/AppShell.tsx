@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { lazyPages } from '../route-modules'
+import { useShowcaseInteractions } from '../features/motion/useShowcaseInteractions'
 import { NotFound } from './NotFound'
 import { RouteErrorBoundary } from './RouteErrorBoundary'
 import { RouteTransition } from './RouteTransition'
@@ -27,6 +28,7 @@ function LoadingRoute() {
 
 export function AppShell() {
   const location = useLocation()
+  useShowcaseInteractions()
 
   return (
     <div className="app-shell">

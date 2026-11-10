@@ -1,0 +1,185 @@
+/* Showcase motion layer: interaction states and choreography.
+   Every effect is decorative; no text content is added or changed. */
+
+:root {
+  --motion-glow: rgba(37, 99, 235, 0.18);
+  --motion-glow-soft: rgba(14, 116, 144, 0.12);
+}
+
+/* Gives the HomePage core its rotateY entrance real depth. */
+.home-hero { perspective: 1400px; }
+
+/* --- press / release asymmetry on primary controls --- */
+.primary-action,
+.secondary-action {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--motion-exit) var(--motion-ease-exit),
+    box-shadow var(--motion-exit) var(--motion-ease-exit),
+    border-color var(--motion-exit) var(--motion-ease-exit),
+    background-color var(--motion-exit) var(--motion-ease-exit),
+    color var(--motion-exit) var(--motion-ease-exit);
+}
+
+.primary-action:hover,
+.primary-action:focus-visible,
+.secondary-action:hover,
+.secondary-action:focus-visible {
+  transition-duration: var(--motion-enter);
+  transition-timing-function: var(--motion-ease-enter);
+}
+
+.primary-action:active,
+.primary-action:hover:active,
+.secondary-action:active,
+.secondary-action:hover:active {
+  transform: scale(0.955);
+  transition: transform var(--motion-press) var(--motion-ease-exit);
+}
+
+.primary-action.is-released,
+.secondary-action.is-released {
+  animation: actionRelease var(--motion-enter) var(--motion-ease-pop);
+}
+
+@keyframes actionRelease {
+  0% { transform: scale(0.955); }
+  58% { transform: scale(1.028); }
+  100% { transform: scale(1); }
+}
+
+/* --- sweep highlight --- */
+.primary-action::after,
+.secondary-action::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(105deg, transparent 34%, rgba(255, 255, 255, 0.45) 50%, transparent 66%);
+  transform: translateX(-135%);
+  opacity: 0;
+}
+
+.primary-action:hover::after,
+.primary-action:focus-visible::after,
+.secondary-action:hover::after,
+.secondary-action:focus-visible::after {
+  animation: controlSweep 760ms var(--motion-ease-enter) 1;
+}
+
+@keyframes controlSweep {
+  0% { transform: translateX(-135%); opacity: 0.9; }
+  100% { transform: translateX(135%); opacity: 0; }
+}
+
+/* --- ripple --- */
+.project-pagination a,
+.project-pagination button { overflow: hidden; }
+
+.ui-ripple {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.68) 0%, rgba(255, 255, 255, 0.16) 45%, transparent 72%);
+  transform: translate(-50%, -50%) scale(0);
+  animation: uiRipple var(--motion-reveal) var(--motion-ease-enter) forwards;
+}
+
+.secondary-action .ui-ripple,
+.tech-card .ui-ripple,
+.project-pagination .ui-ripple {
+  background: radial-gradient(circle, var(--motion-glow) 0%, transparent 70%);
+}
+
+@keyframes uiRipple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+/* --- card tilt + edge sweep --- */
+.tech-card:hover {
+  transform:
+    perspective(900px)
+    rotateX(var(--tilt-rx, 0deg))
+    rotateY(var(--tilt-ry, 0deg))
+    translateY(-4px);
+}
+
+.tech-card::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 34%, rgba(255, 255, 255, 0.6) 50%, transparent 66%);
+  transform: translateX(-130%);
+  opacity: 0;
+}
+
+.tech-card:hover::after {
+  animation: cardSweep 900ms var(--motion-ease-enter) 1;
+}
+
+@keyframes cardSweep {
+  0% { transform: translateX(-130%); opacity: 0.85; }
+  100% { transform: translateX(130%); opacity: 0; }
+}
+
+/* HUD corners are choreographed by the HomePage GSAP timeline. */
+
+/* --- scroll reveal (attribute is attached by JS before paint) --- */
+[data-reveal-card] {
+  opacity: 0;
+  clip-path: inset(0 0 100% 0);
+  transition:
+    opacity var(--motion-reveal) var(--motion-ease-enter),
+    clip-path var(--motion-reveal) var(--motion-ease-enter);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal-card].is-revealed {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+/* --- route curtain scan --- */
+.route-transition::before {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.34) 50%, transparent 100%);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.route-transition.is-sweeping::before {
+  animation: curtainScan 900ms var(--motion-ease-enter) 1;
+}
+
+@keyframes curtainScan {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+/* --- shared element transition --- */
+.detail-hero__visual { view-transition-name: capability-hero; }
+html.is-shared-transition .detail-hero__visual { view-transition-name: none; }
+
+::view-transition-old(capability-hero),
+::view-transition-new(capability-hero) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--motion-ease-enter);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 320ms;
+}
+
+/* Every new effect is disabled by the global reduced-motion rules in base.css.
+   The reveal fallback (cards stay visible) is handled in useRevealOnScroll. */
