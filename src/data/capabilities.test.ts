@@ -30,9 +30,9 @@ describe('capability content model', () => {
     expect(plc.sections.every((section) => section.kind !== 'project')).toBe(true)
   })
 
-  it('labels the vision method interface as a design note', () => {
+  it('labels the offline HALCON workbench as project evidence', () => {
     const vision = getCapability('vision')
-    expect(vision.sections.find((section) => section.id === 'halcon-direction')?.kind).toBe('design')
+    expect(vision.sections.find((section) => section.id === 'halcon-direction')?.kind).toBe('project')
   })
 
   it('uses all three evidence labels without capability ratings', () => {

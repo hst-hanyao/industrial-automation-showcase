@@ -1,5 +1,6 @@
 import architectureData from './architecture-data.json';
 import * as Documents from './document-editor.js';
+import { createDraftStorage } from './draft-storage.js';
 
 let pendingDraft;
 
@@ -8,7 +9,7 @@ function warnPendingDraft(event) {
   event.returnValue = '';
 }
 
-export function mountArchitecture(root) {
+export function mountArchitecture(root, { maintenance = false } = {}) {
   const events = new AbortController();
   const { signal } = events;
   const $ = id => root.querySelector('#' + id);
@@ -23,8 +24,9 @@ export function mountArchitecture(root) {
   // Keep the established browser keys when the published wording changes.
   const oldStorageKey = 'wafer-plc-architecture-v1-f86e3114';
   const storageKey = 'wafer-plc-architecture-doc-v2-f86e3114';
+  const drafts = createDraftStorage(() => localStorage, maintenance);
   let data=clone(initial), selected='state-publish', view='architecture', editing=false, dirty=false, migratedDraft=false, activeStep=-1, zoom=1, autoFit=true, toastTimer, documentEditor=null;
-  const undoByNode = pendingDraft?.undo ?? new Map();
+  const undoByNode = (maintenance && pendingDraft?.undo) || new Map();
   let activeExchangeId='unit-task',activeOperationId='manual-single',activeOperationBranch='normal',activeOperationStep=-1, activeFrameworkTopic='module';
   function isLegacy(candidate){const old=initial.legacy?.defaults;if(!old || !candidate || candidate.version!==1 || !Array.isArray(candidate.nodes) || candidate.nodes.length!==old.nodes.length)return false;const expected=new Set(old.nodes.map(n=>n.id));return candidate.nodes.every(n=>n && expected.delete(n.id)) && expected.size===0;}
   function checkFields(n){for(const [field] of fields){const limit=field==='title'?100:['subtitle','status'].includes(field)?240:24000;if(typeof n[field]!=='string' || n[field].length>limit)throw new Error('说明字段格式不正确或过长：'+n.id+' / '+field);}if(!n.title.trim())throw new Error('流程标题不能为空：'+n.id);}
@@ -133,8 +135,8 @@ export function mountArchitecture(root) {
     }
     return Documents.normalize(next);
   }
-  try{
-    const draft=localStorage.getItem(storageKey);
+  if (maintenance) try{
+    const draft=drafts.read(storageKey);
     if(draft){data=validate(JSON.parse(draft));}
     else{
       const update=initial.legacy?.sourceUpdate;
@@ -146,7 +148,7 @@ export function mountArchitecture(root) {
         {key:initial.legacy?.storageKey,updatedNodeIds:update?.fallbackUpdatedNodeIds || update?.updatedNodeIds,updatedSectionIdsByNode:update?.fallbackUpdatedSectionIdsByNode || update?.updatedSectionIdsByNode}
       ].filter(source=>source.key);
       for(const {key,updatedNodeIds,updatedSectionIdsByNode} of keys){
-        const saved=localStorage.getItem(key);if(!saved)continue;
+        const saved=drafts.read(key);if(!saved)continue;
         data=validate(JSON.parse(saved));
         // 迁入已有草稿时仅更新本次确认的节点，保留其他节点和单片流程的改文。
         for(const id of updatedNodeIds || []){
@@ -164,6 +166,8 @@ export function mountArchitecture(root) {
       }
     }
   }catch(error){console.info('浏览器草稿未载入：'+error.message);}
+  $('editToggle').hidden = !maintenance;
+  $('restoreNode').hidden = !maintenance;
   const node=id=>data.nodes.find(n=>n.id===id);
   function button(id,index='',extra='') {const n=node(id); if(!n)return '';return `<button class="node ${extra}" data-node="${escape(id)}" aria-pressed="${id===selected}" aria-label="查看说明：${escape(n.title)}">${index?`<span class="node-index">${index}</span>`:''}<span class="node-title">${escape(n.title)}</span><span class="node-subtitle">${escape(n.subtitle)}</span></button>`;}
   const interfaces=[['unit-task','→','任务与身份','Unit → Module','携带 JobId、WaferId、工序与动作请求。'],['unit-recipe','→','配方与确认','Unit → Module','按晶圆及工序绑定配方版本，确认后锁定执行。'],['unit-permits','←','能力与占用','Module → Unit','发布装片、开工、卸片能力及片位占用。'],['unit-io','↔','输入与输出','Unit ↔ Module','输入先映射；组件逻辑输出由 Unit 落到通道。'],['unit-result','←','任务与结果','Module → Unit','受理、执行、完成或失败都对应当前任务身份。'],['unit-handoff','↔','预约与交接','Unit ↔ Module','预约资源、确认交接、更新晶圆位置并释放。']];
@@ -198,7 +202,7 @@ export function mountArchitecture(root) {
     if(documentEditor){documentEditor.destroy();documentEditor=null;}
     const n=node(selected);if(!n)return;let html=`<div class="detail-kicker">${escape(groupNames[n.group]||n.group)}</div><h2 class="detail-title">${escape(n.title)}</h2>`;
     if(!editing && n.subtitle)html+=`<div class="detail-subtitle">${escape(n.subtitle)}</div>`;
-    html+='<div class="document-actions"><button class="btn small" id="referenceButton" data-document-command="reference">查看参考说明</button><button class="btn small" id="blankDocument" data-document-command="blank">从空白开始</button><button class="btn small" id="undoDocument" data-document-command="undo">撤销操作</button></div>';
+    html+='<div class="document-actions"><button class="btn small" id="referenceButton" data-document-command="reference">查看参考说明</button>'+(editing?'<button class="btn small" id="blankDocument" data-document-command="blank">从空白开始</button><button class="btn small" id="undoDocument" data-document-command="undo">撤销操作</button>':'')+'</div>';
     if(editing){html+='<p class="edit-hint">章节名称、正文和顺序都由你决定。按 Ctrl+S 将修改保存到当前浏览器。</p><details class="node-meta-fields"><summary>节点名称、图中简述与标注</summary>'+[['title','节点名称'],['subtitle','图中简述'],['status','设计标注（可留空）']].map(([f,label])=>fieldHTML(n,f,label)).join('')+'</details>';if(activeStep>=0){const step=data.walkthrough[activeStep];html+=`<div class="section-rule">当前流程步骤</div><div class="edit-field"><label for="step-title">步骤标题</label><input id="step-title" data-step-field="title" value="${escape(step.title)}"></div><div class="edit-field"><label for="step-text">步骤说明</label><textarea id="step-text" data-step-field="text">${escape(step.text)}</textarea></div>`;}if(view==='operations'&&currentOperationStep()){const step=currentOperationStep();html+=`<div class="section-rule">当前操作流程环节</div><div class="edit-field"><label for="operation-step-title">环节标题</label><input id="operation-step-title" data-operation-field="title" value="${escape(step.title)}"></div><div class="edit-field"><label for="operation-step-text">环节说明</label><textarea id="operation-step-text" data-operation-field="text">${escape(step.text)}</textarea></div>`;}html+='<div id="documentEditor"></div>';}
     else{if(activeStep>=0){const step=data.walkthrough[activeStep];html+=`<div class="step-note"><b>第 ${activeStep+1} 步 · ${escape(step.title)}</b>${escape(step.text)}</div>`;}if(view==='operations'&&currentOperationStep()){const step=currentOperationStep();html+=`<div class="step-note"><b>${escape(step.title)}</b>${escape(step.text)}</div>`;}html+=Documents.render(n.document);}
     $('inspectorContent').innerHTML=html;$('editToggle').textContent=editing?'预览说明':'编辑本项说明';$('editToggle').setAttribute('aria-pressed',String(editing));root.classList.toggle('edit-mode',editing);syncSelected();syncUndo();
@@ -226,7 +230,7 @@ export function mountArchitecture(root) {
   function currentOperationStep(){const f=currentOperation();return activeOperationStep>=0?f[activeOperationBranch][activeOperationStep]||null:null;}
   function renderOperations(){
     const f=currentOperation(),steps=f[activeOperationBranch];if(activeOperationStep>=steps.length)activeOperationStep=-1;
-    $('operationContent').innerHTML=`<div class="view-intro"><div class="kicker">OPERATIONS / HMI TO DEVICE</div><h2>从上位机请求到实际设备</h2><p>分别查看单点手动、手动短流程和自动工艺经过的程序，以及报警如何改变许可、动作和后续恢复。这里只展示处理流程，不向设备发送请求。</p></div><div class="operation-cases" role="group" aria-label="操作类型">${data.operationFlows.map(item=>`<button class="operation-case ${item.id===f.id?'is-active':''}" data-operation="${escape(item.id)}" aria-pressed="${item.id===f.id}"><b>${escape(item.title)}</b><span>${escape(item.subtitle)}</span></button>`).join('')}</div><div class="operation-intro"><h3>${escape(f.title)}</h3><p>${escape(f.intro)}</p></div><div class="operation-switch" role="group" aria-label="流程分支"><button class="btn ${activeOperationBranch==='normal'?'is-active':''}" data-operation-branch="normal" aria-pressed="${activeOperationBranch==='normal'}">正常执行</button><button class="btn ${activeOperationBranch==='alarm'?'is-active':''}" data-operation-branch="alarm" aria-pressed="${activeOperationBranch==='alarm'}">报警处理</button><button class="btn" data-operation-move="-1" ${activeOperationStep<=0?'disabled':''}>上一环节</button><button class="btn" data-operation-move="1" ${activeOperationStep>=steps.length-1?'disabled':''}>下一环节</button></div><ol class="operation-steps">${steps.map((s,i)=>`<li><button class="operation-step ${activeOperationBranch==='alarm'?'alarm-path':''}" data-operation-step="${i}" aria-pressed="${i===activeOperationStep}"><span class="operation-number">${String(i+1).padStart(2,'0')}</span><span><small>${escape(node(s.node).title)}</small><b>${escape(s.title)}</b><p>${escape(s.text)}</p></span></button></li>`).join('')}</ol><p class="scenario-muted">点击环节在右侧查看对应程序说明；开启“编辑本项说明”后可修改该环节标题和正文。普通按钮请求复位不表示设备已执行，当前版仍以输出、反馈与Interlock状态排查。</p>`;
+    $('operationContent').innerHTML=`<div class="view-intro"><div class="kicker">OPERATIONS / HMI TO DEVICE</div><h2>从上位机请求到实际设备</h2><p>分别查看单点手动、手动短流程和自动工艺经过的程序，以及报警如何改变许可、动作和后续恢复。这里只展示处理流程，不向设备发送请求。</p></div><div class="operation-cases" role="group" aria-label="操作类型">${data.operationFlows.map(item=>`<button class="operation-case ${item.id===f.id?'is-active':''}" data-operation="${escape(item.id)}" aria-pressed="${item.id===f.id}"><b>${escape(item.title)}</b><span>${escape(item.subtitle)}</span></button>`).join('')}</div><div class="operation-intro"><h3>${escape(f.title)}</h3><p>${escape(f.intro)}</p></div><div class="operation-switch" role="group" aria-label="流程分支"><button class="btn ${activeOperationBranch==='normal'?'is-active':''}" data-operation-branch="normal" aria-pressed="${activeOperationBranch==='normal'}">正常执行</button><button class="btn ${activeOperationBranch==='alarm'?'is-active':''}" data-operation-branch="alarm" aria-pressed="${activeOperationBranch==='alarm'}">报警处理</button><button class="btn" data-operation-move="-1" ${activeOperationStep<=0?'disabled':''}>上一环节</button><button class="btn" data-operation-move="1" ${activeOperationStep>=steps.length-1?'disabled':''}>下一环节</button></div><ol class="operation-steps">${steps.map((s,i)=>`<li><button class="operation-step ${activeOperationBranch==='alarm'?'alarm-path':''}" data-operation-step="${i}" aria-pressed="${i===activeOperationStep}"><span class="operation-number">${String(i+1).padStart(2,'0')}</span><span><small>${escape(node(s.node).title)}</small><b>${escape(s.title)}</b><p>${escape(s.text)}</p></span></button></li>`).join('')}</ol><p class="scenario-muted">点击环节在右侧查看对应程序说明。普通按钮请求复位不表示设备已执行，当前版仍以输出、反馈与Interlock状态排查。</p>`;
   }
   function chooseOperationStep(index){
     const steps=currentOperation()[activeOperationBranch];if(!Number.isInteger(index)||index<0||index>=steps.length)return;
@@ -241,7 +245,7 @@ export function mountArchitecture(root) {
     {id:'tasks',title:'跨任务交接',node:'logic-task'}
   ];
   const frameworkPanels={
-    module:`<div class="framework-heading"><h3>一腔的周期调用主线</h3><small>MODULE / ENTRY</small></div><p>以 PLT1 为阅读起点，先看职责之间如何衔接。点击下方程序，可在右侧查看和编辑已有节点说明。</p><div class="framework-flow"><button data-node="command"><b>Command / Alarm</b><span>接收命令、检测和记录报警</span></button><button data-node="interlock"><b>Interlock</b><span>计算命令许可与运行约束</span></button><button data-node="manual"><b>Manual / Auto</b><span>共享所有权，提出动作请求</span></button><button data-node="controls"><b>Control</b><span>设备唯一执行入口，周期处理</span></button><button data-node="state-publish"><b>StatePublish</b><span>复制模块状态供上位机读取</span></button></div><div class="framework-note">图中按职责展示调用主线。Command 与 Alarm 的先后及仲裁位置由接口和扫描依赖决定。</div><h4>总入口的职责顺序</h4><p>总入口管理实例、输入与输出及周期调用，Manual 与 Auto 按所有权交接。模块状态在 Control 后发布；最终物理通道状态在 OutputMapping 后另行补充。</p>`,
+    module:`<div class="framework-heading"><h3>一腔的周期调用主线</h3><small>MODULE / ENTRY</small></div><p>以 PLT1 为阅读起点，先看职责之间如何衔接。点击下方程序，可在右侧查看节点说明。</p><div class="framework-flow"><button data-node="command"><b>Command / Alarm</b><span>接收命令、检测和记录报警</span></button><button data-node="interlock"><b>Interlock</b><span>计算命令许可与运行约束</span></button><button data-node="manual"><b>Manual / Auto</b><span>共享所有权，提出动作请求</span></button><button data-node="controls"><b>Control</b><span>设备唯一执行入口，周期处理</span></button><button data-node="state-publish"><b>StatePublish</b><span>复制模块状态供上位机读取</span></button></div><div class="framework-note">图中按职责展示调用主线。Command 与 Alarm 的先后及仲裁位置由接口和扫描依赖决定。</div><h4>总入口的职责顺序</h4><p>总入口管理实例、输入与输出及周期调用，Manual 与 Auto 按所有权交接。模块状态在 Control 后发布；最终物理通道状态在 OutputMapping 后另行补充。</p>`,
     scan:`<div class="framework-heading"><h3>请求跨扫描如何流动</h3><small>UNIT / SCAN</small></div><p>设计调用链为 HMI_Communication → InputMapping → ModuleInvocation → 整机调配 → OutputMapping。</p><div class="framework-scan"><section><small>SCAN N</small><b>先读模块，再提出请求</b><p>ModuleInvocation 调用模块并汇总状态；随后整机调配根据状态产生本次任务或启动请求。</p></section><section><small>SCAN N + 1</small><b>模块消费并回答</b><p>ModuleInvocation 将保持的请求交给模块；模块检查后发布匹配的受理或拒绝。调配随后读取回答并推进。</p></section></div><div class="framework-note">请求在交接期间保持，受理或拒绝通过独立状态反馈，收到确认后按接口规则清除。</div><h4>请求与状态的写入归属</h4><p>明确 ModuleInvocation 与 Module 的模式请求和确认状态归属；HMI_Communication 与单腔 Command 分别处理哪些请求、参数快照与接口复位。</p>`,
     owners:`<div class="framework-heading"><h3>数据从哪里来，由谁发布</h3><small>DATA / OWNERSHIP</small></div><p>以下职责表按数据来源和发布方向划分写入归属。</p><div class="framework-table-wrap"><table class="framework-table"><thead><tr><th>数据 / 事实</th><th>职责归属</th></tr></thead><tbody><tr><td>批次、晶圆位置账本、调度与预约</td><td>Unit 整机调配管理；片位依据已确认交接更新。</td></tr><tr><td>本腔任务、能力、Busy、HasWafer 与结果</td><td>对应 Module 形成并发布；空闲、工艺完成和有片分别表达。</td></tr><tr><td>模块调用、模式请求及反馈交接</td><td>ModuleInvocation 组织；确认状态的来源需与 Module 明确约定。</td></tr><tr><td>机器人报文与连接反馈</td><td>Com_Task 负责通信；Unit 持有搬运业务任务及上下文。</td></tr><tr><td>设备逻辑输出 / 最终通道输出</td><td>Control 统一形成设备逻辑输出；OutputMapping 负责物理通道映射。</td></tr></tbody></table></div><div class="framework-note">同一变量只安排一个写入者；其他程序通过自己的接口提出请求或确认。信号无效和“真实无片”应分别表达。</div>`,
     lifecycle:`<div class="framework-heading"><h3>任务与搬运的生命周期</h3><small>STATE / HANDOFF</small></div><p>状态模型按任务身份、晶圆身份和交接阶段匹配请求与结果。</p><h4>腔室任务</h4><div class="framework-flow"><div class="framework-stage"><b>待下发</b><span>准备任务与配方</span></div><div class="framework-stage"><b>等待受理</b><span>保持请求及身份</span></div><div class="framework-stage"><b>执行中</b><span>受理后维持占用</span></div><div class="framework-stage"><b>结果待确认</b><span>结果按身份保持</span></div><div class="framework-stage"><b>结果已确认</b><span>按约定结束交接</span></div></div><p>任务受理不等于工艺已经开始；目标配方确认、放片交接完成、机器人退出且 CanStartProcess 成立后，才能启动对应工艺。拒绝、异常或结果待核实时进入对应处理，不把 Stopped、正常完成、清理完成和有片混作一个状态。</p><h4>一次搬运</h4><div class="framework-flow"><div class="framework-stage"><b>准备 / 预约</b><span>源、目标及机器人</span></div><div class="framework-stage"><b>取片确认</b><span>机器人与源端核对</span></div><div class="framework-stage"><b>放片确认</b><span>机器人与目标核对</span></div><div class="framework-stage"><b>机器人退出</b><span>退出后才能结束交接</span></div><div class="framework-stage"><b>两端释放</b><span>匹配身份后释放预约</span></div></div><div class="framework-note amber">结果不明、反馈无效或互相矛盾时，保留任务身份、位置上下文及相关预约，先核实再决定恢复；不盲目重发。</div>`,
@@ -273,7 +277,7 @@ export function mountArchitecture(root) {
     if(command==='undo'){const stack=undoByNode.get(selected)||[];if(!stack.length)return;const index=data.nodes.findIndex(n=>n.id===selected);data.nodes[index]=stack.pop();updateNodeLabels();renderInspector();markDirty();refreshSearch();}
   });
   $('restoreNode').addEventListener('click',()=>{if(!confirm('用参考说明替换当前节点的说明正文？节点名称和其他节点不受影响，此操作可以撤销。'))return;pushUndo();node(selected).document=clone(node(selected).referenceDocument);renderInspector();markDirty();refreshSearch();toast('已恢复本节点的参考说明。可以撤销，也可继续修改。');});
-  function saveDraft(){if(!commitEditor())return;try{const safe=validate(data);localStorage.setItem(storageKey,JSON.stringify(safe));data=safe;dirty=false;toast('说明已保存到当前浏览器。');}catch(error){toast('保存说明失败：'+error.message,true);}}
+  function saveDraft(){if(!commitEditor())return;try{const safe=validate(data);drafts.write(storageKey,JSON.stringify(safe));data=safe;dirty=false;toast('说明已保存到当前浏览器。');}catch(error){toast('保存说明失败：'+error.message,true);}}
   function refreshSearch(){const q=$('searchInput').value.trim().toLocaleLowerCase();const results=$('searchResults');results.hidden=!q;if(!q){results.replaceChildren();return;}const matches=data.nodes.filter(n=>[n.title,n.subtitle,n.status,Documents.text(n.document)].some(text=>(text||'').toLocaleLowerCase().includes(q)));results.innerHTML=matches.length?matches.map(n=>`<button class="search-result" data-node="${escape(n.id)}">${escape(n.title)}</button>`).join(''):'<span class="muted">没有找到相关流程，请尝试“配方”“机器人”或“装片”。</span>';}
   $('searchInput').addEventListener('input',refreshSearch);$('closeReference').addEventListener('click',()=>$('referenceDialog').close());
   $('searchResults').addEventListener('click',event=>{const b=event.target.closest('[data-node]');if(b)selectNode(b.dataset.node);});
@@ -284,14 +288,14 @@ export function mountArchitecture(root) {
     if (dirty) { event.preventDefault(); event.returnValue = ''; }
   }, { signal });
   window.addEventListener('keydown', event => {
-    if (!root.hidden && (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
+    if (maintenance && !root.hidden && (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
       event.preventDefault();
       saveDraft();
     }
   }, { signal });
   const observer = new ResizeObserver(resizeGraph);
   observer.observe($('canvasScroll'));
-  if (pendingDraft) {
+  if (maintenance && pendingDraft) {
     ({ data, selected, editing, dirty } = pendingDraft);
     pendingDraft = undefined;
     window.removeEventListener('beforeunload', warnPendingDraft);

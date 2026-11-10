@@ -22,6 +22,7 @@ const views = [
 
 export default function PlcPage() {
   const [search, setSearch] = useSearchParams()
+  const maintenance = search.get('edit') === '1'
   const view = views.find(({ id }) => id === search.get('view'))?.id ?? 'architecture'
   const architectureRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
@@ -32,21 +33,24 @@ export default function PlcPage() {
   useLayoutEffect(() => {
     const root = architectureRef.current!
     root.innerHTML = architectureMarkup
-    const runtime = mountArchitecture(root)
+    const runtime = mountArchitecture(root, { maintenance })
     runtimeRef.current = runtime
     return () => {
       runtime.destroy()
       runtimeRef.current = null
       root.replaceChildren()
     }
-  }, [])
+  }, [maintenance])
 
   useLayoutEffect(() => {
     if (view !== 'packml') runtimeRef.current?.setView(view)
-  }, [view])
+  }, [view, maintenance])
 
   function selectView(id: typeof view) {
-    setSearch(id === 'architecture' ? {} : { view: id }, { preventScrollReset: true })
+    const next = new URLSearchParams()
+    if (id !== 'architecture') next.set('view', id)
+    if (maintenance) next.set('edit', '1')
+    setSearch(next, { preventScrollReset: true })
   }
 
   function onTabKeyDown(event: KeyboardEvent<HTMLDivElement>) {
@@ -102,7 +106,7 @@ export default function PlcPage() {
           </div>
         </div>
         <div className="evidence-legend plc-reading-links">
-          <Link className="text-link" to="/plc/case">TwinCAT 官方案例复盘 <span aria-hidden="true">↗</span></Link>
+          <Link className="text-link" to="/plc/case">补充阅读：独立的 TwinCAT 官方案例复盘 <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
 

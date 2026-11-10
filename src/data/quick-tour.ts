@@ -57,7 +57,7 @@ export const tourItems: readonly TourItem[] = [
     title: 'OpenCV & HALCON 工业视觉双引擎工作台',
     highlights: [
       'OpenCV 算子库：76 项原子算子（纯算法边界）+ 9 大专用组合算子',
-      'HALCON 视觉引擎：281 项算子目录 + 分支/循环配方引擎 + 自动化冒烟测试',
+      'HALCON 视觉引擎：282 项算子目录 + 分支/循环配方引擎 + 离线回归测试',
       '工业相机 SDK 原生直驱，原始无损帧直采与畸变标定',
     ],
     actionText: '查看视觉工作台',
