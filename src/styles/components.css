@@ -26,6 +26,9 @@
   gap: 3px;
 }
 
+.site-header.site-header--title-only { grid-template-columns: minmax(0, 1fr); }
+.site-header--title-only .brand-lockup { border-right: 0; }
+
 .brand-lockup b {
   font-size: 0.88rem;
   letter-spacing: 0.12em;
