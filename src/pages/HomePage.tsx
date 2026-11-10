@@ -1,12 +1,16 @@
 import { useRef } from 'react'
 import { CapabilityRail } from '../components/CapabilityRail'
 import { ControlCore } from '../components/ControlCore'
+import { EngineeringCases } from '../components/EngineeringCases'
 import { IntentLink } from '../components/IntentLink'
 import { ScrollTargetButton } from '../components/ScrollTargetButton'
+import { TechStackMatrix } from '../components/TechStackMatrix'
 import { SignalField } from '../features/signal-field/SignalField'
 import { useMotionMode } from '../features/motion/useMotionMode'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { gsap, useGSAP } from '../lib/gsap'
+import '../styles/tech-stack.css'
+import '../styles/engineering-cases.css'
 
 export default function HomePage() {
   const rootRef = useRef<HTMLElement>(null)
@@ -59,7 +63,13 @@ export default function HomePage() {
           <div className="home-hero__actions" data-home-intro>
             <IntentLink className="primary-action" to="/hmi">从上位机进入 <span aria-hidden="true">↗</span></IntentLink>
             <ScrollTargetButton className="secondary-action" targetId="capability-atlas">
-              查看四域图谱 <span aria-hidden="true">↓</span>
+              四域图谱 <span aria-hidden="true">↓</span>
+            </ScrollTargetButton>
+            <ScrollTargetButton className="secondary-action" targetId="tech-matrix">
+              技术矩阵 <span aria-hidden="true">⚙</span>
+            </ScrollTargetButton>
+            <ScrollTargetButton className="secondary-action" targetId="engineering-cases">
+              实战排查 <span aria-hidden="true">★</span>
             </ScrollTargetButton>
           </div>
         </div>
@@ -82,6 +92,10 @@ export default function HomePage() {
       <div id="capability-atlas" tabIndex={-1}>
         <CapabilityRail />
       </div>
+
+      <TechStackMatrix />
+
+      <EngineeringCases />
 
       <section className="home-closing">
         <p className="eyebrow">ENGINEERING CASES</p>
