@@ -13,12 +13,12 @@
 .hmi-explorer__toolbar h2 { margin-top: 3px; font-size: 18px; line-height: 25px; font-weight: 700; }
 .hmi-explorer__toolbar > p { color: #536277; font-size: 12px; line-height: 18px; }
 .hmi-chain-tabs { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 0 20px 12px; border-bottom: 1px solid #dce4ef; }
-.hmi-chain-tabs button, .hmi-mobile-context button { display: inline-flex; gap: 7px; justify-content: center; align-items: center; min-height: 44px; padding: 7px 14px; border: 1px solid rgba(46, 65, 94, 0.22); border-radius: 8px; color: #34445b; background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; line-height: 18px; transition: all 180ms ease; }
+.hmi-chain-tabs button, .hmi-mobile-context button { display: inline-flex; gap: 7px; justify-content: center; align-items: center; min-height: 44px; padding: 7px 14px; border: 1px solid rgba(46, 65, 94, 0.22); border-radius: 8px; color: #34445b; background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; line-height: 18px; transition: transform 180ms ease, color 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
 .hmi-chain-tabs button > span { font-family: Consolas, monospace; }
 .hmi-chain-tabs button:hover, .hmi-mobile-context button:hover { color: #1d4ed8; background: #eff5ff; border-color: #2563eb; transform: translateY(-1px); }
 .hmi-chain-tabs button[aria-pressed="true"] { color: #fff; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; box-shadow: 0 6px 16px -4px rgba(37, 99, 235, 0.38); }
 .hmi-chain-tabs .hmi-chain-tabs__full { margin-left: auto; }
-.hmi-explorer__workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0fr); min-width: 0; overflow-anchor: none; transition: grid-template-columns 220ms ease; }
+.hmi-explorer__workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0fr); min-width: 0; overflow-anchor: none; }
 .hmi-explorer.is-reading .hmi-explorer__workspace { grid-template-columns: minmax(0, .42fr) minmax(0, .58fr); height: min(720px, calc(100svh - var(--header-height) - 32px)); }
 .hmi-graph-scroll { min-width: 0; min-height: 0; max-height: 600px; overflow: auto; overscroll-behavior: contain; scrollbar-color: #8291a6 #f6f8fc; }
 .hmi-graph-scroll:focus-visible { outline-offset: -3px; }
@@ -96,7 +96,7 @@
   .hmi-explorer.is-reading .hmi-flow-nodes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .hmi-group-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .detail-hero.detail-hero--architecture { grid-template-columns: minmax(0, 1fr); padding-top: 20px; gap: 16px; }
   .detail-hero--architecture .detail-hero__index { display: none; }
   .hmi-explorer__toolbar { align-items: start; flex-direction: column; gap: 6px; padding-inline: 12px; }

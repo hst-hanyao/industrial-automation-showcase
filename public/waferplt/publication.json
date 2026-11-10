@@ -1,6 +1,6 @@
 {
   "createdAt": "2026-10-15T12:17:16.390Z",
-  "updatedAt": "2026-11-10T07:04:02.897Z",
+  "updatedAt": "2026-11-10T21:57:23.374Z",
   "basePath": "/industrial-automation-showcase/waferplt/",
   "kind": "Static files for the unified, manually controlled wafer electroplating teaching workspace",
   "entry": "index.html",
@@ -109,31 +109,6 @@
       "sha256": "46a1c83d9332c4e52e137b413f8e0cd337d45c1234f23c017977a7ff35d57818"
     },
     {
-      "path": "out/modules/apt-poster.jpg",
-      "bytes": 106442,
-      "sha256": "9e7589d23115659d83eee5deae814ad52341ab80e0e5fdfc71d13b983fca03e1"
-    },
-    {
-      "path": "out/modules/plt-poster.jpg",
-      "bytes": 101044,
-      "sha256": "c0dacbfcd679effd1324fdeb0ba177f9423dce7e9000f0fdca6c3774134ecb19"
-    },
-    {
-      "path": "out/modules/srd-poster.jpg",
-      "bytes": 106917,
-      "sha256": "61bff61281da8310996697fbfe2c0c41b86725254f95b6384a1b2e786ea984ef"
-    },
-    {
-      "path": "out/preview.png",
-      "bytes": 657947,
-      "sha256": "8deb333ad64f55e3fef67dce5ee88c6acfe0d770ebaa843fed50e0bbff065198"
-    },
-    {
-      "path": "out/robots-overview-poster.png",
-      "bytes": 615303,
-      "sha256": "094994cb2010fb379e2e4d00288a0e786112a580c76e7a65ca8d3f5f8b203389"
-    },
-    {
       "path": "references/sabre3d-research/evidence-index.json",
       "bytes": 8539,
       "sha256": "164f2c919ff1916786f0dd6d3977ad75901610f955f5dc2792090d938093d185"
@@ -184,7 +159,7 @@
       "sha256": "117d8de250c868d583c61c2b8472d613e26852a53aade3114f60e47e051df0a6"
     }
   ],
-  "totalBytes": 8916362,
+  "totalBytes": 7328709,
   "largest": {
     "path": "machine/electroplating-machine.html",
     "bytes": 903393,

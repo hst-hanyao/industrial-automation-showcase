@@ -11,6 +11,32 @@
   <body>
     <div id="root"></div>
     <noscript><p role="alert">本展示站需要启用 JavaScript 才能查看能力图谱。</p></noscript>
-    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      (function () {
+        function showFallback() {
+          var host = document.getElementById('root');
+          if (!host || host.childElementCount) return;
+          var box = document.createElement('section');
+          box.className = 'entry-fallback';
+          var notice = document.createElement('p');
+          notice.textContent = '页面暂时无法加载，请重试。';
+          notice.setAttribute('role', 'alert');
+          var retry = document.createElement('button');
+          retry.type = 'button';
+          retry.textContent = '重新加载';
+          retry.autofocus = true;
+          retry.addEventListener('click', function () { location.reload(); });
+          box.append(notice, retry);
+          host.replaceChildren(box);
+        }
+        addEventListener('error', function (event) {
+          var target = event.target;
+          var entryFailed = target && target.tagName === 'SCRIPT' && target.type === 'module';
+          var runtimeFailed = typeof ErrorEvent !== 'undefined' && event instanceof ErrorEvent;
+          if (entryFailed || runtimeFailed) showFallback();
+        }, true);
+      })();
+    </script>
+    <script type="module" src="/src/showcase-entry.tsx"></script>
   </body>
 </html>

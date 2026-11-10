@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { lazyPages } from '../route-modules'
+import { NotFound } from './NotFound'
 import { RouteErrorBoundary } from './RouteErrorBoundary'
 import { RouteTransition } from './RouteTransition'
 import { SiteFooter } from './SiteFooter'
@@ -43,7 +44,7 @@ export function AppShell() {
             <Route path="/motion" element={<MotionPage />} />
             <Route path="/vision" element={<VisionPage />} />
             <Route path="/cases" element={<CasesPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </RouteErrorBoundary>

@@ -202,17 +202,18 @@
 .home-hero__scroll i::after {
   content: "";
   position: absolute;
-  top: -50%;
+  top: 0;
   left: 0;
   width: 100%;
   height: 50%;
   background: var(--signal);
+  transform: translateY(-100%);
   animation: scrollDrop 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes scrollDrop {
-  0% { top: -50%; }
-  100% { top: 110%; }
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(220%); }
 }
 
 .atlas-rail {
@@ -368,7 +369,7 @@
     radial-gradient(500px circle at 100% 0%, color-mix(in srgb, var(--accent, var(--signal)) 6%, transparent), transparent 70%),
     rgba(255, 255, 255, 0.94);
   box-shadow: var(--shadow-soft);
-  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 280ms ease, border-color 280ms ease;
+  transition: transform 280ms var(--motion-ease-enter), box-shadow 280ms ease, border-color 280ms ease;
 }
 
 .atlas-chapter:hover {
@@ -655,7 +656,7 @@
   color: var(--bone-muted);
   font-size: 0.98rem;
   line-height: 1.75;
-  transition: color 180ms ease, padding-left 180ms ease;
+  transition: color 180ms ease;
 }
 
 .detail-block__copy li:hover {
@@ -757,7 +758,7 @@
   text-decoration: none;
   cursor: pointer;
   font: inherit;
-  transition: background 240ms ease, color 240ms ease, transform 240ms ease;
+  transition: background var(--motion-enter) ease, color var(--motion-enter) ease, transform var(--motion-enter) ease;
 }
 
 .project-pagination a:last-child,
@@ -767,7 +768,7 @@
   color: var(--ink);
   background: linear-gradient(135deg, var(--accent, var(--signal)) 0%, color-mix(in srgb, var(--accent, var(--signal)) 75%, #0f172a) 100%);
 }
-.project-pagination span { color: var(--bone-muted); font-family: "Cascadia Code", Consolas, monospace; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; transition: color 240ms ease; }
+.project-pagination span { color: var(--bone-muted); font-family: "Cascadia Code", Consolas, monospace; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; transition: color var(--motion-enter) ease; }
 .project-pagination a:hover span,
 .project-pagination button:hover span { color: rgba(255, 255, 255, 0.85); }
 .project-pagination strong { font-size: clamp(1rem, 1.35vw, 1.25rem); line-height: 1.25; }
@@ -803,7 +804,7 @@
   .home-closing { padding-block: 64px 72px; }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .home-hero { gap: 28px; padding-block: 32px 24px; }
   .home-hero__frame { inset: 10px; }
   .home-hero h1 { margin-top: 16px; font-size: clamp(2.1rem, 8vw, 3rem); line-height: 1.15; }

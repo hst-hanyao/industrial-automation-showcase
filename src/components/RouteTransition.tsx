@@ -15,7 +15,28 @@ export function RouteTransition({ routeKey }: RouteTransitionProps) {
       const root = rootRef.current
       if (!root) return
 
+      const shell = root.closest('.app-shell') ?? root.parentElement
       const panels = gsap.utils.toArray<HTMLElement>('[data-transition-panel]', root)
+
+      // Sweep every direct child of .app-shell (except the overlay itself) rather
+      // than a tracked subset, so a stale `inert` from an interrupted run can
+      // never be left behind.
+      const setInert = () => {
+        if (!shell) return
+        Array.from(shell.children).forEach((child) => {
+          if (child instanceof HTMLElement && child !== root) child.inert = true
+        })
+      }
+      const clearInert = () => {
+        if (!shell) return
+        Array.from(shell.children).forEach((child) => {
+          if (child instanceof HTMLElement && child !== root) child.inert = false
+        })
+      }
+
+      // A previous timeline may have been reverted (revertOnUpdate) mid-flight;
+      // clear any residue before starting a fresh one.
+      clearInert()
 
       if (motionMode === 'reduced') {
         gsap.set(root, { autoAlpha: 0, pointerEvents: 'none' })
@@ -27,9 +48,15 @@ export function RouteTransition({ routeKey }: RouteTransitionProps) {
         defaults: { ease: 'power4.inOut' },
         onStart: () => {
           root.style.pointerEvents = 'auto'
+          setInert()
         },
         onComplete: () => {
           root.style.pointerEvents = 'none'
+          clearInert()
+        },
+        onInterrupt: () => {
+          root.style.pointerEvents = 'none'
+          clearInert()
         },
       })
 
@@ -44,6 +71,10 @@ export function RouteTransition({ routeKey }: RouteTransitionProps) {
           stagger: 0.055,
         }, '+=0.06')
         .set(root, { autoAlpha: 0 })
+
+      // gsap.context calls this on revert (revertOnUpdate / unmount), so `inert`
+      // is removed even when the timeline is killed before onComplete.
+      return clearInert
     },
     {
       scope: rootRef,
@@ -61,4 +92,3 @@ export function RouteTransition({ routeKey }: RouteTransitionProps) {
     </div>
   )
 }
-

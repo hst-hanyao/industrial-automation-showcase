@@ -227,7 +227,7 @@ main {
   :root { --page-gutter: 28px; }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   :root {
     --page-gutter: 16px;
     --header-height: 64px;

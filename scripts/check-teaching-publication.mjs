@@ -69,7 +69,7 @@ if (preparing) {
   }))
   const manifest = {
     createdAt: previous.createdAt,
-    updatedAt: new Date().toISOString(),
+    updatedAt: previous.updatedAt,
     basePath: previous.basePath,
     kind: 'Static files for the unified, manually controlled wafer electroplating teaching workspace',
     entry: 'index.html',
@@ -80,8 +80,14 @@ if (preparing) {
     totalBytes: files.reduce((sum, file) => sum + file.bytes, 0),
     largest: files.reduce((largest, file) => !largest || file.bytes > largest.bytes ? file : largest, null),
   }
-  await fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`)
-  log(`Teaching publication input checked; manifest refreshed for ${files.length} files.`)
+  const serialized = `${JSON.stringify(manifest, null, 2)}\n`
+  const current = await fs.readFile(manifestPath, 'utf8')
+  if (current !== serialized) {
+    await fs.writeFile(manifestPath, serialized)
+    log(`Teaching publication input checked; manifest refreshed for ${files.length} files.`)
+  } else {
+    log(`Teaching publication input checked; manifest unchanged for ${files.length} files.`)
+  }
 } else {
   const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'))
   for (const file of manifest.files) {

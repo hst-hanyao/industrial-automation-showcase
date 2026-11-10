@@ -16,7 +16,9 @@ export function mountArchitecture(root, { maintenance = false } = {}) {
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const clone = value => JSON.parse(JSON.stringify(value));
   const source = architectureData;
-  const rawInitial=clone(source);
+  // `source` is the imported, read-only snapshot and is never mutated, so it can
+  // serve as the pristine v1 baseline directly instead of a third full deep clone.
+  const rawInitial=source;
   const initial=clone(source);initial.version=2;
   for(const n of initial.nodes){n.document=Documents.normalize(n.document || Documents.fromLegacy(n));n.referenceDocument=Documents.normalize(n.referenceDocument || clone(n.document));}
   const fields = [['title','流程标题'],['subtitle','简短说明'],['summary','概述'],['responsibility','负责什么'],['inputs','接收什么'],['outputs','返回什么'],['sequence','处理顺序'],['conditions','前置条件与许可'],['exceptions','异常与恢复'],['example','交互示例'],['status','设计标注']];

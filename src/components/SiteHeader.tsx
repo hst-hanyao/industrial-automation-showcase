@@ -1,5 +1,10 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { capabilities } from '../data/capabilities'
+import {
+  CASES_NAV_ACCENT,
+  QUICK_TOUR_LABEL,
+  QUICK_TOUR_TITLE,
+} from '../data/site-config'
 import { CapabilityLink } from './CapabilityLink'
 import { DeviceDemoMenu } from './DeviceDemoMenu'
 import { ExecutiveQuickTour } from './ExecutiveQuickTour'
@@ -86,7 +91,7 @@ export function SiteHeader() {
             to="/cases"
             className={({ isActive }) => `nav-domain nav-domain--cases${isActive ? ' is-active' : ''}`}
             style={{
-              '--nav-accent': '#16a34a',
+              '--nav-accent': CASES_NAV_ACCENT,
             } as React.CSSProperties}
             onClick={() => setMenuOpen(false)}
           >
@@ -99,11 +104,11 @@ export function SiteHeader() {
             type="button"
             className="tour-trigger-pill"
             onClick={() => setTourOpen(true)}
-            title="打开 3 分钟精选导览"
+            title={QUICK_TOUR_TITLE}
             aria-haspopup="dialog"
             aria-expanded={tourOpen}
           >
-            <span>★</span> 3分钟速览
+            <span>★</span>{' '}{QUICK_TOUR_LABEL}
           </button>
           <DeviceDemoMenu onOpen={() => setMenuOpen(false)} />
         </div>

@@ -64,3 +64,7 @@ GitHub Pages 已于 2026-10-17 按要求关闭，仓库 Pages 设置的发布分
 停用前的 GitHub Pages 地址为 [工业自动化能力图谱](https://hst-hanyao.github.io/industrial-automation-showcase/) 和 [晶圆电镀工艺 3D 教学演示](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/)。关闭后，原站点及子页已实测返回 404；自定义域名或其他托管由项目所有者单独维护。
 
 此前的 7 份原始专利 PDF 与 15 张原始专利页图片已移出公开目录，历史备份位置见 `CHECKPOINT.md`。公开目录仅保留必要的文献号、出处文字、适用边界与第三方许可；本次不改写 Git 历史。
+
+## 仓库结构
+
+`industrial-automation-showcase` 是唯一权威工程，本 README、类型检查、Lint、测试与 CI 验证均以它为准。工作区根目录下的 `showcase/` 与 `index.html` + `pages/` 是历史同源副本，源码已与本工程分叉，仅作归档保留，不再同步维护；修改功能请只改本工程。副本目录存在未提交改动，合并、覆盖或删除前需先单独备份，Git 无法还原未提交的内容。

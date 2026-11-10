@@ -60,3 +60,15 @@ describe('homepage layout', () => {
     expect(html).toContain('site-header')
   })
 })
+
+describe('unknown route fallback', () => {
+  it('回退到独立 404 页而不是重定向到首页', () => {
+    const html = renderRoute('/does-not-exist')
+
+    expect(html).toContain('页面不存在')
+    expect(html).toContain('role="status"')
+    expect(html).toContain('返回首页')
+    expect(html).toContain('id="main-content"')
+    expect(html).not.toContain('能力图谱测试页面')
+  })
+})

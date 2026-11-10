@@ -31,7 +31,7 @@
 .image-viewer__canvas.is-fit img { min-width: 0; min-height: 0; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
 .image-viewer__note { flex-shrink: 0; padding: 12px 20px; color: #526173; font-size: 12px; line-height: 1.6; }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .image-viewer__header { flex-wrap: wrap; gap: 12px; padding: 12px; }
   .image-viewer__header > div:first-child { flex: 1 1 180px; }
   .image-viewer__note { padding: 10px 12px; }

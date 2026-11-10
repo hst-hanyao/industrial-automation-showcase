@@ -2,7 +2,7 @@ import { useEffect, useId, useLayoutEffect, useMemo, useReducer, useRef, useStat
 import { hmiCallChains, hmiCodeSnippets, hmiLayers, hmiNodes, hmiSourceSnapshot, type HmiEdge, type HmiNode } from '../data/hmi-architecture'
 import { useMotionMode } from '../features/motion/useMotionMode'
 import { getDefaultSnippetId, getHmiGraph, hmiExplorerReducer, initialHmiExplorerState, type HmiBrowseView } from '../lib/hmi-explorer'
-import { ScrollTrigger } from '../lib/gsap'
+import { ScrollTrigger } from '../lib/gsap-scrolltrigger'
 import { HmiSourceReader } from './HmiSourceReader'
 import { SourceCode } from './SourceCode'
 import '../styles/hmi.css'

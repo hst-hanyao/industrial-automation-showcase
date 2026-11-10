@@ -1,4 +1,5 @@
 import { useEffect, type RefObject } from 'react'
+import { SITE_NAME } from '../data/site-config'
 
 export function usePageMeta(
   title: string,
@@ -6,8 +7,7 @@ export function usePageMeta(
   focusDelayMs = 0,
 ) {
   useEffect(() => {
-    const siteTitle = '工业自动化能力图谱'
-    document.title = title === siteTitle ? siteTitle : `${title} — ${siteTitle}`
+    document.title = title === SITE_NAME ? SITE_NAME : `${title} — ${SITE_NAME}`
     const initialFocus = document.activeElement
 
     const focusTimer = window.setTimeout(() => {
