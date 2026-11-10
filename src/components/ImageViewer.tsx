@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from 'react'
 import type { MediaAsset } from '../data/capabilities'
 import { getMediaUrl } from '../lib/media'
+import { SafeImage } from './SafeImage'
 import '../styles/image-viewer.css'
 
 interface ImageViewerProps {
@@ -74,8 +75,8 @@ export function ImageViewer({ media, description }: ImageViewerProps) {
         aria-describedby={description ? descriptionId : undefined} onClose={onClose}
         onCancel={(event) => { event.preventDefault(); closeImage() }}
         onClick={(event) => { if (event.target === event.currentTarget) closeImage() }}>
-        <header className="image-viewer__header">
-          <div><h3 id={titleId}>{media.caption}</h3><p>{media.width} × {media.height} · {naturalSize ? '原尺寸' : '适应窗口'}</p></div>
+        <div className="image-viewer__header">
+          <div><h2 id={titleId}>{media.caption}</h2><p>{media.width} × {media.height} · {naturalSize ? '原尺寸' : '适应窗口'}</p></div>
           <div className="image-viewer__actions">
             <button type="button" onClick={() => {
               setNaturalSize((value) => !value)
@@ -83,10 +84,11 @@ export function ImageViewer({ media, description }: ImageViewerProps) {
             }} aria-pressed={!naturalSize}>{naturalSize ? '适应窗口' : '原尺寸'}</button>
             <button type="button" autoFocus onClick={closeImage} aria-label="关闭图片">关闭 ×</button>
           </div>
-        </header>
+        </div>
         <div ref={canvasRef} className={`image-viewer__canvas${naturalSize ? '' : ' is-fit'}`} tabIndex={0}
-          aria-label="图片滚动区域" style={{ '--image-width': `${media.width}px`, '--image-height': `${media.height}px` } as CSSProperties}>
-          <img src={getMediaUrl(media.file)} alt={media.alt} width={media.width} height={media.height} decoding="async" />
+          role="region" aria-label="图片滚动区域"
+          style={{ '--image-width': `${media.width}px`, '--image-height': `${media.height}px` } as CSSProperties}>
+          <SafeImage src={getMediaUrl(media.file)} alt={media.alt} width={media.width} height={media.height} decoding="async" />
         </div>
         {description ? <p id={descriptionId} className="image-viewer__note">{description}</p> : null}
       </dialog>

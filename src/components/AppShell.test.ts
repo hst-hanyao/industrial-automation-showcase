@@ -19,8 +19,8 @@ vi.mock('./RouteTransition', () => ({ RouteTransition: () => null }))
 
 import { AppShell } from './AppShell'
 
-function renderRoute(path: string, defaultPage?: string) {
-  vi.stubGlobal('document', { body: { dataset: { defaultPage } } })
+function renderRoute(path: string) {
+  vi.stubGlobal('document', { body: { dataset: {} } })
   vi.stubGlobal('window', { location: { search: '' } })
   return renderToString(createElement(MemoryRouter, { initialEntries: [path] }, createElement(AppShell)))
 }
@@ -38,7 +38,7 @@ describe('homepage layout', () => {
   })
 
   it('keeps the separate capability map route and navigation', () => {
-    const html = renderRoute('/capabilities', 'capabilities')
+    const html = renderRoute('/capabilities')
     expect(html).toContain('能力图谱测试页面')
     expect(html).toContain('site-header')
     expect(html).toContain('回到本页顶部')

@@ -1,5 +1,6 @@
 import { useRef, type PointerEvent } from 'react'
 import { getMediaUrl } from '../lib/media'
+import { SafeImage } from './SafeImage'
 import '../styles/home-concept.css'
 
 export function ControlCore() {
@@ -39,7 +40,7 @@ export function ControlCore() {
         <span>半导体晶圆电镀设备概念模型</span>
       </div>
       <figure className="home-device__figure">
-        <img
+        <SafeImage
           src={getMediaUrl('wafer-electroplating-concept.webp')}
           alt="白色模块化晶圆电镀设备概念插画，包含工艺腔室、晶圆盒和机械传送部件；AI 生成，非项目实拍"
           width={1536}

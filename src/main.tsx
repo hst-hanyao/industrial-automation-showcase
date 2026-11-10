@@ -7,9 +7,11 @@ void import('./showcase-entry').catch(() => {
   const retry = document.createElement('button')
   retry.type = 'button'
   retry.textContent = '重新加载'
+  retry.autofocus = true
   retry.addEventListener('click', () => window.location.reload())
   const fallback = document.createElement('section')
   fallback.className = 'entry-fallback'
   fallback.append(notice, retry)
-  document.getElementById('root')!.replaceChildren(fallback)
+  const host = document.getElementById('root') ?? document.body
+  host.replaceChildren(fallback)
 })

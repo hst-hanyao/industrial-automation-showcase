@@ -1,6 +1,7 @@
 import type { MediaAsset } from '../data/capabilities'
 import { getMediaUrl } from '../lib/media'
 import { ImageViewer } from './ImageViewer'
+import { SafeImage } from './SafeImage'
 
 interface MediaFrameProps {
   readonly media: MediaAsset
@@ -17,7 +18,7 @@ export function MediaFrame({ media, eager = false }: MediaFrameProps) {
         <b>STATIC / EVIDENCE VIEW</b>
       </div>
       <div className="media-frame__viewport" style={{ aspectRatio: `${media.width} / ${media.height}` }}>
-        <img
+        <SafeImage
           src={getMediaUrl(media.file)}
           alt={media.alt}
           width={media.width}

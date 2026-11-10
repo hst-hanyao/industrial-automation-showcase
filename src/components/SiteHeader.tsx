@@ -15,10 +15,18 @@ export function SiteHeader() {
     const closeMenu = () => setMenuOpen(false)
     const desktop = window.matchMedia('(min-width: 768px)')
     window.addEventListener('hashchange', closeMenu)
-    desktop.addEventListener('change', closeMenu)
+    if (typeof desktop.addEventListener === 'function') {
+      desktop.addEventListener('change', closeMenu)
+    } else {
+      desktop.addListener(closeMenu)
+    }
     return () => {
       window.removeEventListener('hashchange', closeMenu)
-      desktop.removeEventListener('change', closeMenu)
+      if (typeof desktop.removeEventListener === 'function') {
+        desktop.removeEventListener('change', closeMenu)
+      } else {
+        desktop.removeListener(closeMenu)
+      }
     }
   }, [])
 
@@ -92,6 +100,8 @@ export function SiteHeader() {
             className="tour-trigger-pill"
             onClick={() => setTourOpen(true)}
             title="打开 3 分钟精选导览"
+            aria-haspopup="dialog"
+            aria-expanded={tourOpen}
           >
             <span>★</span> 3分钟速览
           </button>

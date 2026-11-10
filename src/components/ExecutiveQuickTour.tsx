@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { tourItems, type TourItem } from '../data/quick-tour'
 import '../styles/quick-tour.css'
@@ -10,54 +10,52 @@ interface ExecutiveQuickTourProps {
 
 export function ExecutiveQuickTour({ isOpen, onClose }: ExecutiveQuickTourProps) {
   const navigate = useNavigate()
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const triggerRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
-    if (!isOpen) return
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [isOpen, onClose])
+    const dialog = dialogRef.current
+    if (!dialog) return
 
-  if (!isOpen) return null
-
-  function handleJump(item: TourItem) {
-    onClose()
-    if (item.isExternal) {
-      window.location.assign(item.route)
-      return
-    }
-
-    if (item.route.startsWith('/#')) {
-      const targetId = item.route.replace('/#', '')
-      const el = document.getElementById(targetId)
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' })
-      } else {
-        navigate('/')
-        setTimeout(() => {
-          document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' })
-        }, 150)
+    if (isOpen) {
+      if (!dialog.open) {
+        const active = document.activeElement
+        triggerRef.current = active instanceof HTMLElement ? active : null
+        dialog.showModal()
       }
       return
     }
 
+    if (dialog.open) {
+      dialog.close()
+      triggerRef.current?.focus()
+    }
+  }, [isOpen])
+
+  function handleJump(item: TourItem) {
+    onClose()
+    if (item.isExternal) {
+      window.location.assign(`${import.meta.env.BASE_URL}${item.route.replace(/^\//, '')}`)
+      return
+    }
     navigate(item.route)
   }
 
   return (
-    <div
+    <dialog
+      ref={dialogRef}
       className="tour-modal__backdrop"
-      role="dialog"
-      aria-modal="true"
       aria-labelledby="tour-title"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose()
+      onCancel={(event) => {
+        event.preventDefault()
+        onClose()
+      }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose()
       }}
     >
       <div className="tour-modal">
-        <header className="tour-modal__header">
+        <div className="tour-modal__header">
           <div>
             <p className="tour-modal__eyebrow">精选导览 / 3分钟速览</p>
             <h2 id="tour-title" className="tour-modal__title">3 分钟面试官精选导览</h2>
@@ -73,7 +71,7 @@ export function ExecutiveQuickTour({ isOpen, onClose }: ExecutiveQuickTourProps)
           >
             ×
           </button>
-        </header>
+        </div>
 
         <div className="tour-modal__content">
           {tourItems.map((item) => (
@@ -99,11 +97,11 @@ export function ExecutiveQuickTour({ isOpen, onClose }: ExecutiveQuickTourProps)
           ))}
         </div>
 
-        <footer className="tour-modal__footer">
+        <div className="tour-modal__footer">
           <span>提示：ESC 键或点击遮罩可随时退出导览</span>
           <span>按序号推荐依次浏览</span>
-        </footer>
+        </div>
       </div>
-    </div>
+    </dialog>
   )
 }

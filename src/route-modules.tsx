@@ -29,7 +29,7 @@ export const lazyPages: Record<
 }
 
 export function preloadRoute(path: string): Promise<PageModule> | undefined {
-  if (path === '/capabilities') return routeLoaders.home()
+  if (path === '/' || path === '/capabilities') return routeLoaders.home()
   if (path === '/hmi') return routeLoaders.hmi()
   if (path === '/plc') return routeLoaders.plc()
   if (path === '/plc/case') return routeLoaders.plcCase()

@@ -107,7 +107,7 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
-  min-height: 40px;
+  min-height: 44px;
   padding: 8px 14px;
   border: 1px solid rgba(46, 65, 94, 0.22);
   border-radius: 99px;
@@ -167,7 +167,7 @@
   padding: 6px 10px 8px;
   color: var(--signal);
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.1em;
 }
@@ -211,7 +211,7 @@
   background: rgba(37, 99, 235, 0.1);
   color: var(--signal);
   font-family: Consolas, monospace;
-  font-size: 0.74rem;
+  font-size: 0.8125rem;
   font-weight: 700;
 }
 .device-demo-menu__arrow { color: var(--signal); font-weight: 700; }
@@ -305,7 +305,7 @@
 
 .site-footer button {
   justify-self: end;
-  min-height: 32px;
+  min-height: 44px;
   padding: 4px 0;
   border: 0;
   color: var(--bone);
@@ -491,7 +491,7 @@
   border-radius: 99px;
   background: rgba(247, 249, 253, 0.9);
   color: var(--bone-muted);
-  font-size: 0.74rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   transition: border-color 180ms ease, color 180ms ease, background-color 180ms ease;
@@ -549,7 +549,7 @@
   margin-left: auto;
   color: var(--bone-muted);
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.74rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
@@ -577,7 +577,7 @@
   color: var(--bone-muted);
   background: var(--ink);
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -660,7 +660,7 @@
 
 .core-readout span {
   color: var(--signal);
-  font-size: 0.62rem;
+  font-size: 0.8125rem;
 }
 
 .core-readout strong {
@@ -775,7 +775,7 @@
 
 .linear-diagram__item span {
   color: var(--accent, var(--signal));
-  font-size: 0.74rem;
+  font-size: 0.8125rem;
   font-weight: 700;
 }
 

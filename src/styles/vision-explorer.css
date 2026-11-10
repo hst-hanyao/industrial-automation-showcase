@@ -50,7 +50,7 @@
 
 .vision-explorer__btn.is-active {
   border-color: transparent;
-  background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #0e7490 100%);
   color: #ffffff;
   box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.38);
   transform: translateY(-1px);
@@ -65,7 +65,7 @@
   background: rgba(37, 99, 235, 0.1);
   color: var(--signal);
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.74rem;
+  font-size: 0.8125rem;
   font-weight: 700;
 }
 
@@ -170,7 +170,7 @@
   background: rgba(37, 99, 235, 0.1);
   color: var(--signal);
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -227,7 +227,7 @@
   background: rgba(8, 145, 178, 0.09);
   color: var(--cyan);
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.7rem;
+  font-size: 0.8125rem;
   font-weight: 600;
 }
 
@@ -284,7 +284,7 @@
   background: rgba(37, 99, 235, 0.1);
   color: var(--signal);
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.73rem;
+  font-size: 0.8125rem;
   font-weight: 700;
 }
 
@@ -315,7 +315,7 @@
 }
 
 .vision-veri-item__metric {
-  background: linear-gradient(135deg, #2563eb, #0891b2);
+  background: linear-gradient(135deg, #2563eb, #0e7490);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

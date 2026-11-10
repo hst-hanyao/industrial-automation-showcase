@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { hmiGalleryItems } from '../data/hmi-gallery'
 import { getMediaUrl } from '../lib/media'
 import { ImageViewer } from './ImageViewer'
+import { SafeImage } from './SafeImage'
 import '../styles/hmi-gallery.css'
 
 export function HmiScreenshotGallery() {
@@ -27,7 +28,7 @@ export function HmiScreenshotGallery() {
         <ImageViewer media={selected} description={selected.boundary} />
       </div>
       <figure className="hmi-gallery__figure">
-        <img src={getMediaUrl(selected.file)} alt={selected.alt} width={selected.width} height={selected.height} loading="lazy" decoding="async" />
+        <SafeImage src={getMediaUrl(selected.file)} alt={selected.alt} width={selected.width} height={selected.height} loading="lazy" decoding="async" />
         <figcaption><span>{selected.caption}</span><span>{selected.width} × {selected.height}</span></figcaption>
       </figure>
       <p className="hmi-gallery__boundary">{selected.boundary}</p>

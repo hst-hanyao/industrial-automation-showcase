@@ -89,14 +89,22 @@ export default function PlcPage() {
                 type="button"
                 role="tab"
                 id={'tab-' + id}
-                aria-controls={'view-' + id}
+                aria-controls={id === 'packml' ? 'view-packml' : 'plc-view-panel'}
                 aria-selected={id === view}
                 tabIndex={id === view ? 0 : -1}
                 onClick={() => selectView(id)}
               >{label}</button>
             ))}
           </div>
-          <div ref={architectureRef} className="plc-architecture" hidden={view === 'packml'} />
+          <div
+            ref={architectureRef}
+            id="plc-view-panel"
+            className="plc-architecture"
+            role="tabpanel"
+            aria-labelledby={'tab-' + view}
+            tabIndex={0}
+            hidden={view === 'packml'}
+          />
           <div id="view-packml" role="tabpanel" aria-labelledby="tab-packml" hidden={view !== 'packml'}>
             {view === 'packml' && (
               <Suspense fallback={<p className="plc-panel-loading" role="status">正在加载 PackML 图表…</p>}>

@@ -29,7 +29,7 @@ export const tourItems: readonly TourItem[] = [
     tag: 'PLC 实时控制',
     title: 'TwinCAT 3 实时任务分层与 PackML 状态机',
     highlights: [
-      '三任务时间尺度：2ms 逻辑任务 · 1ms 运动任务 · 200ms 界面刷新',
+      '三任务时间尺度：2 ms 逻辑任务 · 10 ms 服务任务 · 200 ms 界面刷新',
       'PackML 标准设备状态机，实现运行、暂停与中止闭环',
       'PLT 4 类气阀控制功能块、五阀三轴互锁及紧凑状态包',
     ],

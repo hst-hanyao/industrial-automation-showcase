@@ -75,7 +75,7 @@ export default function HomePage() {
           <ControlCore />
         </div>
 
-        <div className="home-hero__proof" data-home-intro aria-label="展示内容分类">
+        <div className="home-hero__proof" data-home-intro role="group" aria-label="展示内容分类">
           <div><span>01</span><b>项目证据</b><small>现有界面与材料</small></div>
           <div><span>02</span><b>源码或案例复盘</b><small>调用链与工程判断</small></div>
           <div><span>03</span><b>设计说明</b><small>架构、接口与流程</small></div>
@@ -97,7 +97,7 @@ export default function HomePage() {
           to="/capabilities"
           className="project-pagination__home"
           onClick={() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
+            window.scrollTo({ top: 0, behavior: motionMode === 'reduced' ? 'auto' : 'smooth' })
           }}
         >
           <span>能力全景</span>

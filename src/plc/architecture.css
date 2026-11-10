@@ -191,6 +191,7 @@
 :where(.plc-architecture) .format-toolbar .btn,:where(.plc-architecture) .format-toolbar button { padding: 4px 6px; min-width: 27px; min-height: 27px; border: 1px solid transparent; background: white; border-radius: 3px; font-size: 11px; line-height: 1.4 }
 :where(.plc-architecture) .format-toolbar button:hover,:where(.plc-architecture) .format-toolbar button:focus-visible { border-color: #b7d5c6; background: var(--plc-selection) }
 :where(.plc-architecture) .rich-editor { padding: 12px; min-height: 115px; outline: none; background: white; overflow-x: auto }
+:where(.plc-architecture) .rich-editor:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px }
 :where(.plc-architecture) .rich-editor:empty:before { content: attr(data-placeholder); color: #9aae9f; pointer-events: none }
 :where(.plc-architecture) .document-editor-actions { padding: 2px 0 10px; display: flex; gap: 6px; flex-wrap: wrap }
 :where(.plc-architecture) .document-editor-actions .btn { width: 100%; border-style: dashed; color: var(--signal); padding: 11px }

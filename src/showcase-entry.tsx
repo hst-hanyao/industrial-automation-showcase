@@ -5,7 +5,10 @@ import './styles/base.css'
 import './styles/components.css'
 import './styles/pages.css'
 
-createRoot(document.getElementById('root')!).render(
+const root = document.getElementById('root')
+if (!root) throw new Error('Missing #root element')
+
+createRoot(root).render(
   <StrictMode>
     <App />
   </StrictMode>,

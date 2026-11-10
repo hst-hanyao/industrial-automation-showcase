@@ -102,7 +102,7 @@
 
 .home-hero h1 strong {
   max-width: 640px;
-  background: linear-gradient(130deg, #0f172a 0%, #1d4ed8 55%, #0891b2 100%);
+  background: linear-gradient(130deg, #0f172a 0%, #1d4ed8 55%, #0e7490 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -185,7 +185,7 @@
   gap: 10px;
   color: var(--bone-muted);
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
   letter-spacing: 0.18em;
   writing-mode: vertical-rl;
 }
@@ -345,7 +345,7 @@
 
 .atlas-rail__node div { display: grid; gap: 2px; }
 .atlas-rail__node b { font-size: 0.98rem; }
-.atlas-rail__node small { font-family: "Cascadia Code", Consolas, monospace; font-size: 0.72rem; letter-spacing: 0; overflow-wrap: anywhere; }
+.atlas-rail__node small { font-family: "Cascadia Code", Consolas, monospace; font-size: 0.8125rem; letter-spacing: 0; overflow-wrap: anywhere; }
 .atlas-rail__node:hover { color: var(--node-accent); background: rgba(37, 99, 235, 0.04); }
 
 .atlas-rail__chapters {
@@ -441,7 +441,7 @@
   font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.28;
-  background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 60%, #0891b2 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 60%, #0e7490 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -601,7 +601,7 @@
   padding: 5px 11px;
   border: 1px solid currentColor;
   border-radius: 99px;
-  font-size: 0.74rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.06em;
 }
@@ -729,7 +729,7 @@
   right: 16px;
   color: #94a3b8;
   font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
   letter-spacing: 0.12em;
 }
 
@@ -767,7 +767,7 @@
   color: var(--ink);
   background: linear-gradient(135deg, var(--accent, var(--signal)) 0%, color-mix(in srgb, var(--accent, var(--signal)) 75%, #0f172a) 100%);
 }
-.project-pagination span { color: var(--bone-muted); font-family: "Cascadia Code", Consolas, monospace; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; transition: color 240ms ease; }
+.project-pagination span { color: var(--bone-muted); font-family: "Cascadia Code", Consolas, monospace; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; transition: color 240ms ease; }
 .project-pagination a:hover span,
 .project-pagination button:hover span { color: rgba(255, 255, 255, 0.85); }
 .project-pagination strong { font-size: clamp(1rem, 1.35vw, 1.25rem); line-height: 1.25; }
@@ -817,7 +817,7 @@
   .atlas-rail__header h2, .atlas-chapter__copy h3, .home-closing h2, .detail-block__header h2 { font-size: clamp(1.5rem, 5vw, 1.875rem); line-height: 1.3; }
   .atlas-rail__map { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .atlas-rail__node { grid-template-columns: 26px minmax(0, 1fr); min-height: 80px; gap: 6px; }
-  .atlas-rail__node small { font-size: 0.72rem; }
+  .atlas-rail__node small { font-size: 0.8125rem; }
   .atlas-chapter { padding: 22px 18px; }
   .atlas-chapter dl > div { grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .detail-hero:not(.detail-hero--architecture) { padding-block: 28px 24px; }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type KeyboardEvent } from 'react'
 import { engineeringCases, type TroubleshootingCase } from '../data/engineering-cases'
 
 interface EngineeringCasesProps {
@@ -13,11 +13,25 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
 
   if (!currentCase) return null
 
+  function onTabKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End']
+    if (!keys.includes(event.key)) return
+    event.preventDefault()
+    const index = engineeringCases.findIndex((item) => item.id === activeId)
+    const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? engineeringCases.length - 1
+      : (index + (event.key === 'ArrowRight' ? 1 : -1) + engineeringCases.length) % engineeringCases.length
+    const next = engineeringCases[nextIndex]
+    if (!next) return
+    setActiveId(next.id)
+    document.getElementById('eng-case-tab-' + next.id)?.focus()
+  }
+
   return (
     <section
       id="engineering-cases"
       className={`eng-cases${embedded ? ' is-embedded' : ''}`}
       aria-labelledby={embedded ? undefined : 'eng-cases-title'}
+      aria-label={embedded ? '排查案例' : undefined}
     >
       {!embedded && (
         <div className="eng-cases__header">
@@ -30,7 +44,12 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
         </div>
       )}
 
-      <div className="eng-cases__tabs" role="tablist" aria-label="排查案例选择">
+      <div
+        className="eng-cases__tabs"
+        role="tablist"
+        aria-label="排查案例选择"
+        onKeyDown={onTabKeyDown}
+      >
         {engineeringCases.map((item) => {
           const isActive = item.id === currentCase.id
           return (
@@ -38,7 +57,10 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
               key={item.id}
               type="button"
               role="tab"
+              id={'eng-case-tab-' + item.id}
+              aria-controls="eng-case-panel"
               aria-selected={isActive}
+              tabIndex={isActive ? 0 : -1}
               className={`eng-cases__tab${isActive ? ' is-active' : ''}`}
               onClick={() => setActiveId(item.id)}
             >
@@ -49,13 +71,20 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
         })}
       </div>
 
-      <article className="case-card" key={currentCase.id}>
+      <article
+        className="case-card"
+        id="eng-case-panel"
+        role="tabpanel"
+        aria-labelledby={'eng-case-tab-' + currentCase.id}
+        tabIndex={0}
+        key={currentCase.id}
+      >
         <header className="case-card__hero">
           <div className="case-card__meta">
             <span className="case-card__badge">{currentCase.badge}</span>
             <span className="case-card__category">{currentCase.category}</span>
           </div>
-          <h3 className="case-card__title">{currentCase.title}</h3>
+          <h2 id="eng-case-title" className="case-card__title">{currentCase.title}</h2>
           <p className="case-card__summary">{currentCase.summary}</p>
         </header>
 

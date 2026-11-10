@@ -1,19 +1,37 @@
-import { useState } from 'react'
+import { useState, type KeyboardEvent } from 'react'
 import { visionEngines, type VisionEngine } from '../data/vision-dual-engine'
 import '../styles/vision-explorer.css'
 
 export function VisionDualEngineExplorer() {
-  const [activeId, setActiveId] = useState<'opencv' | 'halcon'>('opencv')
+  const [activeId, setActiveId] = useState<VisionEngine['id']>('opencv')
 
   const currentEngine: VisionEngine | undefined =
     visionEngines.find((item) => item.id === activeId) ?? visionEngines[0]
 
   if (!currentEngine) return null
 
+  function onTabKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End']
+    if (!keys.includes(event.key)) return
+    event.preventDefault()
+    const index = visionEngines.findIndex((item) => item.id === activeId)
+    const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? visionEngines.length - 1
+      : (index + (event.key === 'ArrowRight' ? 1 : -1) + visionEngines.length) % visionEngines.length
+    const next = visionEngines[nextIndex]
+    if (!next) return
+    setActiveId(next.id)
+    document.getElementById('vision-tab-' + next.id)?.focus()
+  }
+
   return (
     <div className="vision-explorer" role="region" aria-label="双引擎视觉工作台架构解析">
       <div className="vision-explorer__tabs">
-        <div className="vision-explorer__nav" role="tablist" aria-label="视觉引擎选择">
+        <div
+          className="vision-explorer__nav"
+          role="tablist"
+          aria-label="视觉引擎选择"
+          onKeyDown={onTabKeyDown}
+        >
           {visionEngines.map((engine) => {
             const isActive = engine.id === currentEngine.id
             return (
@@ -21,7 +39,10 @@ export function VisionDualEngineExplorer() {
                 key={engine.id}
                 type="button"
                 role="tab"
+                id={'vision-tab-' + engine.id}
+                aria-controls="vision-engine-panel"
                 aria-selected={isActive}
+                tabIndex={isActive ? 0 : -1}
                 className={`vision-explorer__btn${isActive ? ' is-active' : ''}`}
                 onClick={() => setActiveId(engine.id)}
               >
@@ -34,9 +55,16 @@ export function VisionDualEngineExplorer() {
         <span className="vision-explorer__meta">{currentEngine.version}</span>
       </div>
 
-      <div className="vision-explorer__body" key={currentEngine.id}>
+      <div
+        className="vision-explorer__body"
+        id="vision-engine-panel"
+        role="tabpanel"
+        aria-labelledby={'vision-tab-' + currentEngine.id}
+        tabIndex={0}
+        key={currentEngine.id}
+      >
         <div className="vision-explorer__banner">
-          <h3>{currentEngine.name}</h3>
+          <h2>{currentEngine.name}</h2>
           <p>{currentEngine.summary}</p>
         </div>
 
@@ -57,7 +85,7 @@ export function VisionDualEngineExplorer() {
         <div className="vision-pillars">
           {currentEngine.pillars.map((pillar) => (
             <div key={pillar.title} className="vision-pillar">
-              <h4>{pillar.title}</h4>
+              <h3>{pillar.title}</h3>
               <p>{pillar.desc}</p>
               <div className="vision-pillar__tags">
                 {pillar.tags.map((tag) => (

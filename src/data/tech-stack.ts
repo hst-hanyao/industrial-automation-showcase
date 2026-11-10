@@ -23,7 +23,7 @@ export const techDomains: readonly TechDomain[] = [
     items: [
       {
         label: '任务时间尺度调度',
-        tags: ['2ms 逻辑控制', '1ms 运动控制', '200ms 界面刷新'],
+        tags: ['2 ms 逻辑控制', '10 ms 服务任务', '200 ms 界面刷新'],
         note: '按扫描周期严格解耦快速实时控制、业务逻辑与上位机界面刷新，避免任务拥塞。',
       },
       {

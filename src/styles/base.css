@@ -14,7 +14,7 @@
   --signal: #2563eb;
   --signal-hover: #1d4ed8;
   --safety: #3b5998;
-  --cyan: #0891b2;
+  --cyan: #0e7490;
   --gold: #475569;
   --glass-bg: rgba(255, 255, 255, 0.84);
   --glass-border: rgba(255, 255, 255, 0.9);
@@ -169,8 +169,27 @@ main {
   transform: translateY(-160%);
 }
 
+.skip-link:focus,
 .skip-link:focus-visible {
   transform: translateY(0);
+}
+
+[tabindex="-1"]:focus {
+  outline: 2px solid var(--signal);
+  outline-offset: -2px;
+}
+
+.safe-image-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 120px;
+  padding: 16px;
+  color: var(--bone-muted);
+  background: var(--ink-panel);
+  font-size: 13px;
+  text-align: center;
 }
 
 .eyebrow {
@@ -216,16 +235,27 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
+  html:not([data-motion="full"]) {
     scroll-behavior: auto;
   }
 
-  *,
-  *::before,
-  *::after {
+  html:not([data-motion="full"]) *,
+  html:not([data-motion="full"]) *::before,
+  html:not([data-motion="full"]) *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
   }
+}
+
+html[data-motion="reduced"] {
+  scroll-behavior: auto;
+}
+
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  scroll-behavior: auto !important;
+  animation: none !important;
+  transition: none !important;
 }
