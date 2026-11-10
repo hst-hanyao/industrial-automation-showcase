@@ -4,7 +4,7 @@ import { getMediaUrl } from '../lib/media'
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <p className="local-status"><span aria-hidden="true" />STATIC SHOWCASE / NO BACKEND</p>
+      <p className="local-status"><span aria-hidden="true" />静态工程展台 · 离线可读</p>
       <ScrollTargetButton targetId="main-content">回到本页顶部</ScrollTargetButton>
       <div className="site-footer__filings" aria-label="网站备案信息">
         <p className="site-footer__filing">

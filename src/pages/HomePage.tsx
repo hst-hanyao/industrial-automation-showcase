@@ -84,6 +84,27 @@ export default function HomePage() {
       </section>
 
       <TechStackMatrix />
+
+      <nav className="project-pagination" aria-label="相邻能力项目">
+        <IntentLink to="/vision">
+          <span>上一页 · 04</span>
+          <strong>OpenCV & HALCON 机器视觉工作台</strong>
+        </IntentLink>
+        <IntentLink
+          to="/capabilities"
+          className="project-pagination__home"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
+        >
+          <span>能力全景</span>
+          <strong>返回能力图谱</strong>
+        </IntentLink>
+        <IntentLink to="/hmi">
+          <span>下一页 · 01</span>
+          <strong>工业上位机系统</strong>
+        </IntentLink>
+      </nav>
     </main>
   )
 }

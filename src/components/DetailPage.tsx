@@ -94,7 +94,7 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
         </div>
 
         <div className="detail-hero__copy">
-          <p className="eyebrow" data-detail-intro>{capability.EnglishName}</p>
+          <p className="eyebrow" data-detail-intro>{capability.shortName} · 核心能力</p>
           <h1 ref={headingRef} tabIndex={-1} data-detail-intro>{capability.title}</h1>
           <p className="detail-hero__lead" data-detail-intro>{capability.lead}</p>
           <div className="tag-row" data-detail-intro>
@@ -111,7 +111,7 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
         </div>
 
         <aside className="evidence-legend" data-detail-intro aria-label="内容证据分类">
-          <p>READING KEY</p>
+          <p>内容分类索引</p>
           {evidenceOrder.map((kind) => (
             <span key={kind} data-kind={kind}>{evidenceLabels[kind]}</span>
           ))}
@@ -163,15 +163,15 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
 
       <nav className="project-pagination" aria-label="相邻能力项目">
         <CapabilityLink capability={neighbors.previous}>
-          <span>PREVIOUS / {neighbors.previous.order}</span>
+          <span>上一页 · {neighbors.previous.order}</span>
           <strong>{neighbors.previous.primaryDocument?.title ?? neighbors.previous.title}</strong>
         </CapabilityLink>
         <IntentLink to="/capabilities" className="project-pagination__home">
-          <span>CONTROL CORE</span>
+          <span>能力全景</span>
           <strong>返回能力图谱</strong>
         </IntentLink>
         <CapabilityLink capability={neighbors.next}>
-          <span>NEXT / {neighbors.next.order}</span>
+          <span>下一页 · {neighbors.next.order}</span>
           <strong>{neighbors.next.primaryDocument?.title ?? neighbors.next.title}</strong>
         </CapabilityLink>
       </nav>

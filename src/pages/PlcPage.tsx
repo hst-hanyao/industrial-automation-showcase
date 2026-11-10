@@ -1,5 +1,8 @@
 import { lazy, Suspense, useLayoutEffect, useRef, type KeyboardEvent } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { CapabilityLink } from '../components/CapabilityLink'
+import { IntentLink } from '../components/IntentLink'
+import { getCapabilityNeighbors } from '../data/capabilities'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { mountArchitecture } from '../plc/architecture-runtime'
 import architectureMarkup from '../plc/architecture.html?raw'
@@ -23,6 +26,7 @@ export default function PlcPage() {
   const architectureRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const runtimeRef = useRef<ReturnType<typeof mountArchitecture> | null>(null)
+  const neighbors = getCapabilityNeighbors('plc')
   usePageMeta('PLC 程序架构', headingRef)
 
   useLayoutEffect(() => {
@@ -63,7 +67,7 @@ export default function PlcPage() {
       <section className="detail-hero detail-hero--architecture">
         <div className="detail-hero__index" aria-hidden="true"><span>02</span><i /><small>04</small></div>
         <div className="detail-hero__copy">
-          <p className="eyebrow">PLC / CONTROL</p>
+          <p className="eyebrow">PLC · 核心控制程序</p>
           <h1 ref={headingRef} tabIndex={-1}>PLC 程序架构</h1>
           <p className="detail-hero__lead">以晶圆电镀设备为例，查看 PLC 任务划分、整机与腔室交接、设备操作流程及 PackML 状态流转。</p>
           <div className="tag-row">
@@ -72,7 +76,7 @@ export default function PlcPage() {
         </div>
         <div className="detail-hero__visual hmi-explorer plc-explorer">
           <div className="hmi-explorer__toolbar">
-            <div><p className="hmi-explorer__eyebrow">ARCHITECTURE / CONTROL</p><h2>程序框架与运行流程</h2></div>
+            <div><p className="hmi-explorer__eyebrow">程序架构 · 运行流程</p><h2>程序框架与运行流程</h2></div>
           </div>
           <div className="hmi-chain-tabs" role="tablist" aria-label="PLC 说明视图" onKeyDown={onTabKeyDown}>
             {views.map(({ id, label }) => (
@@ -101,6 +105,21 @@ export default function PlcPage() {
           <Link className="text-link" to="/plc/case">TwinCAT 官方案例复盘 <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
+
+      <nav className="project-pagination" aria-label="相邻能力项目">
+        <CapabilityLink capability={neighbors.previous}>
+          <span>上一页 · {neighbors.previous.order}</span>
+          <strong>{neighbors.previous.primaryDocument?.title ?? neighbors.previous.title}</strong>
+        </CapabilityLink>
+        <IntentLink to="/capabilities" className="project-pagination__home">
+          <span>能力全景</span>
+          <strong>返回能力图谱</strong>
+        </IntentLink>
+        <CapabilityLink capability={neighbors.next}>
+          <span>下一页 · {neighbors.next.order}</span>
+          <strong>{neighbors.next.primaryDocument?.title ?? neighbors.next.title}</strong>
+        </CapabilityLink>
+      </nav>
     </main>
   )
 }

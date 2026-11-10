@@ -183,15 +183,15 @@ export default function CasesPage() {
 
       <nav className="project-pagination" aria-label="相邻能力项目">
         <IntentLink to="/vision">
-          <span>上一项 / 04</span>
+          <span>上一页 · 04</span>
           <strong>OpenCV & HALCON 机器视觉工作台</strong>
         </IntentLink>
-        <IntentLink to="/" className="project-pagination__home">
-          <span>控制核心</span>
-          <strong>返回首页工程矩阵</strong>
+        <IntentLink to="/capabilities" className="project-pagination__home">
+          <span>能力全景</span>
+          <strong>返回能力图谱</strong>
         </IntentLink>
         <IntentLink to="/hmi">
-          <span>下一项 / 01</span>
+          <span>下一页 · 01</span>
           <strong>工业上位机系统</strong>
         </IntentLink>
       </nav>

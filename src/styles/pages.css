@@ -736,31 +736,41 @@
 .project-pagination {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr) minmax(0, 1fr);
-  margin-top: 64px;
+  margin-top: 36px;
   border-top: 1px solid var(--line-strong);
   background: linear-gradient(180deg, #f8faff 0%, #f1f5f9 100%);
 }
 
-.project-pagination a {
+.project-pagination a,
+.project-pagination button {
   position: relative;
   display: grid;
   min-width: 0;
-  min-height: 164px;
+  min-height: 80px;
   align-content: center;
-  gap: 10px;
-  padding: 28px clamp(20px, 3vw, 48px);
+  gap: 4px;
+  padding: 10px clamp(16px, 2.5vw, 36px);
+  border: 0;
   border-right: 1px solid var(--line-strong);
+  color: var(--bone);
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
   transition: background 240ms ease, color 240ms ease, transform 240ms ease;
 }
 
-.project-pagination a:last-child { border-right: 0; text-align: right; }
-.project-pagination a:hover {
+.project-pagination a:last-child,
+.project-pagination button:last-child { border-right: 0; text-align: right; }
+.project-pagination a:hover,
+.project-pagination button:hover {
   color: var(--ink);
   background: linear-gradient(135deg, var(--accent, var(--signal)) 0%, color-mix(in srgb, var(--accent, var(--signal)) 75%, #0f172a) 100%);
 }
-.project-pagination span { color: var(--bone-muted); font-family: "Cascadia Code", Consolas, monospace; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; transition: color 240ms ease; }
-.project-pagination a:hover span { color: rgba(255, 255, 255, 0.85); }
-.project-pagination strong { font-size: clamp(1.2rem, 2vw, 1.9rem); }
+.project-pagination span { color: var(--bone-muted); font-family: "Cascadia Code", Consolas, monospace; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; transition: color 240ms ease; }
+.project-pagination a:hover span,
+.project-pagination button:hover span { color: rgba(255, 255, 255, 0.85); }
+.project-pagination strong { font-size: clamp(1rem, 1.35vw, 1.25rem); line-height: 1.25; }
 .project-pagination__home { text-align: center; }
 
 @media (max-width: 1199px) {
@@ -822,9 +832,10 @@
   .detail-block__summary { font-size: 1rem; }
   .detail-block__copy li { padding-left: 20px; }
   .code-panel { padding: 42px 16px 16px; }
-  .project-pagination { grid-template-columns: minmax(0, 1fr); margin-top: 24px; }
-  .project-pagination a { min-height: 104px; padding: 22px 16px; border-right: 0; border-bottom: 1px solid var(--line); }
-  .project-pagination a:last-child, .project-pagination__home { text-align: left; }
-  .project-pagination strong { font-size: 1.125rem; }
+  .project-pagination { grid-template-columns: minmax(0, 1fr); margin-top: 18px; }
+  .project-pagination a,
+  .project-pagination button { min-height: 56px; padding: 10px 16px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .project-pagination a:last-child, .project-pagination button:last-child, .project-pagination__home { text-align: left; }
+  .project-pagination strong { font-size: 1rem; }
   .home-closing { padding-block: 48px 56px; }
 }
