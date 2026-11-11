@@ -130,19 +130,22 @@
 
 /* HUD corners are choreographed by the HomePage GSAP timeline. */
 
-/* --- scroll reveal (attribute is attached by JS before paint) --- */
+/* --- scroll reveal (attribute is attached by JS before paint) ---
+   Never clip the element to zero area: IntersectionObserver needs a real
+   intersection rect to fire, so the hidden state only uses compositor props
+   that leave the layout box intact. */
 [data-reveal-card] {
   opacity: 0;
-  clip-path: inset(0 0 100% 0);
+  translate: 0 26px;
   transition:
     opacity var(--motion-reveal) var(--motion-ease-enter),
-    clip-path var(--motion-reveal) var(--motion-ease-enter);
+    translate var(--motion-reveal) var(--motion-ease-enter);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
 [data-reveal-card].is-revealed {
   opacity: 1;
-  clip-path: inset(0 0 0 0);
+  translate: 0 0;
 }
 
 /* --- route curtain scan --- */

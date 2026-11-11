@@ -36,6 +36,10 @@ function rollIndex(element: HTMLElement, target: string, delay: number): () => v
 /**
  * Attaches scroll-driven reveal attributes before paint. SSR and reduced-motion
  * leave the elements fully visible because the attributes are never attached.
+ *
+ * Visibility is never delegated to a single mechanism: the observer is backed
+ * by a geometry check on scroll/resize, so a card cannot stay hidden forever if
+ * IntersectionObserver misbehaves (or the element is clipped by another effect).
  */
 export function useRevealOnScroll(
   rootRef: RefObject<HTMLElement | null>,
@@ -56,39 +60,76 @@ export function useRevealOnScroll(
     })
 
     // Drop the reveal attribute after the transition so the card's own
-    // box-shadow, tilt and sweep are no longer clipped by the reveal mask.
+    // tilt and sweep are no longer affected by the reveal transform.
     const timers: number[] = []
     const cancelRolls: Array<() => void> = []
+    const pending = new Set(items)
     const settle = (item: HTMLElement) => {
       item.removeAttribute('data-reveal-card')
       item.classList.remove('is-revealed')
       item.style.removeProperty('--reveal-delay')
     }
 
-    const observer = new IntersectionObserver(
+    let observer: IntersectionObserver | null = null
+    let frame = 0
+    let detached = false
+
+    const reveal = (item: HTMLElement) => {
+      if (!pending.has(item)) return
+      pending.delete(item)
+      item.classList.add('is-revealed')
+      observer?.unobserve(item)
+      timers.push(window.setTimeout(() => settle(item), 900))
+      if (rollSelector) {
+        const target = item.querySelector<HTMLElement>(rollSelector)
+        if (target) {
+          cancelRolls.push(
+            rollIndex(target, target.textContent ?? '', items.indexOf(item) * 70),
+          )
+        }
+      }
+      if (!pending.size) detach()
+    }
+
+    const checkVisible = () => {
+      frame = 0
+      if (!pending.size) return
+      const viewport = window.innerHeight || document.documentElement.clientHeight
+      for (const item of [...pending]) {
+        const rect = item.getBoundingClientRect()
+        if (rect.top < viewport * 0.92 && rect.bottom > 0) reveal(item)
+      }
+    }
+
+    const onViewportChange = () => {
+      if (!frame) frame = window.requestAnimationFrame(checkVisible)
+    }
+
+    function detach() {
+      if (detached) return
+      detached = true
+      window.removeEventListener('scroll', onViewportChange)
+      window.removeEventListener('resize', onViewportChange)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+
+    observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          const item = entry.target as HTMLElement
-          item.classList.add('is-revealed')
-          observer.unobserve(item)
-          timers.push(window.setTimeout(() => settle(item), 900))
-          if (rollSelector) {
-            const target = item.querySelector<HTMLElement>(rollSelector)
-            if (target) {
-              cancelRolls.push(
-                rollIndex(target, target.textContent ?? '', items.indexOf(item) * 70),
-              )
-            }
-          }
+          if (entry.isIntersecting) reveal(entry.target as HTMLElement)
         })
       },
-      { rootMargin: '0px 0px -8%', threshold: 0.08 },
+      { rootMargin: '0px 0px -8%', threshold: 0 },
     )
 
-    items.forEach((item) => observer.observe(item))
+    items.forEach((item) => observer?.observe(item))
+    window.addEventListener('scroll', onViewportChange, { passive: true })
+    window.addEventListener('resize', onViewportChange)
+    onViewportChange()
+
     return () => {
-      observer.disconnect()
+      observer?.disconnect()
+      detach()
       timers.forEach((timer) => window.clearTimeout(timer))
       cancelRolls.forEach((cancel) => cancel())
       items.forEach(settle)
