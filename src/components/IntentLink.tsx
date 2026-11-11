@@ -11,7 +11,7 @@ type IntentLinkProps = LinkProps
 export function IntentLink({ to, onMouseEnter, onFocus, ...props }: IntentLinkProps) {
   const path = typeof to === 'string' ? to : to.pathname ?? '/'
   const preload = () => {
-    void preloadRoute(path)
+    void preloadRoute(path)?.catch(() => {})
   }
 
   return (
@@ -40,7 +40,7 @@ export function IntentNavLink({
 }: IntentNavLinkProps) {
   const path = typeof to === 'string' ? to : to.pathname ?? '/'
   const preload = () => {
-    void preloadRoute(path)
+    void preloadRoute(path)?.catch(() => {})
   }
 
   return (

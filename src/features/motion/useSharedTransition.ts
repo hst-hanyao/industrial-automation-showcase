@@ -12,6 +12,40 @@ interface ViewTransitionApi {
   ) => { finished: Promise<void> }
 }
 
+export function runSharedTransition(
+  start: NonNullable<ViewTransitionApi['startViewTransition']>,
+  source: HTMLElement,
+  load: () => Promise<unknown> | undefined,
+  navigate: () => void,
+) {
+  const root = document.documentElement
+  root.classList.add('is-shared-transition')
+  source.style.setProperty('view-transition-name', TRANSITION_NAME)
+
+  const cleanup = () => {
+    source.style.removeProperty('view-transition-name')
+    root.classList.remove('is-shared-transition')
+  }
+
+  try {
+    const transition = start.call(document, async () => {
+      try {
+        await load()
+      } catch {
+        // Navigate even when preloading fails: React.lazy can then surface the
+        // loading error through the route error boundary and its reload action.
+      }
+      source.style.removeProperty('view-transition-name')
+      flushSync(navigate)
+      root.classList.remove('is-shared-transition')
+    })
+    void transition.finished.then(cleanup, cleanup)
+  } catch {
+    cleanup()
+    navigate()
+  }
+}
+
 /**
  * Morphs the clicked capability node into the destination hero.
  * The source name is cleared inside the update callback so the new snapshot
@@ -29,26 +63,6 @@ export function useSharedTransition() {
       return
     }
 
-    const root = document.documentElement
-    root.classList.add('is-shared-transition')
-    source.style.setProperty('view-transition-name', TRANSITION_NAME)
-
-    const cleanup = () => {
-      source.style.removeProperty('view-transition-name')
-      root.classList.remove('is-shared-transition')
-    }
-
-    try {
-      const transition = start.call(document, async () => {
-        await preloadRoute(to)
-        source.style.removeProperty('view-transition-name')
-        flushSync(() => navigate(to))
-        root.classList.remove('is-shared-transition')
-      })
-      void transition.finished.finally(cleanup)
-    } catch {
-      cleanup()
-      navigate(to)
-    }
+    runSharedTransition(start, source, () => preloadRoute(to), () => navigate(to))
   }, [navigate, motionMode])
 }

@@ -199,7 +199,7 @@ html.is-shared-transition .detail-hero__visual { view-transition-name: none; }
   pointer-events: none;
   content: "";
   background: radial-gradient(
-    320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    220px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
     rgba(37, 99, 235, 0.1),
     transparent 70%
   );

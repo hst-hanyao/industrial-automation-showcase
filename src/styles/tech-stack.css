@@ -58,7 +58,7 @@
   border-radius: 14px;
   background:
     radial-gradient(
-      380px circle at var(--mouse-x) var(--mouse-y),
+      250px circle at var(--mouse-x) var(--mouse-y),
       color-mix(in srgb, var(--card-accent) 9%, transparent),
       transparent 70%
     ),
