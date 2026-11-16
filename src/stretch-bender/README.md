@@ -52,12 +52,3 @@ npm run dev
 ```
 
 模型采用 machine skill 的三维实体及材质、灯光方法，并应用 anatomy 的层次、支承、连接细节规范。用户指定的图像还原、十六轴控制优先于技能模板的单滑块及默认故事。模型依据已确认运动关系建立，内部传动、支座精确尺寸和背面细节为推定。第三方许可证见同目录 `THIRD-PARTY-NOTICES.txt`，也内联保留在生成 HTML 中。
-
-## WPF 桌面开发交接
-
-以下两份文档分别描述 .NET Framework 4.8 的独立实现路线，保留本工作台的十六轴功能并支持离线运行：
-
-- [WPF 原生界面与 WebView2 三维视图](../../docs/handoffs/STRETCH_BENDER_WPF_WEBVIEW2_NET48.md)：复用 Three.js 模型，定义宿主状态、消息协议、离线资源和 Runtime 部署。
-- [WPF 与 HelixToolkit.Wpf.SharpDX 原生三维](../../docs/handoffs/STRETCH_BENDER_WPF_HELIXTOOLKIT_NET48.md)：迁移运动学与模型资源，重点规定矩阵一致性、按需绘制、资源复用和性能验收。
-
-文档是后续开发入口；桌面应用及目标机性能仍需按各自的验收流程实现和验证。
