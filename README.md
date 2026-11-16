@@ -22,7 +22,7 @@
 
 前手臂负责 FOUP、定向与干片交接；后手臂通过独立的干／湿末端连接 APT、PLT、SRD。SRD 干燥完成后才由干片末端接回晶圆。旧 `/waferplt/robots/` 地址继续可用，并回到统一教学入口；旧 `/waferplt/modules/` 地址进入统一工作区的 APT 结构视图。
 
-网站使用交互模型，视频仅在本地保存。五份原视频及原视频记录已备份到本项目的 `local-backups/20261016-teaching-videos/`，其中 `manifest.json` 记录相对原路径、文件大小和逐文件 SHA-256 校验值。五份视频共 49,345,310 字节，均在源与备份校验一致后移出 `public`。`local-backups/` 已加入 Git 忽略规则，不参与构建和 Pages 发布。
+网站使用交互模型，原视频不在发布包中。历史记录称五份视频曾备份并在校验后移出 `public`；当前工作区未找到记录中的备份目录，实际备份位置和文件完整性待核实。`local-backups/` 已加入 Git 忽略规则，不参与构建和发布。
 
 结构采用公开资料的独立教学重建。300 mm 晶圆及法拉第公式用于定量锚点，其余几何、材料外观、运动轨迹、阶段时长和工艺参数均为教学设定。动画、运动学及互锁展示不代表真实设备控制、制造 CAD、工艺配方或现场验收。
 
@@ -59,7 +59,7 @@ npm run build
 
 ## 发布
 
-GitHub Pages 已于 2026-10-17 按要求关闭，仓库 Pages 设置的发布分支为 `None`。`.github/workflows/deploy-pages.yml` 现仅执行类型检查、Lint、测试和构建，不再上传 Pages 工件或部署站点；推送 `main` 和手动触发仍可验证代码。生成的 `dist` 保留密码入口、HashRouter 和相对资源路径，可供其他静态托管使用。
+历史记录显示 GitHub Pages 于 2026-10-17 关闭；当前托管设置需在 GitHub 核实。[验证工作流](.github/workflows/validate.yml) 在推送 `main` 或手动触发时执行类型检查、Lint、测试和构建，不包含 Pages 部署步骤。生成的 `dist` 保留密码入口、HashRouter 和相对资源路径，可供其他静态托管使用。
 
 停用前的 GitHub Pages 地址为 [工业自动化能力图谱](https://hst-hanyao.github.io/industrial-automation-showcase/) 和 [晶圆电镀工艺 3D 教学演示](https://hst-hanyao.github.io/industrial-automation-showcase/waferplt/)。关闭后，原站点及子页已实测返回 404；自定义域名或其他托管由项目所有者单独维护。
 
