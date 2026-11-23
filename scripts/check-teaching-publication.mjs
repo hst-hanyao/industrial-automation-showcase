@@ -18,6 +18,11 @@ const forbiddenText = [
   { pattern: /\bLam\b|Novellus|lamresearch/gi, label: 'removed brand' },
   { pattern: /模型说明/g, label: 'removed explanation page' },
   { pattern: /<video\b|\.(?:mp4|webm|mov|m4v|avi|mkv)\b/gi, label: 'video player or reference' },
+  { pattern: /待核实|未核实/g, label: 'unverified placeholder copy' },
+  { pattern: /官方案例/g, label: 'official-case framing' },
+  { pattern: /结构证据与未核实项|结构参考资料与出处/g, label: 'removed citation or reference section' },
+  { pattern: /references\/sabre3d-research/gi, label: 'removed research reference path' },
+  { pattern: /patents\.google\.com/gi, label: 'external patent citation link' },
 ]
 
 async function filesAt(directory) {

@@ -199,7 +199,7 @@ export function HmiArchitectureExplorer({ chainRequest }: HmiArchitectureExplore
       </div>
       {overview ? <div className="hmi-external-boundary"><span>外部边界</span>{hmiNodes.filter((node) => node.kind === 'external').map((node) => <span key={node.id} translate="no">{node.label}</span>)}<small>通过通讯与持久化模块访问</small></div> : null}
       <footer className="hmi-explorer__footer"><div className="hmi-edge-key" role="group" aria-label="连线含义">{(Object.entries(edgeLabels) as [HmiEdge['kind'], string][]).map(([kind, label]) => <span key={kind}><i className={`hmi-edge-key__line hmi-edge-key__line--${kind}`} aria-hidden="true" />{label}</span>)}</div><p>{hmiSourceSnapshot.project} · 源码 {hmiSourceSnapshot.capturedAt.slice(0, 10)}</p></footer>
-      {!overview ? <details className="hmi-chain-relations"><summary>逐条查看关系与源码依据（{graph.edges.length}）</summary>{activeChain ? <p>{activeChain.description}</p> : null}<ul>{graph.edges.map((edge) => {
+      {!overview ? <details className="hmi-chain-relations"><summary>逐条查看调用关系与对应代码（{graph.edges.length}）</summary>{activeChain ? <p>{activeChain.description}</p> : null}<ul>{graph.edges.map((edge) => {
         const snippet = hmiCodeSnippets.find((item) => item.id === edge.evidenceSnippetId)
         return <li key={edge.id}><span translate="no">{hmiNodes.find((node) => node.id === edge.from)?.label} → {hmiNodes.find((node) => node.id === edge.to)?.label}</span><b>{edgeLabels[edge.kind]}</b><small translate="no">{snippet?.file}:L{snippet?.startLine}</small></li>
       })}</ul></details> : null}

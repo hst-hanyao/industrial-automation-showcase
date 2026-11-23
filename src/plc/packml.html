@@ -13,7 +13,7 @@
   <div class="packml-intro">
     <h2 id="packml-heading">PackML 状态机 <small>PackML State Machine &amp; Transition Diagram</small></h2>
     <p>自动生产模式的 17 个标准状态和 11 个控制命令，均提供中英双语说明。</p>
-    <p>依据 OMAC PackML Machine State Model V3 / ANSI/ISA-TR88.00.02，状态编号沿用标准枚举 1–17。图示采用通用状态和命令名称，适用于不同 PLC 与控制平台。</p>
+    <p>采用 OMAC PackML Machine State Model V3 / ANSI/ISA-TR88.00.02 通用状态模型，状态编号沿用标准枚举 1–17。图示采用通用状态和命令名称，适用于不同 PLC 与控制平台。</p>
   </div>
   <section id="flow" tabindex="-1">
     <h3>状态机流转图 <small>Bilingual State Transition Diagram</small></h3>
@@ -21,7 +21,7 @@
     <figure>
 <svg id="svg-flow" class="chart" data-key="flow" tabindex="0" role="button" aria-label="放大查看：PackML 状态机流转图" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1900 1440" width="1900" height="1440">
 <rect width="1900" height="1440" fill="#FFFFFF"/>
-<text x="60" y="58" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="34" font-weight="bold" fill="#263238" text-anchor="start" >PackML 状态机流转图（通用参考） / PackML State Machine — Vendor-neutral Reference</text>
+<text x="60" y="58" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="34" font-weight="bold" fill="#263238" text-anchor="start" >PackML 状态机流转图（通用标准） / PackML State Machine — Vendor-neutral Standard</text>
 <text x="60" y="92" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="17" font-weight="normal" fill="#607D8B" text-anchor="start" >中英双语 · 标准状态流转图 State Transition Diagram · 自动 / 生产模式 Auto / Production Mode</text>
 <text x="1840" y="52" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="15" font-weight="bold" fill="#607D8B" text-anchor="end" >OMAC PackML V3 · ANSI/ISA-TR88.00.02</text>
 <text x="1840" y="78" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="14" font-weight="normal" fill="#607D8B" text-anchor="end" >厂商中立 / Vendor-neutral · 适用于任意 PLC 与控制平台</text>
@@ -231,7 +231,7 @@
 <text x="60" y="1256" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="14" font-weight="normal" fill="#607D8B" text-anchor="start" >③ Stop（停止）与 Abort（中止）可从任意状态触发，Abort 优先级最高；Abort → Aborted → Clear → Clearing → Stopped。</text>
 <text x="60" y="1298" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="14" font-weight="normal" fill="#607D8B" text-anchor="start" >④ Hold 由设备内部 / 操作员触发，Suspend 由外部条件（上下游）触发；两者均需对应 Unhold / Unsuspend 恢复。</text>
 <text x="60" y="1340" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="14" font-weight="normal" fill="#607D8B" text-anchor="start" >⑤ 通用实现：节点右上角编号沿用 ISA-TR88.00.02 标准状态枚举（1–17）；各厂商的函数块、枚举类型与命名可不同。。</text>
-<text x="60" y="1382" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="14" font-weight="normal" fill="#607D8B" text-anchor="start" >⑥ 标准依据：OMAC PackML V3 / ANSI/ISA-TR88.00.02；可用于 Unit / Module 分层状态机，并按 UnitMode 裁剪状态子集。</text>
+<text x="60" y="1382" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="14" font-weight="normal" fill="#607D8B" text-anchor="start" >⑥ 状态编号沿用 OMAC PackML V3 / ANSI/ISA-TR88.00.02；可用于 Unit / Module 分层状态机，并按 UnitMode 裁剪状态子集。</text>
 <text x="60" y="1189" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="10.5" font-weight="normal" fill="#90A4AE" text-anchor="start" >①  SC = State Complete: an Acting state (green, -ing) automatically advances to the next Wait state when done.</text>
 <text x="60" y="1231" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="10.5" font-weight="normal" fill="#90A4AE" text-anchor="start" >②  Wait states (amber) are stable and require a command; Execute (blue) is the only value-adding production state.</text>
 <text x="60" y="1273" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="10.5" font-weight="normal" fill="#90A4AE" text-anchor="start" >③  Stop and Abort can be triggered from any state; Abort has highest priority: Abort → Aborted → Clear → Clearing → Stopped.</text>
@@ -258,7 +258,7 @@
     <figure>
 <svg id="svg-table" class="chart" data-key="table" tabindex="0" role="button" aria-label="放大查看：PackML 状态与命令对照表" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 1560" width="1700" height="1560">
 <rect width="1700" height="1560" fill="#FFFFFF"/>
-<text x="60" y="58" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="31" font-weight="bold" fill="#263238" text-anchor="start" >PackML 状态与命令对照表（通用参考） / PackML States &amp; Commands — Vendor-neutral</text>
+<text x="60" y="58" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="31" font-weight="bold" fill="#263238" text-anchor="start" >PackML 状态与命令对照表（通用标准） / PackML States &amp; Commands — Vendor-neutral</text>
 <text x="60" y="90" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="15" font-weight="normal" fill="#607D8B" text-anchor="start" >OMAC PackML V3 · ANSI/ISA-TR88.00.02 · 标准状态编号 1–17 · 中英双语 Bilingual</text>
 <text x="60" y="138" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="19" font-weight="bold" fill="#6C4FBE" text-anchor="start" >一、17 个标准状态 / 17 Standard States（按标准编号排序 Sorted by standard state number）</text>
 <rect x="60" y="156" width="1580" height="40" fill="#6C4FBE" rx="6"/>
@@ -449,8 +449,8 @@
 <text x="502" y="1446" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="13.5" font-weight="normal" fill="#263238" text-anchor="start" >动作状态 → 下一等待状态</text>
 <text x="1062" y="1446" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="13" font-weight="normal" fill="#607D8B" text-anchor="start" >动作执行完毕后自动转移（非外部命令）</text>
 <rect x="60" y="980" width="1580" height="480" fill="none" stroke="#CFD8DC" stroke-width="1.4" rx="6"/>
-<text x="60" y="1494" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="13" font-weight="normal" fill="#607D8B" text-anchor="start" >注：本表为厂商中立的通用参考；状态编号沿用 ISA-TR88.00.02 标准枚举（1–17），各平台的函数块、枚举类型与命名可能不同。SC = State Complete。</text>
-<text x="60" y="1518" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="12" font-weight="normal" fill="#90A4AE" text-anchor="start" >Note: Vendor-neutral reference (ISA-TR88.00.02); SC = State Complete is the automatic exit from an Acting state; Stop / Abort are accepted from any state.</text>
+<text x="60" y="1494" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="13" font-weight="normal" fill="#607D8B" text-anchor="start" >注：本表为厂商中立的通用规范；状态编号沿用 ISA-TR88.00.02 标准枚举（1–17），各平台的函数块、枚举类型与命名可能不同。SC = State Complete。</text>
+<text x="60" y="1518" font-family="'Noto Sans CJK SC','Noto Sans SC','DejaVu Sans',sans-serif" font-size="12" font-weight="normal" fill="#90A4AE" text-anchor="start" >Note: Vendor-neutral standard (ISA-TR88.00.02); SC = State Complete is the automatic exit from an Acting state; Stop / Abort are accepted from any state.</text>
 </svg>
       <figcaption>
         <h3 class="cap"><span class="tag">SVG 矢量 · 1700 × 1560</span>状态 / 命令对照表 / State &amp; Command Table</h3>
@@ -516,9 +516,6 @@
       <li><b>数据</b>：Execute 是唯一产出状态；Wait / Acting / Stop / Abort 的时长可直接用于 OEE 计算与 MES 状态采集。</li>
     </ul>
   </section>
-
-  <p class="source">来源 / Source：OMAC PackML Machine State Model V3 · ANSI/ISA-TR88.00.02（Machine and Unit States）· OPC UA PackML（OPC 30050）标准状态编号定义。
-     在线参考：<a href="https://reference.opcfoundation.org/specs/OPC-30050/v1.01/annex-b" target="_blank" rel="noopener noreferrer">OPC Foundation — PackML 标准状态名与编号</a></p>
     </div>
   </article>
 <dialog id="lb" class="fit" aria-label="图片放大查看">

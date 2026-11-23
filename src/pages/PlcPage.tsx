@@ -142,7 +142,7 @@ export default function PlcPage() {
           </div>
         </div>
         <div className="evidence-legend plc-reading-links" data-detail-intro>
-          <Link className="text-link" to="/plc/case">补充阅读：独立的 TwinCAT 官方案例复盘 <span aria-hidden="true">↗</span></Link>
+          <Link className="text-link" to="/plc/case">补充阅读：TwinCAT 多任务控制案例复盘 <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
 

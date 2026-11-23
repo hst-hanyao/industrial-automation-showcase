@@ -42,7 +42,7 @@ describe('static site display gate coverage', () => {
   })
 
   it('also guards valid documents that omit the optional head element', () => {
-    const html = withSiteAccess('<!doctype html><meta charset="utf-8"><title>References</title><p>Content</p>', 'references/index.html')
+    const html = withSiteAccess('<!doctype html><meta charset="utf-8"><title>Guide</title><p>Content</p>', 'guide/index.html')
     expect(html).toMatch(/^<!doctype html><head>\s*<style id="site-access-lock">/)
     expect(html.indexOf('site-access/access.js')).toBeLessThan(html.indexOf('<p>Content</p>'))
   })

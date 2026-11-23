@@ -8,7 +8,7 @@
 export const SITE_NAME = '工业自动化能力图谱'
 
 /** 站点简介，与入口 HTML 的 meta description 保持一致。 */
-export const SITE_DESCRIPTION = '工业自动化能力展示站：上位机、PLC 官方案例复盘、运动控制与机器视觉。'
+export const SITE_DESCRIPTION = '工业自动化能力展示站：上位机、PLC 控制架构与工程复盘、运动控制与机器视觉。'
 
 /** ICP 备案号及工信部备案查询地址。 */
 export const ICP_FILING_NUMBER = '浙ICP备2026082555号-1'

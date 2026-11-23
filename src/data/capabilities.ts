@@ -46,8 +46,8 @@ export interface Capability {
 }
 
 export const evidenceLabels: Record<EvidenceKind, string> = {
-  project: '项目证据',
-  review: '源码或案例复盘',
+  project: '项目实践',
+  review: '控制案例复盘',
   design: '设计说明',
 }
 
@@ -104,9 +104,9 @@ export const capabilities: readonly Capability[] = [
     route: '/plc',
     shortName: 'PLC',
     EnglishName: 'PLC / TWINCAT',
-    title: 'TwinCAT 官方案例源码复盘',
-    lead: '从任务入口追踪模式命令、设备状态机和动作步骤，梳理 TwinCAT 官方案例的任务划分与适用范围。',
-    proofLine: '官方案例源码 + 调用链复盘 + 工程设计说明',
+    title: 'TwinCAT 多任务控制案例复盘',
+    lead: '从任务入口追踪模式命令、设备状态机和动作步骤，梳理 TwinCAT 多任务控制工程的任务划分与适用范围。',
+    proofLine: '控制工程源码 + 调用链复盘 + 工程设计说明',
     accent: '#52657f',
     accentSoft: '#64748b',
     tags: ['TwinCAT', 'IEC 61131-3', 'PackML', 'FB_PLT', 'ADS State Packet'],
@@ -119,7 +119,7 @@ export const capabilities: readonly Capability[] = [
       {
         id: 'tasks',
         kind: 'review',
-        eyebrow: 'Official case / task architecture',
+        eyebrow: 'Control case / task architecture',
         title: '三条任务对应三种时间尺度',
         summary: '数字越小优先级越高。快速控制、业务服务与可视化刷新被放入不同周期，源码复盘从各任务入口按真实调用顺序展开。',
         points: [
@@ -133,7 +133,7 @@ export const capabilities: readonly Capability[] = [
       {
         id: 'fast-chain',
         kind: 'review',
-        eyebrow: 'Official case / fast path',
+        eyebrow: 'Control case / fast path',
         title: '2 ms 入口保持读、算、写骨架',
         summary: '顶层入口只做输入投影、逻辑调用和输出投影；设备逻辑再进入全局夹具与输送实例。这段源码展示周期调用关系。',
         points: [
@@ -146,7 +146,7 @@ export const capabilities: readonly Capability[] = [
       {
         id: 'state-machine',
         kind: 'review',
-        eyebrow: 'Official case / invocation',
+        eyebrow: 'Control case / invocation',
         title: '整机请求进入设备模式，再进入工艺步骤',
         summary: 'HMI 请求先写入系统命令；夹具与输送设备读取请求，由 SysStep 选择 Home、Manual 或 Auto，再由动作步骤执行具体序列。',
         points: [
@@ -160,7 +160,7 @@ export const capabilities: readonly Capability[] = [
       {
         id: 'audit',
         kind: 'review',
-        eyebrow: 'Official case / source audit',
+        eyebrow: 'Control case / source audit',
         title: '案例中的 IO、停止与模式处理',
         summary: '对照源码记录 IO 映射位置、停止调用、模式来源及周期执行关系。',
         points: [
@@ -224,7 +224,7 @@ export const capabilities: readonly Capability[] = [
           {
             file: 'motion-code-runtime.svg',
             alt: '运动控制 C# 包装层、ZAux 调用与运行状态组合图',
-            caption: '源码或案例复盘 / 调用链材料',
+            caption: '控制案例复盘 / 调用链材料',
             width: 1400,
             height: 820,
           },
@@ -319,7 +319,7 @@ export const capabilities: readonly Capability[] = [
           {
             file: 'vision-workbench.png',
             alt: '视觉流程编辑与方法库页面，展示步骤、参数和配方分离',
-            caption: '项目证据 / OpenCV 工作台',
+            caption: '项目实践 / OpenCV 工作台',
             width: 1588,
             height: 894,
           },
@@ -357,7 +357,7 @@ export const capabilities: readonly Capability[] = [
         media: [{
           file: 'halcon-offline-roi.png',
           alt: 'HALCON 离线示例中的圆形 ROI 示教界面',
-          caption: '项目证据 / 离线合成图 ROI 示教，单位 px',
+          caption: '项目实践 / 离线合成图 ROI 示教，单位 px',
           width: 1224,
           height: 761,
         }],

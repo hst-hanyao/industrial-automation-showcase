@@ -15,7 +15,7 @@ export function MediaFrame({ media, eager = false }: MediaFrameProps) {
         <span />
         <span />
         <span />
-        <b>STATIC / EVIDENCE VIEW</b>
+        <b>STATIC / SYSTEM VIEW</b>
       </div>
       <div className="media-frame__viewport" style={{ aspectRatio: `${media.width} / ${media.height}` }}>
         <SafeImage

@@ -15,7 +15,7 @@ export function withSiteAccess(html: string, relativeFile: string): string {
   // may reveal content before the session check has completed.
   const gate = `\n<style ${marker}>html{visibility:hidden!important}</style>\n<script src="${script}"></script>\n`
   if (/<head\b[^>]*>/i.test(html)) return html.replace(/<head\b[^>]*>/i, (head) => head + gate)
-  // HTML permits an omitted head; the bibliography is one such valid document.
+  // HTML permits an omitted head; some standalone static documents omit it.
   return html.replace(/^(\s*(?:<!doctype[^>]*>\s*)?(?:<html\b[^>]*>\s*)?)/i, `$1<head>${gate}</head>\n`)
 }
 

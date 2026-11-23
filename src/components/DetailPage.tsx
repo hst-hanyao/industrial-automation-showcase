@@ -94,7 +94,7 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
           ))}
         </div>
 
-        <aside className="evidence-legend" data-detail-intro aria-label="内容证据分类">
+        <aside className="evidence-legend" data-detail-intro aria-label="内容分类">
           <p>内容分类索引</p>
           {evidenceOrder.map((kind) => (
             <span key={kind} data-kind={kind}>{evidenceLabels[kind]}</span>

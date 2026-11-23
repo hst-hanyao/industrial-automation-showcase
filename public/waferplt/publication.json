@@ -10,8 +10,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 3121,
-      "sha256": "5dcd95aec4d34e85410b027bddd4f7c1ff4562e234b93346620196bf3c91ff76"
+      "bytes": 2803,
+      "sha256": "dafdcd65a9759e5f5521363efee56985a4a780009c1d540813561ca5bd87cdaa"
     },
     {
       "path": "THIRD-PARTY-NOTICES.txt",
@@ -29,21 +29,6 @@
       "sha256": "aa924b6fc153a0c524b58a343a580a2623769f4128bd17937dcd1d0519432738"
     },
     {
-      "path": "docs/research/APT-structure.md",
-      "bytes": 7626,
-      "sha256": "38226c485335882e7716b8818ba0eb7534e724ca4bfd8de111e8738cb378d34c"
-    },
-    {
-      "path": "docs/research/PLT-structure.md",
-      "bytes": 3508,
-      "sha256": "562726c2911add0530ef0fbc65451266cb2a3adf3ceb91f66632c1c41da57d55"
-    },
-    {
-      "path": "docs/research/SRD-structure.md",
-      "bytes": 10264,
-      "sha256": "60359d6eb9cfa6f37279edb6617fe893e672f23f3b6dc841563f79197b2a86a8"
-    },
-    {
       "path": "filing.css",
       "bytes": 1448,
       "sha256": "8e17b9b7a1d921ae8e9a8ec2c7ea95018924d87bc252be27e5c69bbf6d533507"
@@ -55,23 +40,23 @@
     },
     {
       "path": "machine/electroplating-machine.html",
-      "bytes": 903393,
-      "sha256": "4a2fd9faf52ce28d45ab23d2d6bc0784c0b3ca64d890baa144e44310f3d7de96"
+      "bytes": 902606,
+      "sha256": "1ddbfa9e13c4bc8c7eeb23f9f639e423c4dd491984331980fa5549d5995ff4fb"
     },
     {
       "path": "modules/apt-anatomy-light.html",
-      "bytes": 329636,
-      "sha256": "c3e320be8f1db4ab082ace2214a6a1efc8b154cbb3975dbc3aa6cbf922144707"
+      "bytes": 328598,
+      "sha256": "7a839c8bca0032950340475f1f7b808df1b9ad91ce0be09918000a37aa9e44b3"
     },
     {
       "path": "modules/apt-anatomy.html",
-      "bytes": 329635,
-      "sha256": "3ed765d19465f0a3547121f48ca797c9e26e5cc6d158965552f747dcc2bff369"
+      "bytes": 328597,
+      "sha256": "1973637107ccb6685db87a0b64ff6540858733837bcf932a0cc65cfef329d15e"
     },
     {
       "path": "modules/apt.html",
-      "bytes": 877549,
-      "sha256": "1e9e06bb19fcb65fea2caca5b587f5a6d7784e9f7da2007b1063ded695051fe0"
+      "bytes": 876540,
+      "sha256": "0679e0e3f47229a83c402571f75ddf907517386805e17e37eb6c32808dbb2bcb"
     },
     {
       "path": "modules/index.html",
@@ -80,48 +65,33 @@
     },
     {
       "path": "modules/plt-anatomy-light.html",
-      "bytes": 592279,
-      "sha256": "4085d2a6fc4d8fbba4008da6ccf7f7cc117055957243a10229660d08a614e783"
+      "bytes": 591177,
+      "sha256": "4ce9ea7626f8f96330620a257ac289fb119bd2f695ac79054a4a9d7fc8e77bc1"
     },
     {
       "path": "modules/plt-anatomy.html",
-      "bytes": 592278,
-      "sha256": "8cb4135fc2542234ad7d40db8c628d526f4ea79b2d528ade3ee2538c09224630"
+      "bytes": 591176,
+      "sha256": "9d65e3206473ac11231966b6a699e61672aa7cb96af02d4fe1628b17eebdf076"
     },
     {
       "path": "modules/plt.html",
-      "bytes": 878530,
-      "sha256": "f2c4949bb37a60757dc5b0fb2033426b2064be8dba956f6f9ef931b88ab7f3d9"
+      "bytes": 877531,
+      "sha256": "8f4f5d051351e906d728f7ef2d8059ce985beadb5d31515856569609ae78846b"
     },
     {
       "path": "modules/srd-anatomy-light.html",
-      "bytes": 375417,
-      "sha256": "1471a95ae87604a24375d798a7cd06e0703e349d971002c4c60246283c0a9d9d"
+      "bytes": 374323,
+      "sha256": "566f772675cc777dcdb31ec3c8038879ae5d29d20b1061b21175a2b7ea53f4a8"
     },
     {
       "path": "modules/srd-anatomy.html",
-      "bytes": 375416,
-      "sha256": "39b3ddc74b892cb6c3c49483f9cc1455be7a03dad133b2ac42dc7cdd210c30b2"
+      "bytes": 374322,
+      "sha256": "a89a2ca1e63e0bdc6b1e1d47a42b5881376ef8755d779ecf02dd31137d5518f0"
     },
     {
       "path": "modules/srd.html",
-      "bytes": 881342,
-      "sha256": "46a1c83d9332c4e52e137b413f8e0cd337d45c1234f23c017977a7ff35d57818"
-    },
-    {
-      "path": "references/sabre3d-research/evidence-index.json",
-      "bytes": 8539,
-      "sha256": "164f2c919ff1916786f0dd6d3977ad75901610f955f5dc2792090d938093d185"
-    },
-    {
-      "path": "references/sabre3d-research/index.html",
-      "bytes": 13973,
-      "sha256": "701bb736c3e1566cb5eec81ba8f11c245d7e1702102dc3630423a79eeb946153"
-    },
-    {
-      "path": "shared/SCIENTIFIC-NOTES.md",
-      "bytes": 14246,
-      "sha256": "b8040a56a36140eeecdcf1feaa3c14987aae90656a1d6a321a55c8906142aa77"
+      "bytes": 880381,
+      "sha256": "822cf5958cc90497cb1fbffe921359375a4a8c1b992b26fa11ba4cbfb29f6709"
     },
     {
       "path": "shared/model-teaching.js",
@@ -145,8 +115,8 @@
     },
     {
       "path": "teaching-notice.js",
-      "bytes": 1761,
-      "sha256": "177844921b07cf69b7c461884ba2a8abb7d4ceb1a6544c70932a071081c99504"
+      "bytes": 1617,
+      "sha256": "c0850ff77336e36556756c6c011949648291c16582da34053dd015e95ed61b31"
     },
     {
       "path": "teaching-workbench.css",
@@ -159,10 +129,10 @@
       "sha256": "117d8de250c868d583c61c2b8472d613e26852a53aade3114f60e47e051df0a6"
     }
   ],
-  "totalBytes": 7328709,
+  "totalBytes": 7259867,
   "largest": {
     "path": "machine/electroplating-machine.html",
-    "bytes": 903393,
-    "sha256": "4a2fd9faf52ce28d45ab23d2d6bc0784c0b3ca64d890baa144e44310f3d7de96"
+    "bytes": 902606,
+    "sha256": "1ddbfa9e13c4bc8c7eeb23f9f639e423c4dd491984331980fa5549d5995ff4fb"
   }
 }

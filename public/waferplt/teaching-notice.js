@@ -14,8 +14,8 @@
     notice.className = 'teaching-notice';
     notice.setAttribute('role', 'note');
     notice.textContent = modelTitle
-      ? '非官方教学演示 · 独立制作，无厂商背书；结构与参数为示意。'
-      : '非官方教学演示：基于公开资料独立制作，不代表任何厂商的官方产品、授权合作或背书。结构及参数为示意，不代表真实设备配置或工艺性能；相关商标归各权利人所有。';
+      ? '工艺教学演示 · 结构与参数仅作教学示意。'
+      : '工艺教学演示：结构、路径及参数仅作教学示意，不代表真实设备配置或工艺性能。';
     if (modelTitle) modelTitle.append(notice);
     else if (document.querySelector('header .brand h1')) document.querySelector('header .brand').append(notice);
     else (document.querySelector('main') || document.body).prepend(notice);
