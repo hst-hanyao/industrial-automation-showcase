@@ -1,4 +1,6 @@
+import { useRef } from 'react'
 import { hmiCallChains, hmiCodeSnippets } from '../data/hmi-architecture'
+import { useScrollChoreography } from '../features/motion/useScrollChoreography'
 import '../styles/hmi-gallery.css'
 
 const engineeringNotes = [
@@ -9,16 +11,19 @@ const engineeringNotes = [
 ] as const
 
 export function HmiEngineeringNotes({ onTraceChain }: { readonly onTraceChain: (chainId: string) => void }) {
+  const rootRef = useRef<HTMLElement>(null)
+  useScrollChoreography(rootRef)
+
   return (
-    <section className="hmi-engineering" aria-labelledby="hmi-engineering-title">
-      <header><p className="eyebrow">ENGINEERING / FOUR DECISIONS</p><h2 id="hmi-engineering-title">四个关键设计，沿源码核对。</h2></header>
-      <div className="hmi-engineering__notes">
+    <section ref={rootRef} className="hmi-engineering" aria-labelledby="hmi-engineering-title">
+      <header data-motion-reveal><p className="eyebrow">ENGINEERING / FOUR DECISIONS</p><h2 id="hmi-engineering-title">四个关键设计，沿源码核对。</h2></header>
+      <div className="hmi-engineering__notes" data-motion-group>
         {engineeringNotes.map((note, index) => {
           const chain = hmiCallChains.find((item) => item.id === note.chainId)
           const snippet = hmiCodeSnippets.find((item) => item.id === note.snippetId)
           return (
-            <article key={note.chainId}>
-              <span className="hmi-engineering__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <article key={note.chainId} data-motion-item data-spotlight>
+              <span className="hmi-engineering__number" data-motion-counter aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
               <div>
                 <h3>{note.title}</h3><p>{note.description}</p><p className="hmi-engineering__detail">{note.detail}</p>
                 {snippet ? <p className="hmi-engineering__source" translate="no">{snippet.file} · L{snippet.startLine}–{snippet.startLine + snippet.lines.length - 1}</p> : null}

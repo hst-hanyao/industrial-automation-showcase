@@ -1,10 +1,28 @@
 .detail-hero.detail-hero--architecture { min-height: 0; grid-template-columns: 32px minmax(0, 1fr); grid-template-rows: auto auto auto; gap: 20px; padding: 28px var(--page-gutter) 24px; background: radial-gradient(850px circle at 12% 10%, rgba(37, 99, 235, 0.055), transparent 60%), radial-gradient(800px circle at 88% 30%, rgba(8, 145, 178, 0.045), transparent 60%), #fff; overflow: visible; }
 .detail-hero--architecture::before { display: none; }
 .detail-hero--architecture .detail-hero__index { height: 96px; }
-.detail-hero--architecture .detail-hero__copy { position: relative; padding-right: 260px; }
+.detail-hero--architecture .detail-hero__copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0 28px;
+  align-items: start;
+}
+.detail-hero--architecture .detail-hero__copy > .eyebrow,
+.detail-hero--architecture .detail-hero__copy > h1,
+.detail-hero--architecture .detail-hero__copy > .detail-hero__lead {
+  grid-column: 1;
+}
 .detail-hero--architecture .detail-hero__copy h1 { margin: 8px 0 10px; font-size: clamp(30px, 3vw, 44px); letter-spacing: -.04em; line-height: 1.2; }
 .detail-hero--architecture .detail-hero__lead { max-width: 860px; font-size: 16px; line-height: 1.7; }
-.detail-hero--architecture .tag-row { position: absolute; top: 4px; right: 0; max-width: 230px; justify-content: end; margin-top: 0; font-size: 12px; }
+.detail-hero--architecture .tag-row {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: start;
+  max-width: 280px;
+  justify-content: flex-end;
+  margin-top: 4px;
+  font-size: 12px;
+}
 .detail-hero--architecture .detail-hero__visual, .detail-hero--architecture .evidence-legend { grid-column: 1 / -1; }
 .detail-hero--architecture .evidence-legend { padding-top: 14px; }
 .hmi-explorer { color: #172033; border: 1px solid rgba(46, 65, 94, 0.22); border-radius: 14px; background: #fff; box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.1), 0 4px 16px rgba(37, 99, 235, 0.05); overflow: clip; scroll-margin-top: calc(var(--header-height) + 16px); }
@@ -18,8 +36,8 @@
 .hmi-chain-tabs button:hover, .hmi-mobile-context button:hover { color: #1d4ed8; background: #eff5ff; border-color: #2563eb; transform: translateY(-1px); }
 .hmi-chain-tabs button[aria-pressed="true"] { color: #fff; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: transparent; box-shadow: 0 6px 16px -4px rgba(37, 99, 235, 0.38); }
 .hmi-chain-tabs .hmi-chain-tabs__full { margin-left: auto; }
-.hmi-explorer__workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0fr); min-width: 0; overflow-anchor: none; }
-.hmi-explorer.is-reading .hmi-explorer__workspace { grid-template-columns: minmax(0, .42fr) minmax(0, .58fr); height: min(720px, calc(100svh - var(--header-height) - 32px)); }
+.hmi-explorer__workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0fr); min-width: 0; overflow-anchor: none; transition: grid-template-columns 260ms var(--motion-ease-enter); }
+.hmi-explorer.is-reading .hmi-explorer__workspace { grid-template-columns: minmax(340px, 0.44fr) minmax(0, 0.56fr); height: min(720px, calc(100svh - var(--header-height) - 32px)); }
 .hmi-graph-scroll { min-width: 0; min-height: 0; max-height: 600px; overflow: auto; overscroll-behavior: contain; scrollbar-color: #8291a6 #f6f8fc; }
 .hmi-graph-scroll:focus-visible { outline-offset: -3px; }
 .hmi-explorer.is-reading .hmi-graph-scroll { height: 100%; max-height: none; }
@@ -89,8 +107,8 @@
 .hmi-mobile-context { display: none; }
 .hmi-explorer[data-motion="reduced"] *, .hmi-explorer[data-motion="reduced"] *::before { transition: none !important; }
 @media (max-width: 1199px) {
-  .detail-hero--architecture .detail-hero__copy { padding-right: 0; }
-  .detail-hero--architecture .tag-row { position: static; max-width: none; justify-content: start; margin-top: 10px; }
+  .detail-hero--architecture .detail-hero__copy { grid-template-columns: minmax(0, 1fr); }
+  .detail-hero--architecture .tag-row { grid-column: 1; grid-row: auto; max-width: none; justify-content: flex-start; margin-top: 14px; }
   .hmi-explorer.is-reading .hmi-explorer__workspace { grid-template-columns: minmax(0, 1fr); height: auto; }
   .hmi-explorer.is-reading .hmi-graph-scroll { height: 340px; }
   .hmi-explorer.is-reading .hmi-flow-nodes { grid-template-columns: repeat(3, minmax(0, 1fr)); }

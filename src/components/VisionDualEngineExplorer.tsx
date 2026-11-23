@@ -62,8 +62,9 @@ export function VisionDualEngineExplorer() {
         aria-labelledby={'vision-tab-' + currentEngine.id}
         tabIndex={0}
         key={currentEngine.id}
+        data-motion-panel
       >
-        <div className="vision-explorer__banner">
+        <div className="vision-explorer__banner" data-motion-item>
           <h2>{currentEngine.name}</h2>
           <p>{currentEngine.summary}</p>
         </div>
@@ -73,7 +74,7 @@ export function VisionDualEngineExplorer() {
           <span className="vision-pipeline__label">WORKBENCH 5-STAGE WORKFLOW / 5 大工作台页面</span>
           <div className="vision-pipeline__steps">
             {currentEngine.panels.map((panel, idx) => (
-              <div key={panel} className="vision-pipeline__step">
+              <div key={panel} className="vision-pipeline__step" data-motion-item>
                 <span>{String(idx + 1).padStart(2, '0')}</span>
                 <b>{panel}</b>
               </div>
@@ -84,7 +85,7 @@ export function VisionDualEngineExplorer() {
         {/* 核心工程支柱 */}
         <div className="vision-pillars">
           {currentEngine.pillars.map((pillar) => (
-            <div key={pillar.title} className="vision-pillar">
+            <div key={pillar.title} className="vision-pillar" data-motion-item>
               <h3>{pillar.title}</h3>
               <p>{pillar.desc}</p>
               <div className="vision-pillar__tags">
@@ -101,7 +102,7 @@ export function VisionDualEngineExplorer() {
           <span className="vision-ops__label">OPERATOR TAXONOMY / 算子与算法目录体系</span>
           <div className="vision-ops__grid">
             {currentEngine.operatorCategories.map((cat) => (
-              <div key={cat.category} className="vision-op-card">
+              <div key={cat.category} className="vision-op-card" data-motion-item>
                 <div className="vision-op-card__top">
                   <b>{cat.category}</b>
                   <span>{cat.count}</span>
@@ -115,7 +116,7 @@ export function VisionDualEngineExplorer() {
         {/* 验证与成效 */}
         <div className="vision-verifications">
           {currentEngine.verifications.map((veri) => (
-            <div key={veri.title} className="vision-veri-item">
+            <div key={veri.title} className="vision-veri-item" data-motion-item>
               <span className="vision-veri-item__metric">{veri.metric}</span>
               <b>{veri.title}</b>
               <p>{veri.desc}</p>

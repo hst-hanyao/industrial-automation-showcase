@@ -4,7 +4,9 @@ import { useRevealOnScroll } from '../features/motion/useRevealOnScroll'
 
 export function TechStackMatrix() {
   const rootRef = useRef<HTMLElement>(null)
-  useRevealOnScroll(rootRef, '.tech-card', '.tech-card__index')
+  useRevealOnScroll(rootRef, '.tech-card', '.tech-card__index', {
+    headerSelector: '.tech-matrix__header',
+  })
 
   return (
     <section ref={rootRef} id="tech-matrix" className="tech-matrix" aria-labelledby="tech-matrix-title">

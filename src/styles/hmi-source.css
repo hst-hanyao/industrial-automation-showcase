@@ -1,16 +1,17 @@
-.hmi-code-reader { display: flex; flex-direction: column; min-width: 0; min-height: 0; height: 100%; background: #fff; border-left: 1px solid #8291a6; scroll-margin-top: calc(var(--header-height) + 16px); }
-.hmi-code-reader__header { position: sticky; top: var(--header-height); z-index: 5; display: flex; align-items: start; justify-content: space-between; gap: 12px; padding: 16px 18px 12px; flex-shrink: 0; background: #fff; }
+.hmi-code-reader { display: flex; flex-direction: column; min-width: 0; min-height: 0; height: 100%; background: #fff; border-left: 1px solid #cbd5e1; scroll-margin-top: calc(var(--header-height) + 16px); }
+.hmi-code-reader__header { position: sticky; top: 0; z-index: 5; display: flex; align-items: start; justify-content: space-between; gap: 12px; padding: 16px 18px 12px; flex-shrink: 0; border-bottom: 1px solid #eef2f7; background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%); }
 .hmi-code-reader__header > div { min-width: 0; }
 .hmi-code-reader__context { color: #536277; font-size: 12px; line-height: 18px; }
-.hmi-code-reader__header h3 { margin-top: 5px; font-size: 16px; line-height: 24px; font-weight: 600; overflow-wrap: anywhere; }
-.hmi-code-reader__header h3 span { display: block; color: #536277; font: 14px/22px Consolas, monospace; }
-.hmi-reader-button { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid #7b8aa0; border-radius: 4px; color: #34445b; background: #fff; cursor: pointer; font-size: 12px; line-height: 18px; flex-shrink: 0; }
-.hmi-reader-button:hover, .hmi-reader-button[aria-pressed="true"] { color: #1d4ed8; border-color: #2563eb; background: #eff5ff; }
+.hmi-code-reader__header h3 { margin-top: 5px; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--bone); overflow-wrap: anywhere; }
+.hmi-code-reader__header h3 span { display: block; color: #536277; font: 14px/22px "Cascadia Code", Consolas, monospace; font-weight: 500; }
+.hmi-reader-button { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px; border: 1px solid rgba(46, 65, 94, 0.24); border-radius: 8px; color: #34445b; background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; line-height: 18px; flex-shrink: 0; transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease; }
+.hmi-reader-button:hover, .hmi-reader-button[aria-pressed="true"] { color: #1d4ed8; border-color: #2563eb; background: #eff5ff; box-shadow: 0 4px 12px -4px rgba(37, 99, 235, 0.18); }
 .hmi-reader-button:disabled { cursor: wait; }
-.hmi-method-selector { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 12px; padding: 0 18px 12px; }
-.hmi-method-selector label { color: #536277; font-size: 12px; }
-.hmi-method-selector select { min-width: 0; width: 100%; min-height: 44px; padding: 8px 10px; color: #172033; border: 1px solid #7b8aa0; border-radius: 4px; background: #fff; font: 14px/22px Consolas, monospace; }
-.hmi-reader-location { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 10px 18px; border-block: 1px solid #dce4ef; color: #536277; font: 12px/18px Consolas, monospace; }
+.hmi-method-selector { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 12px; padding: 12px 18px; }
+.hmi-method-selector label { color: #536277; font-size: 12px; font-weight: 600; }
+.hmi-method-selector select { min-width: 0; width: 100%; min-height: 44px; padding: 8px 12px; color: #172033; border: 1px solid rgba(46, 65, 94, 0.24); border-radius: 8px; background: #fff; font: 14px/22px "Cascadia Code", Consolas, monospace; transition: border-color 180ms ease; }
+.hmi-method-selector select:hover { border-color: #2563eb; }
+.hmi-reader-location { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 10px 18px; border-block: 1px solid #dce4ef; background: #f8faff; color: #536277; font: 12px/18px "Cascadia Code", Consolas, monospace; }
 .hmi-reader-location > span:first-child { overflow-wrap: anywhere; }
 .hmi-reader-location > span:last-child { color: #1d4ed8; white-space: nowrap; }
 .hmi-reader-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 18px; }

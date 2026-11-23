@@ -1,7 +1,9 @@
 import { useRef } from 'react'
 import { EngineeringCases } from '../components/EngineeringCases'
 import { IntentLink } from '../components/IntentLink'
+import { MOTION } from '../features/motion/motion-tokens'
 import { useMotionMode } from '../features/motion/useMotionMode'
+import { useScrollChoreography } from '../features/motion/useScrollChoreography'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { gsap, useGSAP } from '../lib/gsap'
 import '../styles/engineering-cases.css'
@@ -59,7 +61,8 @@ export default function CasesPage() {
   const headingRef = useRef<HTMLHeadingElement>(null)
   const motionMode = useMotionMode()
 
-  usePageMeta('现场工程与问题排查', headingRef, motionMode === 'reduced' ? 0 : 1160)
+  usePageMeta('现场工程与问题排查', headingRef, motionMode === 'reduced' ? 0 : MOTION.focusDelay)
+  useScrollChoreography(rootRef)
 
   useGSAP(
     () => {
@@ -67,37 +70,18 @@ export default function CasesPage() {
       if (!root) return
 
       const introItems = gsap.utils.toArray<HTMLElement>('[data-detail-intro]', root)
-      const blocks = gsap.utils.toArray<HTMLElement>('[data-detail-block]', root)
 
       if (motionMode === 'reduced') {
-        gsap.set([...introItems, ...blocks], { autoAlpha: 1, y: 0 })
+        gsap.set(introItems, { autoAlpha: 1, y: 0 })
         return
       }
 
-      gsap.timeline({ defaults: { duration: 0.8, ease: 'power3.out' } })
-        .fromTo(introItems, { autoAlpha: 0, y: 34 }, {
+      gsap.timeline({ defaults: { duration: 0.72, ease: 'power3.out' } })
+        .fromTo(introItems, { autoAlpha: 0, y: 28 }, {
           autoAlpha: 1,
           y: 0,
-          stagger: 0.08,
+          stagger: 0.07,
         })
-
-      blocks.forEach((block) => {
-        gsap.fromTo(
-          block,
-          { autoAlpha: 0, y: 44 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.85,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: block,
-              start: 'top 88%',
-              toggleActions: 'play none none none',
-            },
-          },
-        )
-      })
     },
     { scope: rootRef, dependencies: [motionMode], revertOnUpdate: true },
   )
@@ -129,7 +113,7 @@ export default function CasesPage() {
           </div>
         </div>
 
-        <div className="detail-hero__visual cases-visual" data-detail-block>
+        <div className="detail-hero__visual cases-visual" data-detail-intro>
           <EngineeringCases embedded />
         </div>
 
@@ -152,8 +136,8 @@ export default function CasesPage() {
         </div>
       </section>
 
-      <section className="cases-methods" aria-labelledby="cases-methods-title" data-detail-block>
-        <div className="cases-methods__header">
+      <section className="cases-methods" aria-labelledby="cases-methods-title">
+        <div className="cases-methods__header" data-motion-reveal>
           <p className="eyebrow">现场排查方法论 · 防呆体系</p>
           <h2 id="cases-methods-title">现场排查工程准则与防呆闭环体系</h2>
           <p>
@@ -162,12 +146,12 @@ export default function CasesPage() {
           </p>
         </div>
 
-        <div className="cases-methods__grid">
+        <div className="cases-methods__grid" data-motion-group>
           {fieldPrinciples.map((item) => (
-            <article key={item.index} className="cases-method-card">
+            <article key={item.index} className="cases-method-card" data-motion-item data-spotlight>
               <div className="cases-method-card__top">
                 <span className="cases-method-card__badge">{item.badge}</span>
-                <span className="cases-method-card__index">{item.index}</span>
+                <span className="cases-method-card__index" data-motion-counter>{item.index}</span>
               </div>
               <h3>{item.title}</h3>
               <p>{item.summary}</p>

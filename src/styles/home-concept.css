@@ -39,12 +39,13 @@
 
 .home-device__label {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 8px 14px;
   color: #3b4d66;
   font: 600 12px/1.5 "Cascadia Code", Consolas, monospace;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   border-bottom: 1px solid rgba(37, 99, 235, 0.14);
   padding-bottom: 12px;
 }
@@ -59,17 +60,22 @@
   content: "";
   width: 7px;
   height: 7px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: #2563eb;
   box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.16);
   animation: hudPulse 2.4s ease-in-out infinite;
 }
 
-.home-device__label span:last-child {
-  padding: 2px 8px;
+.home-device__status {
+  padding: 2px 10px;
+  border: 1px solid rgba(37, 99, 235, 0.18);
   border-radius: 99px;
   background: rgba(37, 99, 235, 0.08);
   color: #2563eb;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 
 @keyframes hudPulse {
@@ -80,9 +86,10 @@
 .home-device__figure {
   position: relative;
   margin: 14px 0 0;
+  border: 1px solid rgba(37, 99, 235, 0.1);
   border-radius: 10px;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 45%, rgba(37, 99, 235, 0.05), transparent 72%);
+  background: radial-gradient(circle at 50% 45%, rgba(37, 99, 235, 0.05), rgba(248, 250, 255, 0.6) 72%);
 }
 
 .home-device__figure::after {
@@ -119,12 +126,15 @@
 
 .home-device__figure figcaption {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 9px;
+  gap: 8px 10px;
   color: #526173;
   font-size: 12px;
-  line-height: 1.6;
-  padding: 6px 4px 14px;
+  line-height: 1.5;
+  padding: 10px 14px 12px;
+  border-top: 1px solid rgba(37, 99, 235, 0.08);
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .home-device__figure figcaption span {

@@ -147,6 +147,7 @@ pre,
 .app-shell {
   min-width: 0;
   min-height: 100vh;
+  overflow-x: clip;
 }
 
 main {

@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
+  formatCounterStep,
   fullMotionOverride,
+  parseCounterToken,
   readExplicitMotionMode,
   reducedMotionOverride,
   reducedMotionQuery,
@@ -37,5 +39,22 @@ describe('reduced motion branch', () => {
   it('lets an explicit override win over the media query in both directions', () => {
     expect(shouldReduceMotion(false, '?motion=reduced')).toBe(true)
     expect(shouldReduceMotion(true, '?motion=full')).toBe(false)
+  })
+})
+
+describe('telemetry counter formatting', () => {
+  it('parses padded indices and unit-suffixed metrics while settling on exact values', () => {
+    const indexToken = parseCounterToken('04')
+    expect(indexToken).not.toBeNull()
+    expect(indexToken?.isSmallIndex).toBe(true)
+    expect(formatCounterStep(indexToken!, 1)).toBe('04')
+
+    const metricToken = parseCounterToken('99.8%')
+    expect(metricToken).not.toBeNull()
+    expect(metricToken?.isSmallIndex).toBe(false)
+    expect(formatCounterStep(metricToken!, 0)).toBe('0.0%')
+    expect(formatCounterStep(metricToken!, 1)).toBe('99.8%')
+
+    expect(parseCounterToken('N/A')).toBeNull()
   })
 })

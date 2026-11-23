@@ -14,79 +14,84 @@ const nodes: readonly Point[] = [
   { x: 0.82, y: 0.7 },
 ]
 
+function drawPulseDot(
+  context: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  radius: number,
+  color: string,
+  haloRgba: string,
+) {
+  context.beginPath()
+  context.arc(x, y, radius * 2.3, 0, Math.PI * 2)
+  context.fillStyle = haloRgba
+  context.fill()
+
+  context.beginPath()
+  context.arc(x, y, radius, 0, Math.PI * 2)
+  context.fillStyle = color
+  context.fill()
+}
+
 function drawSignalField(
   context: CanvasRenderingContext2D,
   width: number,
   height: number,
   progress: number,
   pointer: Point,
+  scrollRatio: number,
 ) {
   context.clearRect(0, 0, width, height)
 
-  const offsetX = (pointer.x - 0.5) * 26
-  const offsetY = (pointer.y - 0.5) * 18
-  const resolved = nodes.map((node, i) => {
-    const depth = 0.6 + (i % 2) * 0.5
-    const jitterX = Math.sin(progress * Math.PI * 6 + i * 2.1) * 2.4
-    const jitterY = Math.cos(progress * Math.PI * 4.6 + i * 1.7) * 2.4
-    return {
-      x: node.x * width + offsetX * depth + jitterX,
-      y: node.y * height + offsetY * depth + jitterY,
-    }
-  })
+  const baseOffsetX = (pointer.x - 0.5) * 28
+  const baseOffsetY = (pointer.y - 0.5) * 20
+  const scrollShiftY = -scrollRatio * 26
+
+  // Layer 1 (far background): Grid, radial pointer glow, and calibration crosshairs
+  const farX = baseOffsetX * 0.35
+  const farY = baseOffsetY * 0.35 + scrollShiftY * 0.35
 
   context.save()
+  context.globalAlpha = Math.max(0.35, 1 - scrollRatio * 0.55)
 
   const pointerGlow = context.createRadialGradient(
     pointer.x * width,
     pointer.y * height,
-    10,
+    12,
     pointer.x * width,
     pointer.y * height,
-    Math.max(width, height) * 0.42,
+    Math.max(width, height) * 0.44,
   )
-  pointerGlow.addColorStop(0, 'rgba(37, 99, 235, 0.09)')
-  pointerGlow.addColorStop(0.5, 'rgba(14, 116, 144, 0.035)')
+  pointerGlow.addColorStop(0, 'rgba(37, 99, 235, 0.095)')
+  pointerGlow.addColorStop(0.5, 'rgba(14, 116, 144, 0.038)')
   pointerGlow.addColorStop(1, 'rgba(255, 255, 255, 0)')
   context.fillStyle = pointerGlow
   context.fillRect(0, 0, width, height)
 
   context.lineWidth = 1
-  context.strokeStyle = 'rgba(46, 65, 94, 0.065)'
+  context.strokeStyle = 'rgba(46, 65, 94, 0.06)'
 
-  for (let x = 0; x <= width; x += 64) {
+  const gridStartX = ((farX % 64) + 64) % 64 - 64
+  for (let x = gridStartX; x <= width + 64; x += 64) {
     context.beginPath()
     context.moveTo(x + 0.5, 0)
     context.lineTo(x + 0.5, height)
     context.stroke()
   }
 
-  for (let y = 0; y <= height; y += 64) {
+  const gridStartY = ((farY % 64) + 64) % 64 - 64
+  for (let y = gridStartY; y <= height + 64; y += 64) {
     context.beginPath()
     context.moveTo(0, y + 0.5)
     context.lineTo(width, y + 0.5)
     context.stroke()
   }
 
-  {
-    const sweepX = ((progress * 0.72) % 1) * width
-    const band = context.createLinearGradient(sweepX - 110, 0, sweepX + 110, 0)
-    band.addColorStop(0, 'rgba(37, 99, 235, 0)')
-    band.addColorStop(0.5, 'rgba(37, 99, 235, 0.075)')
-    band.addColorStop(1, 'rgba(37, 99, 235, 0)')
-    context.fillStyle = band
-    context.fillRect(sweepX - 110, 0, 220, height)
-    context.strokeStyle = 'rgba(37, 99, 235, 0.26)'
-    context.lineWidth = 1
-    context.beginPath()
-    context.moveTo(sweepX + 0.5, 0)
-    context.lineTo(sweepX + 0.5, height)
-    context.stroke()
-  }
-
   context.strokeStyle = 'rgba(37, 99, 235, 0.18)'
-  for (let x = 64; x < width; x += 192) {
-    for (let y = 64; y < height; y += 192) {
+  const crossStartX = ((farX % 192) + 192) % 192
+  const crossStartY = ((farY % 192) + 192) % 192
+  for (let x = crossStartX + 64; x < width; x += 192) {
+    for (let y = crossStartY + 64; y < height; y += 192) {
       context.beginPath()
       context.moveTo(x - 3.5, y + 0.5)
       context.lineTo(x + 4.5, y + 0.5)
@@ -96,10 +101,40 @@ function drawSignalField(
     }
   }
 
+  // Layer 2 (mid-plane): Orthogonal signal sweep and bus traces
+  const midX = baseOffsetX * 0.75
+  const midY = baseOffsetY * 0.75 + scrollShiftY * 0.75
+
+  {
+    const sweepX = ((progress * 0.72) % 1) * width
+    const band = context.createLinearGradient(sweepX - 110, 0, sweepX + 110, 0)
+    band.addColorStop(0, 'rgba(37, 99, 235, 0)')
+    band.addColorStop(0.5, 'rgba(37, 99, 235, 0.075)')
+    band.addColorStop(1, 'rgba(37, 99, 235, 0)')
+    context.fillStyle = band
+    context.fillRect(sweepX - 110, 0, 220, height)
+    context.strokeStyle = 'rgba(37, 99, 235, 0.24)'
+    context.lineWidth = 1
+    context.beginPath()
+    context.moveTo(sweepX + 0.5, 0)
+    context.lineTo(sweepX + 0.5, height)
+    context.stroke()
+  }
+
+  const midNodes = nodes.map((node, i) => {
+    const depth = 0.75 + (i % 2) * 0.35
+    const jitterX = Math.sin(progress * Math.PI * 6 + i * 2.1) * 2.2
+    const jitterY = Math.cos(progress * Math.PI * 4.6 + i * 1.7) * 2.2
+    return {
+      x: node.x * width + midX * depth + jitterX,
+      y: node.y * height + midY * depth + jitterY,
+    }
+  })
+
   const segments = [
-    [resolved[0]!, resolved[1]!],
-    [resolved[1]!, resolved[2]!],
-    [resolved[2]!, resolved[3]!],
+    [midNodes[0]!, midNodes[1]!],
+    [midNodes[1]!, midNodes[2]!],
+    [midNodes[2]!, midNodes[3]!],
   ] as const
 
   context.lineWidth = 1.5
@@ -117,7 +152,7 @@ function drawSignalField(
     context.setLineDash([2, 11])
     context.lineDashOffset = -(progress * 260) % 13
     context.lineWidth = 1.6
-    context.strokeStyle = 'rgba(37, 99, 235, 0.5)'
+    context.strokeStyle = 'rgba(37, 99, 235, 0.48)'
     for (const [start, end] of segments) {
       context.beginPath()
       context.moveTo(start.x, start.y)
@@ -128,16 +163,16 @@ function drawSignalField(
     context.restore()
   }
 
-  const firstNode = resolved[0]!
-  const lastNode = resolved[3]!
+  const firstMid = midNodes[0]!
+  const lastMid = midNodes[3]!
   context.save()
   context.setLineDash([5, 5])
   context.lineWidth = 1.2
   context.strokeStyle = 'rgba(14, 116, 144, 0.22)'
   context.beginPath()
-  context.moveTo(lastNode.x, lastNode.y)
-  context.lineTo(firstNode.x, lastNode.y)
-  context.lineTo(firstNode.x, firstNode.y)
+  context.moveTo(lastMid.x, lastMid.y)
+  context.lineTo(firstMid.x, lastMid.y)
+  context.lineTo(firstMid.x, firstMid.y)
   context.stroke()
   context.restore()
 
@@ -164,55 +199,56 @@ function drawSignalField(
       }
     }
 
-    const color = index === 1 ? '#0e7490' : '#2563eb'
+    const isCyan = index === 1
+    const color = isCyan ? '#0e7490' : '#2563eb'
+    const halo = isCyan ? 'rgba(14, 116, 144, 0.2)' : 'rgba(37, 99, 235, 0.2)'
+
     for (let step = 6; step >= 1; step--) {
       const tailPos = pointAt(local - step * 0.016)
       context.beginPath()
       context.arc(tailPos.x, tailPos.y, Math.max(1, 3.2 - step * 0.4), 0, Math.PI * 2)
-      context.fillStyle = index === 1
+      context.fillStyle = isCyan
         ? `rgba(14, 116, 144, ${(0.42 - step * 0.06).toFixed(2)})`
         : `rgba(37, 99, 235, ${(0.42 - step * 0.06).toFixed(2)})`
       context.fill()
     }
 
     const head = pointAt(local)
-    context.beginPath()
-    context.arc(head.x, head.y, 4, 0, Math.PI * 2)
-    context.fillStyle = color
-    context.shadowBlur = 12
-    context.shadowColor = color
-    context.fill()
-    context.shadowBlur = 0
+    drawPulseDot(context, head.x, head.y, 3.8, color, halo)
   })
 
   {
     const fbLocal = (progress * 0.85 + 0.5) % 1
-    const hLen = Math.abs(firstNode.x - lastNode.x)
-    const vLen = Math.abs(firstNode.y - lastNode.y)
+    const hLen = Math.abs(firstMid.x - lastMid.x)
+    const vLen = Math.abs(firstMid.y - lastMid.y)
     const fbTotal = hLen + vLen
     if (fbTotal > 0) {
       const fbDist = fbLocal * fbTotal
       const fbX = fbDist <= hLen
-        ? lastNode.x + Math.sign(firstNode.x - lastNode.x) * fbDist
-        : firstNode.x
+        ? lastMid.x + Math.sign(firstMid.x - lastMid.x) * fbDist
+        : firstMid.x
       const fbY = fbDist <= hLen
-        ? lastNode.y
-        : lastNode.y + Math.sign(firstNode.y - lastNode.y) * (fbDist - hLen)
-      context.beginPath()
-      context.arc(fbX, fbY, 3.2, 0, Math.PI * 2)
-      context.fillStyle = '#0e7490'
-      context.shadowBlur = 10
-      context.shadowColor = '#0e7490'
-      context.fill()
-      context.shadowBlur = 0
+        ? lastMid.y
+        : lastMid.y + Math.sign(firstMid.y - lastMid.y) * (fbDist - hLen)
+      drawPulseDot(context, fbX, fbY, 3.1, '#0e7490', 'rgba(14, 116, 144, 0.2)')
     }
   }
 
-  for (const [index, node] of resolved.entries()) {
-    const pulseRadius = 12 + Math.sin(progress * Math.PI * 2 + index * 1.4) * 3.5
+  // Layer 3 (foreground): Elevated control nodes with subtle outer depth shift
+  const foreX = baseOffsetX * 1.15
+  const foreY = baseOffsetY * 1.15 + scrollShiftY * 1.15
+
+  for (const [index, baseNode] of nodes.entries()) {
+    const jitterX = Math.sin(progress * Math.PI * 6 + index * 2.1) * 2.2
+    const jitterY = Math.cos(progress * Math.PI * 4.6 + index * 1.7) * 2.2
+    const node = {
+      x: baseNode.x * width + foreX + jitterX,
+      y: baseNode.y * height + foreY + jitterY,
+    }
+    const pulseRadius = 13 + Math.sin(progress * Math.PI * 2 + index * 1.4) * 3.5
     context.beginPath()
     context.arc(node.x, node.y, pulseRadius, 0, Math.PI * 2)
-    context.strokeStyle = index === 2 ? 'rgba(14, 116, 144, 0.18)' : 'rgba(37, 99, 235, 0.18)'
+    context.strokeStyle = index === 2 ? 'rgba(14, 116, 144, 0.2)' : 'rgba(37, 99, 235, 0.2)'
     context.lineWidth = 1
     context.stroke()
 
@@ -238,7 +274,8 @@ function drawSignalField(
 export function SignalField() {
   const rootRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const pointerRef = useRef<Point>({ x: 0.5, y: 0.5 })
+  const targetPointerRef = useRef<Point>({ x: 0.5, y: 0.5 })
+  const smoothPointerRef = useRef<Point>({ x: 0.5, y: 0.5 })
   const motionMode = useMotionMode()
 
   useEffect(() => {
@@ -250,16 +287,29 @@ export function SignalField() {
     const disposers = createDisposerStack()
     let width = 0
     let height = 0
+    let rectLeft = 0
+    let rectTop = 0
     let frame = 0
     let startTime = performance.now()
     let intersecting = true
     let pageVisible = !document.hidden
-    let lastProgress = 0
+    let lastProgress = motionMode === 'reduced' ? 0.22 : 0
+    let scrollRatio = 0
     const cycleDuration = 5600
+
+    const updateScrollRatio = () => {
+      if (motionMode !== 'full') {
+        scrollRatio = 0
+        return
+      }
+      scrollRatio = Math.min(1, Math.max(0, window.scrollY / Math.max(1, height)))
+    }
 
     const resize = () => {
       const rect = root.getBoundingClientRect()
       const ratio = Math.min(window.devicePixelRatio || 1, 2)
+      rectLeft = rect.left
+      rectTop = rect.top
       width = Math.max(1, Math.round(rect.width))
       height = Math.max(1, Math.round(rect.height))
       canvas.width = Math.round(width * ratio)
@@ -267,17 +317,21 @@ export function SignalField() {
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
-      drawSignalField(context, width, height, lastProgress, pointerRef.current)
+      updateScrollRatio()
+      drawSignalField(context, width, height, lastProgress, smoothPointerRef.current, scrollRatio)
     }
 
     const onPointerMove = (event: PointerEvent) => {
-      const rect = root.getBoundingClientRect()
-      pointerRef.current = {
-        x: Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width)),
-        y: Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height)),
+      targetPointerRef.current = {
+        x: Math.min(1, Math.max(0, (event.clientX - rectLeft) / Math.max(1, width))),
+        y: Math.min(1, Math.max(0, (event.clientY - rectTop) / Math.max(1, height))),
       }
+    }
+
+    const onScroll = () => {
+      updateScrollRatio()
       if (frame === 0) {
-        drawSignalField(context, width, height, lastProgress, pointerRef.current)
+        drawSignalField(context, width, height, lastProgress, smoothPointerRef.current, scrollRatio)
       }
     }
 
@@ -287,9 +341,16 @@ export function SignalField() {
         return
       }
 
+      const target = targetPointerRef.current
+      const current = smoothPointerRef.current
+      smoothPointerRef.current = {
+        x: current.x + (target.x - current.x) * 0.12,
+        y: current.y + (target.y - current.y) * 0.12,
+      }
+
       const elapsed = now - startTime
       lastProgress = (elapsed % cycleDuration) / cycleDuration
-      drawSignalField(context, width, height, lastProgress, pointerRef.current)
+      drawSignalField(context, width, height, lastProgress, smoothPointerRef.current, scrollRatio)
       frame = window.requestAnimationFrame(render)
     }
 
@@ -331,6 +392,8 @@ export function SignalField() {
     if (motionMode === 'full') {
       window.addEventListener('pointermove', onPointerMove, { passive: true })
       disposers.add(() => window.removeEventListener('pointermove', onPointerMove))
+      window.addEventListener('scroll', onScroll, { passive: true })
+      disposers.add(() => window.removeEventListener('scroll', onScroll))
       updateAnimationState()
       disposers.add(() => window.cancelAnimationFrame(frame))
     }

@@ -136,6 +136,16 @@ dialog.tour-modal__backdrop:not([open]) {
   transition: transform 0.22s var(--motion-ease-enter), color 0.22s var(--motion-ease-enter), background-color 0.22s var(--motion-ease-enter), border-color 0.22s var(--motion-ease-enter), box-shadow 0.22s var(--motion-ease-enter);
 }
 
+.tour-modal.is-open .tour-card {
+  animation: tourCardEnter 0.34s var(--motion-ease-enter) backwards;
+  animation-delay: calc(var(--tour-idx, 0) * 55ms + 70ms);
+}
+
+@keyframes tourCardEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .tour-card:nth-child(2) { border-left-color: #4f46e5; }
 .tour-card:nth-child(3) { border-left-color: #0e7490; }
 .tour-card:nth-child(4) { border-left-color: #0d9488; }
@@ -283,14 +293,38 @@ dialog.tour-modal__backdrop:not([open]) {
 }
 
 @media (max-width: 680px) {
+  .tour-modal__backdrop {
+    padding: 12px;
+  }
+  .tour-modal {
+    max-height: min(92vh, 880px);
+    border-radius: 14px;
+  }
+  .tour-modal__header {
+    padding: 18px 18px 14px;
+    gap: 12px;
+  }
+  .tour-modal__title {
+    font-size: 1.2rem;
+  }
+  .tour-modal__content {
+    padding: 14px 18px;
+    gap: 10px;
+  }
   .tour-card {
     grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
+    gap: 10px;
+    padding: 14px 16px;
   }
   .tour-card__index {
     display: none;
   }
   .tour-card__action {
     align-self: flex-start;
+  }
+  .tour-modal__footer {
+    padding: 12px 18px;
+    flex-wrap: wrap;
+    gap: 6px 14px;
   }
 }

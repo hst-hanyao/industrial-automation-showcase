@@ -54,7 +54,7 @@ export function ExecutiveQuickTour({ isOpen, onClose }: ExecutiveQuickTourProps)
         if (event.target === event.currentTarget) onClose()
       }}
     >
-      <div className="tour-modal">
+      <div className={`tour-modal${isOpen ? ' is-open' : ''}`}>
         <div className="tour-modal__header">
           <div>
             <p className="tour-modal__eyebrow">精选导览 / 3分钟速览</p>
@@ -74,8 +74,12 @@ export function ExecutiveQuickTour({ isOpen, onClose }: ExecutiveQuickTourProps)
         </div>
 
         <div className="tour-modal__content">
-          {tourItems.map((item) => (
-            <article key={item.id} className="tour-card">
+          {tourItems.map((item, idx) => (
+            <article
+              key={item.id}
+              className="tour-card"
+              style={{ '--tour-idx': idx } as React.CSSProperties}
+            >
               <span className="tour-card__index">{item.index}</span>
               <div className="tour-card__body">
                 <span className="tour-card__tag">{item.tag}</span>

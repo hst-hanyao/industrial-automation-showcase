@@ -11,7 +11,9 @@
 
 /* --- press / release asymmetry on primary controls --- */
 .primary-action,
-.secondary-action {
+.secondary-action,
+.eng-cases__tab,
+.vision-explorer__btn {
   position: relative;
   overflow: hidden;
   transition:
@@ -33,13 +35,17 @@
 .primary-action:active,
 .primary-action:hover:active,
 .secondary-action:active,
-.secondary-action:hover:active {
+.secondary-action:hover:active,
+.eng-cases__tab:active,
+.vision-explorer__btn:active {
   transform: scale(0.955);
   transition: transform var(--motion-press) var(--motion-ease-exit);
 }
 
 .primary-action.is-released,
-.secondary-action.is-released {
+.secondary-action.is-released,
+.eng-cases__tab.is-released,
+.vision-explorer__btn.is-released {
   animation: actionRelease var(--motion-enter) var(--motion-ease-pop);
 }
 
@@ -76,7 +82,12 @@
 
 /* --- ripple --- */
 .project-pagination a,
-.project-pagination button { overflow: hidden; }
+.project-pagination button,
+.hmi-gallery__tabs button,
+.hmi-chain-tabs button {
+  position: relative;
+  overflow: hidden;
+}
 
 .ui-ripple {
   position: absolute;
@@ -90,7 +101,11 @@
 
 .secondary-action .ui-ripple,
 .tech-card .ui-ripple,
-.project-pagination .ui-ripple {
+.project-pagination .ui-ripple,
+.eng-cases__tab .ui-ripple,
+.vision-explorer__btn .ui-ripple,
+.hmi-gallery__tabs button .ui-ripple,
+.hmi-chain-tabs button .ui-ripple {
   background: radial-gradient(circle, var(--motion-glow) 0%, transparent 70%);
 }
 
@@ -99,10 +114,12 @@
   100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
 }
 
-/* --- card tilt + edge sweep --- */
-.tech-card:hover {
+/* --- card tilt + edge sweep (higher specificity so lazy page CSS never overrides) --- */
+html:not([data-motion="reduced"]) .tech-card:hover,
+html:not([data-motion="reduced"]) .cases-method-card:hover,
+html:not([data-motion="reduced"]) [data-tilt]:hover {
   transform:
-    perspective(900px)
+    perspective(920px)
     rotateX(var(--tilt-rx, 0deg))
     rotateY(var(--tilt-ry, 0deg))
     translateY(-4px);
@@ -119,7 +136,7 @@
   opacity: 0;
 }
 
-.tech-card:hover::after {
+html:not([data-motion="reduced"]) .tech-card:hover::after {
   animation: cardSweep 900ms var(--motion-ease-enter) 1;
 }
 
@@ -128,7 +145,98 @@
   100% { transform: translateX(130%); opacity: 0; }
 }
 
-/* HUD corners are choreographed by the HomePage GSAP timeline. */
+/* --- universal cursor spotlight sheen for interactive panels/cards ---
+   .tech-card and .cases-method-card already consume --mouse-x/--mouse-y in their
+   own surface radial-gradient, so we avoid duplicating a ::before overlay on them. */
+[data-spotlight]:not(.tech-card):not(.cases-method-card),
+.vision-pillar,
+.vision-op-card,
+.hmi-node:not(.hmi-node--compact),
+.case-block {
+  position: relative;
+  overflow: hidden;
+}
+
+[data-spotlight]:not(.tech-card):not(.cases-method-card)::before,
+.vision-pillar::before,
+.vision-op-card::before,
+.hmi-node:not(.hmi-node--compact)::before,
+.case-block::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+    color-mix(in srgb, var(--accent, var(--signal)) 10%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--motion-enter) var(--motion-ease-enter);
+}
+
+html:not([data-motion="reduced"]) [data-spotlight]:not(.tech-card):not(.cases-method-card):hover::before,
+html:not([data-motion="reduced"]) .vision-pillar:hover::before,
+html:not([data-motion="reduced"]) .vision-op-card:hover::before,
+html:not([data-motion="reduced"]) .hmi-node:not(.hmi-node--compact):hover::before,
+html:not([data-motion="reduced"]) .case-block:hover::before {
+  opacity: 1;
+}
+
+/* --- tab / panel switch entrance & item stagger --- */
+html:not([data-motion="reduced"]) .motion-panel-enter,
+html:not([data-motion="reduced"]) [data-motion-panel] {
+  animation: motionPanelEnter 260ms var(--motion-ease-enter) both;
+}
+
+html:not([data-motion="reduced"]) [data-motion-panel] [data-motion-item] {
+  animation: motionPanelItemEnter 300ms var(--motion-ease-enter) both;
+}
+
+html:not([data-motion="reduced"]) [data-motion-panel] [data-motion-item]:nth-child(1) { animation-delay: 25ms; }
+html:not([data-motion="reduced"]) [data-motion-panel] [data-motion-item]:nth-child(2) { animation-delay: 70ms; }
+html:not([data-motion="reduced"]) [data-motion-panel] [data-motion-item]:nth-child(3) { animation-delay: 115ms; }
+html:not([data-motion="reduced"]) [data-motion-panel] [data-motion-item]:nth-child(4) { animation-delay: 160ms; }
+html:not([data-motion="reduced"]) [data-motion-panel] [data-motion-item]:nth-child(5) { animation-delay: 205ms; }
+html:not([data-motion="reduced"]) [data-motion-panel] [data-motion-item]:nth-child(n + 6) { animation-delay: 240ms; }
+
+@keyframes motionPanelEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes motionPanelItemEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- lightbox / image-viewer polish --- */
+html:not([data-motion="reduced"]) dialog.image-viewer[open]::backdrop {
+  animation: viewerBackdropEnter 220ms var(--motion-ease-enter) both;
+}
+
+html:not([data-motion="reduced"]) .image-viewer__canvas img {
+  transition: opacity var(--motion-enter) var(--motion-ease-enter);
+}
+
+@keyframes viewerBackdropEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 /* --- scroll reveal (attribute is attached by JS before paint) ---
    Never clip the element to zero area: IntersectionObserver needs a real
@@ -148,25 +256,32 @@
   translate: 0 0;
 }
 
-/* --- route curtain scan --- */
+/* --- route curtain scan (synchronized with ~500ms RouteTransition shutter) --- */
 .route-transition::before {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
   content: "";
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.34) 50%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 44%,
+    rgba(37, 99, 235, 0.32) 50%,
+    rgba(255, 255, 255, 0.14) 56%,
+    transparent 100%
+  );
   transform: translateX(-100%);
   opacity: 0;
 }
 
 .route-transition.is-sweeping::before {
-  animation: curtainScan 900ms var(--motion-ease-enter) 1;
+  animation: curtainScan 520ms var(--motion-ease-enter) 1;
 }
 
 @keyframes curtainScan {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(100%); }
+  from { transform: translateX(-100%); opacity: 0.95; }
+  to { transform: translateX(100%); opacity: 0; }
 }
 
 /* --- shared element transition --- */
@@ -181,7 +296,7 @@ html.is-shared-transition .detail-hero__visual { view-transition-name: none; }
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 320ms;
+  animation-duration: 300ms;
 }
 
 /* --- detail hero parallax layers --- */
@@ -209,5 +324,21 @@ html.is-shared-transition .detail-hero__visual { view-transition-name: none; }
 
 .detail-hero__visual:hover::before { opacity: 1; }
 
-/* Every new effect is disabled by the global reduced-motion rules in base.css.
-   The reveal fallback (cards stay visible) is handled in useRevealOnScroll. */
+/* Reduced motion safety fallback: ensure elements are never stuck invisible. */
+html[data-motion="reduced"] [data-reveal-card],
+html[data-motion="reduced"] [data-motion-reveal],
+html[data-motion="reduced"] [data-motion-item] {
+  opacity: 1 !important;
+  translate: none !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) [data-reveal-card],
+  html:not([data-motion="full"]) [data-motion-reveal],
+  html:not([data-motion="full"]) [data-motion-item] {
+    opacity: 1 !important;
+    translate: none !important;
+    transform: none !important;
+  }
+}

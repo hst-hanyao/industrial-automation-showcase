@@ -1,9 +1,11 @@
 import { useEffect, useRef, type PointerEvent } from 'react'
+import { useMotionMode } from '../features/motion/useMotionMode'
 import { getMediaUrl } from '../lib/media'
 import { SafeImage } from './SafeImage'
 import '../styles/home-concept.css'
 
 export function ControlCore() {
+  const motionMode = useMotionMode()
   const cardRef = useRef<HTMLDivElement>(null)
   const rectRef = useRef<DOMRect | null>(null)
   const frameRef = useRef<number | null>(null)
@@ -38,6 +40,7 @@ export function ControlCore() {
   }
 
   function handlePointerEnter() {
+    if (motionMode === 'reduced') return
     const el = cardRef.current
     if (!el) return
     rectRef.current = el.getBoundingClientRect()
@@ -45,6 +48,7 @@ export function ControlCore() {
   }
 
   function handlePointerMove(e: PointerEvent<HTMLDivElement>) {
+    if (motionMode === 'reduced') return
     const rect = rectRef.current
     if (!rect || !rect.width || !rect.height) return
     pointerRef.current = {
@@ -81,6 +85,7 @@ export function ControlCore() {
     >
       <div className="home-device__label" aria-hidden="true">
         <span>半导体晶圆电镀设备概念模型</span>
+        <span className="home-device__status">WAFER PLT · 闭环模型</span>
       </div>
       <figure className="home-device__figure">
         <SafeImage

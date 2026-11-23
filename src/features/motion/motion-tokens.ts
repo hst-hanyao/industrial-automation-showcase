@@ -9,7 +9,10 @@ export const MOTION = {
   introShift: 24,
   focusDelay: 860,
   enter: 240,
+  panelEnter: 260,
+  staggerItem: 55,
   press: 100,
   exit: 150,
   reveal: 450,
+  routeShutter: 500,
 } as const

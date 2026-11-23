@@ -5,7 +5,9 @@ import {
   type Capability,
   type EvidenceKind,
 } from '../data/capabilities'
+import { MOTION } from '../features/motion/motion-tokens'
 import { useMotionMode } from '../features/motion/useMotionMode'
+import { useScrollChoreography } from '../features/motion/useScrollChoreography'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { gsap, useGSAP } from '../lib/gsap'
 import { CapabilityLink } from './CapabilityLink'
@@ -28,7 +30,8 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
   const motionMode = useMotionMode()
   const neighbors = getCapabilityNeighbors(capability.id)
 
-  usePageMeta(capability.title, headingRef, motionMode === 'reduced' ? 0 : 1160)
+  usePageMeta(capability.title, headingRef, motionMode === 'reduced' ? 0 : MOTION.focusDelay)
+  useScrollChoreography(rootRef, { deps: [capability.id] })
 
   useGSAP(
     () => {
@@ -36,37 +39,18 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
       if (!root) return
 
       const introItems = gsap.utils.toArray<HTMLElement>('[data-detail-intro]', root)
-      const blocks = gsap.utils.toArray<HTMLElement>('[data-detail-block]', root)
 
       if (motionMode === 'reduced') {
-        gsap.set([...introItems, ...blocks], { autoAlpha: 1, y: 0 })
+        gsap.set(introItems, { autoAlpha: 1, y: 0 })
         return
       }
 
-      gsap.timeline({ defaults: { duration: 0.8, ease: 'power3.out' } })
-        .fromTo(introItems, { autoAlpha: 0, y: 34 }, {
+      gsap.timeline({ defaults: { duration: 0.72, ease: 'power3.out' } })
+        .fromTo(introItems, { autoAlpha: 0, y: 28 }, {
           autoAlpha: 1,
           y: 0,
-          stagger: 0.08,
+          stagger: 0.07,
         })
-
-      blocks.forEach((block) => {
-        gsap.fromTo(
-          block,
-          { autoAlpha: 0, y: 54 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.9,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: block,
-              start: 'top 82%',
-              toggleActions: 'play none none reverse',
-            },
-          },
-        )
-      })
     },
     {
       scope: rootRef,
@@ -126,9 +110,9 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
             key={section.id}
             id={section.id}
             className={`detail-block detail-block--${index % 2 === 0 ? 'left' : 'right'}${!section.diagram && !section.media?.length ? ' detail-block--text' : ''}`}
-            data-detail-block
+            data-motion-group
           >
-            <header className="detail-block__header">
+            <header className="detail-block__header" data-motion-item>
               <div>
                 <span className="evidence-badge" data-kind={section.kind}>
                   {evidenceLabels[section.kind]}
@@ -136,25 +120,27 @@ export function DetailPage({ capability, heroVisual, heroLayout = 'default', aft
                 <p className="eyebrow">{section.eyebrow}</p>
                 <h2>{section.title}</h2>
               </div>
-              <span className="detail-block__number" aria-hidden="true">
+              <span className="detail-block__number" data-motion-counter aria-hidden="true">
                 {String(index + 1).padStart(2, '0')}
               </span>
             </header>
 
             <div className="detail-block__body">
               <div className="detail-block__copy">
-                <p className="detail-block__summary">{section.summary}</p>
-                <ul>
+                <p className="detail-block__summary" data-motion-item>{section.summary}</p>
+                <ul data-motion-item>
                   {section.points.map((point) => <li key={point}>{point}</li>)}
                 </ul>
                 {section.code ? (
-                  <pre className="code-panel" tabIndex={0}><code translate="no">{section.code.join('\n')}</code></pre>
+                  <pre className="code-panel" data-motion-item tabIndex={0}><code translate="no">{section.code.join('\n')}</code></pre>
                 ) : null}
               </div>
 
-              {section.diagram || section.media?.length ? <div className="detail-block__evidence">
-                {section.diagram ? <TechnicalDiagram type={section.diagram} /> : null}
-                {section.media?.map((media) => <MediaFrame key={media.file} media={media} />)}
+              {section.diagram || section.media?.length ? <div className="detail-block__evidence" data-motion-item>
+                <div style={{ display: 'grid', gap: 'inherit', minWidth: 0 }} data-motion-parallax="14">
+                  {section.diagram ? <TechnicalDiagram type={section.diagram} /> : null}
+                  {section.media?.map((media) => <MediaFrame key={media.file} media={media} />)}
+                </div>
               </div> : null}
             </div>
           </section>

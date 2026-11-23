@@ -50,27 +50,27 @@ export default function HomePage() {
 
       timeline
         .fromTo(corners, { opacity: 0, scale: 0.3 }, {
-          opacity: 1, scale: 1, duration: 0.34, stagger: 0.05,
+          opacity: 1, scale: 1, duration: 0.34, stagger: 0.05, clearProps: 'transform',
         }, 0)
         .fromTo(eyebrow, { opacity: 0, clipPath: 'inset(0 100% 0 0)', x: -18 }, {
-          opacity: 1, clipPath: 'inset(0 0% 0 0)', x: 0, duration: 0.46,
+          opacity: 1, clipPath: 'inset(0 0% 0 0)', x: 0, duration: 0.46, clearProps: 'transform,clipPath',
         }, 0.04)
         .fromTo(lines, { opacity: 0, clipPath: 'inset(0 0 100% 0)', y: 26, skewY: 5 }, {
           opacity: 1, clipPath: 'inset(0 0 0% 0)', y: 0, skewY: 0,
-          duration: 0.56, stagger: 0.085,
+          duration: 0.56, stagger: 0.085, clearProps: 'transform,clipPath',
         }, 0.1)
         .fromTo(core, { opacity: 0, scale: 0.9, rotateY: -16, y: 34 }, {
-          opacity: 1, scale: 1, rotateY: 0, y: 0, duration: 0.62,
+          opacity: 1, scale: 1, rotateY: 0, y: 0, duration: 0.62, clearProps: 'transform',
         }, 0.14)
         .fromTo(lead, { opacity: 0, y: 18 }, {
-          opacity: 1, y: 0, duration: 0.44,
+          opacity: 1, y: 0, duration: 0.44, clearProps: 'transform',
         }, 0.24)
         .fromTo(actions, { opacity: 0, y: 22, scale: 0.92 }, {
           opacity: 1, y: 0, scale: 1, duration: 0.44, stagger: 0.06,
-          ease: 'back.out(1.7)',
+          ease: 'back.out(1.7)', clearProps: 'transform',
         }, 0.3)
         .fromTo(proof, { opacity: 0, y: 16 }, {
-          opacity: 1, y: 0, duration: 0.36, stagger: 0.06,
+          opacity: 1, y: 0, duration: 0.36, stagger: 0.06, clearProps: 'transform',
         }, 0.38)
         .fromTo(hint, { opacity: 0 }, {
           opacity: 1, duration: 0.28,

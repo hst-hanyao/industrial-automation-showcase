@@ -3,7 +3,10 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { CapabilityLink } from '../components/CapabilityLink'
 import { IntentLink } from '../components/IntentLink'
 import { getCapabilityNeighbors } from '../data/capabilities'
+import { MOTION } from '../features/motion/motion-tokens'
+import { useMotionMode } from '../features/motion/useMotionMode'
 import { usePageMeta } from '../hooks/usePageMeta'
+import { gsap, useGSAP } from '../lib/gsap'
 import { mountArchitecture } from '../plc/architecture-runtime'
 import architectureMarkup from '../plc/architecture.html?raw'
 import '../plc/architecture.css'
@@ -24,11 +27,34 @@ export default function PlcPage() {
   const [search, setSearch] = useSearchParams()
   const maintenance = search.get('edit') === '1'
   const view = views.find(({ id }) => id === search.get('view'))?.id ?? 'architecture'
+  const rootRef = useRef<HTMLElement>(null)
   const architectureRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const runtimeRef = useRef<ReturnType<typeof mountArchitecture> | null>(null)
+  const motionMode = useMotionMode()
   const neighbors = getCapabilityNeighbors('plc')
-  usePageMeta('PLC 程序架构', headingRef)
+  usePageMeta('PLC 程序架构', headingRef, motionMode === 'reduced' ? 0 : MOTION.focusDelay)
+
+  useGSAP(
+    () => {
+      const root = rootRef.current
+      if (!root) return
+
+      const introItems = gsap.utils.toArray<HTMLElement>('[data-detail-intro]', root)
+      if (motionMode === 'reduced') {
+        gsap.set(introItems, { autoAlpha: 1, y: 0 })
+        return
+      }
+
+      gsap.timeline({ defaults: { duration: 0.72, ease: 'power3.out' } })
+        .fromTo(introItems, { autoAlpha: 0, y: 28 }, {
+          autoAlpha: 1,
+          y: 0,
+          stagger: 0.07,
+        })
+    },
+    { scope: rootRef, dependencies: [motionMode], revertOnUpdate: true },
+  )
 
   useLayoutEffect(() => {
     const root = architectureRef.current!
@@ -67,18 +93,18 @@ export default function PlcPage() {
   }
 
   return (
-    <main id="main-content" className="detail-page plc-page" tabIndex={-1}>
+    <main ref={rootRef} id="main-content" className="detail-page plc-page" tabIndex={-1}>
       <section className="detail-hero detail-hero--architecture">
-        <div className="detail-hero__index" aria-hidden="true"><span>02</span><i /><small>04</small></div>
+        <div className="detail-hero__index" data-detail-intro aria-hidden="true"><span>02</span><i /><small>04</small></div>
         <div className="detail-hero__copy">
-          <p className="eyebrow">PLC · 核心控制程序</p>
-          <h1 ref={headingRef} tabIndex={-1}>PLC 程序架构</h1>
-          <p className="detail-hero__lead">以晶圆电镀设备为例，查看 PLC 任务划分、整机与腔室交接、设备操作流程及 PackML 状态流转。</p>
-          <div className="tag-row">
+          <p className="eyebrow" data-detail-intro>PLC · 核心控制程序</p>
+          <h1 ref={headingRef} tabIndex={-1} data-detail-intro>PLC 程序架构</h1>
+          <p className="detail-hero__lead" data-detail-intro>以晶圆电镀设备为例，查看 PLC 任务划分、整机与腔室交接、设备操作流程及 PackML 状态流转。</p>
+          <div className="tag-row" data-detail-intro>
             {['TwinCAT', 'IEC 61131-3', 'PackML'].map((tag) => <span key={tag} translate="no">{tag}</span>)}
           </div>
         </div>
-        <div className="detail-hero__visual hmi-explorer plc-explorer">
+        <div className="detail-hero__visual hmi-explorer plc-explorer" data-detail-intro>
           <div className="hmi-explorer__toolbar">
             <div><p className="hmi-explorer__eyebrow">程序架构 · 运行流程</p><h2>程序框架与运行流程</h2></div>
           </div>
@@ -107,13 +133,15 @@ export default function PlcPage() {
           />
           <div id="view-packml" role="tabpanel" aria-labelledby="tab-packml" hidden={view !== 'packml'}>
             {view === 'packml' && (
-              <Suspense fallback={<p className="plc-panel-loading" role="status">正在加载 PackML 图表…</p>}>
-                <PlcPackmlPanel />
-              </Suspense>
+              <div key="packml" data-motion-panel>
+                <Suspense fallback={<p className="plc-panel-loading" role="status">正在加载 PackML 图表…</p>}>
+                  <PlcPackmlPanel />
+                </Suspense>
+              </div>
             )}
           </div>
         </div>
-        <div className="evidence-legend plc-reading-links">
+        <div className="evidence-legend plc-reading-links" data-detail-intro>
           <Link className="text-link" to="/plc/case">补充阅读：独立的 TwinCAT 官方案例复盘 <span aria-hidden="true">↗</span></Link>
         </div>
       </section>

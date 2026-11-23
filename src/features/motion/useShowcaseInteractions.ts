@@ -1,10 +1,33 @@
 import { useEffect } from 'react'
 import { useMotionMode } from './useMotionMode'
 
-const SPOTLIGHT_SELECTOR = '.tech-card, .detail-hero__visual'
-const RIPPLE_SELECTOR =
-  '.primary-action, .secondary-action, .tech-card, .project-pagination a, .project-pagination button'
-const RELEASE_SELECTOR = '.primary-action, .secondary-action'
+const SPOTLIGHT_SELECTOR = [
+  '[data-spotlight]',
+  '.tech-card',
+  '.cases-method-card',
+  '.vision-pillar',
+  '.vision-op-card',
+  '.hmi-node:not(.hmi-node--compact)',
+  '.case-block',
+  '.detail-hero__visual',
+].join(', ')
+
+const TILT_SELECTOR = '[data-tilt], .tech-card, .cases-method-card'
+const PARALLAX_SELECTOR = '[data-parallax-surface], .detail-hero__visual'
+
+const RIPPLE_SELECTOR = [
+  '.primary-action',
+  '.secondary-action',
+  '.tech-card',
+  '.project-pagination a',
+  '.project-pagination button',
+  '.eng-cases__tab',
+  '.vision-explorer__btn',
+  '.hmi-gallery__tabs button',
+  '.hmi-chain-tabs button',
+].join(', ')
+
+const RELEASE_SELECTOR = '.primary-action, .secondary-action, .eng-cases__tab, .vision-explorer__btn'
 
 /**
  * Global pointer delegation for the showcase interaction layer.
@@ -42,10 +65,13 @@ export function useShowcaseInteractions() {
       element.style.setProperty('--mouse-x', `${x.toFixed(1)}%`)
       element.style.setProperty('--mouse-y', `${y.toFixed(1)}%`)
 
-      if (element.matches('.tech-card')) {
-        element.style.setProperty('--tilt-rx', `${((0.5 - y / 100) * 7).toFixed(2)}deg`)
-        element.style.setProperty('--tilt-ry', `${((x / 100 - 0.5) * 9).toFixed(2)}deg`)
-      } else {
+      if (element.matches(TILT_SELECTOR)) {
+        const isLarge = element.matches('.cases-method-card')
+        const maxRx = isLarge ? 4.5 : 6.5
+        const maxRy = isLarge ? 5.5 : 8.5
+        element.style.setProperty('--tilt-rx', `${((0.5 - y / 100) * maxRx).toFixed(2)}deg`)
+        element.style.setProperty('--tilt-ry', `${((x / 100 - 0.5) * maxRy).toFixed(2)}deg`)
+      } else if (element.matches(PARALLAX_SELECTOR)) {
         element.style.setProperty('--parallax-x', `${((x / 100 - 0.5) * 16).toFixed(1)}px`)
         element.style.setProperty('--parallax-y', `${((y / 100 - 0.5) * 16).toFixed(1)}px`)
       }
@@ -62,6 +88,13 @@ export function useShowcaseInteractions() {
         active = target
       }
       if (target && !frame) frame = requestAnimationFrame(apply)
+    }
+
+    const clearActive = () => {
+      if (active) {
+        reset(active)
+        active = null
+      }
     }
 
     const onPointerDown = (event: PointerEvent) => {
@@ -95,12 +128,17 @@ export function useShowcaseInteractions() {
     document.addEventListener('pointermove', onPointerMove, { passive: true })
     document.addEventListener('pointerdown', onPointerDown, { passive: true })
     document.addEventListener('pointerup', onPointerUp, { passive: true })
+    document.addEventListener('pointerleave', clearActive)
+    window.addEventListener('blur', clearActive)
 
     return () => {
       if (frame) cancelAnimationFrame(frame)
+      clearActive()
       document.removeEventListener('pointermove', onPointerMove)
       document.removeEventListener('pointerdown', onPointerDown)
       document.removeEventListener('pointerup', onPointerUp)
+      document.removeEventListener('pointerleave', clearActive)
+      window.removeEventListener('blur', clearActive)
       document.querySelectorAll('.ui-ripple').forEach((node) => node.remove())
     }
   }, [motionMode])

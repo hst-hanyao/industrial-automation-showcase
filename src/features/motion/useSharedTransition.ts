@@ -5,6 +5,7 @@ import { preloadRoute } from '../../route-modules'
 import { useMotionMode } from './useMotionMode'
 
 const TRANSITION_NAME = 'capability-hero'
+export const VIEW_TRANSITION_ACTIVE_CLASS = 'is-view-transition-active'
 
 interface ViewTransitionApi {
   startViewTransition?: (
@@ -19,12 +20,12 @@ export function runSharedTransition(
   navigate: () => void,
 ) {
   const root = document.documentElement
-  root.classList.add('is-shared-transition')
+  root.classList.add('is-shared-transition', VIEW_TRANSITION_ACTIVE_CLASS)
   source.style.setProperty('view-transition-name', TRANSITION_NAME)
 
   const cleanup = () => {
     source.style.removeProperty('view-transition-name')
-    root.classList.remove('is-shared-transition')
+    root.classList.remove('is-shared-transition', VIEW_TRANSITION_ACTIVE_CLASS)
   }
 
   try {

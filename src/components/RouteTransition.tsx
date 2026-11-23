@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useMotionMode } from '../features/motion/useMotionMode'
+import { VIEW_TRANSITION_ACTIVE_CLASS } from '../features/motion/useSharedTransition'
 import { gsap, useGSAP } from '../lib/gsap'
 
 interface RouteTransitionProps {
@@ -8,12 +9,17 @@ interface RouteTransitionProps {
 
 export function RouteTransition({ routeKey }: RouteTransitionProps) {
   const rootRef = useRef<HTMLDivElement>(null)
+  const previousRouteRef = useRef<string | null>(null)
   const motionMode = useMotionMode()
 
   useGSAP(
     () => {
       const root = rootRef.current
       if (!root) return
+
+      const isInitialMount = previousRouteRef.current === null
+      const routeChanged = previousRouteRef.current !== routeKey
+      previousRouteRef.current = routeKey
 
       const shell = root.closest('.app-shell') ?? root.parentElement
       const panels = gsap.utils.toArray<HTMLElement>('[data-transition-panel]', root)
@@ -34,13 +40,19 @@ export function RouteTransition({ routeKey }: RouteTransitionProps) {
         })
       }
 
-      // A previous timeline may have been reverted (revertOnUpdate) mid-flight;
-      // clear any residue before starting a fresh one.
       clearInert()
 
-      if (motionMode === 'reduced') {
+      // Let initial paint render its own hero choreography without an opaque curtain,
+      // and yield to native View Transitions when a shared element morph is active.
+      const viewTransitionActive = document.documentElement.classList.contains(
+        VIEW_TRANSITION_ACTIVE_CLASS,
+      )
+
+      if (motionMode === 'reduced' || isInitialMount || !routeChanged || viewTransitionActive) {
         gsap.set(root, { autoAlpha: 0, pointerEvents: 'none' })
-        window.scrollTo(0, 0)
+        if (!isInitialMount && routeChanged) {
+          window.scrollTo(0, 0)
+        }
         return
       }
 
@@ -55,7 +67,7 @@ export function RouteTransition({ routeKey }: RouteTransitionProps) {
       }
 
       const timeline = gsap.timeline({
-        defaults: { ease: 'power4.inOut' },
+        defaults: { ease: 'power3.inOut' },
         onStart: () => {
           root.style.pointerEvents = 'auto'
           sweep(true)
@@ -75,14 +87,15 @@ export function RouteTransition({ routeKey }: RouteTransitionProps) {
 
       timeline
         .set(root, { autoAlpha: 1 })
-        .set(panels, { yPercent: 110 })
-        .to(panels, { yPercent: 0, duration: 0.3, stagger: 0.045 })
+        .set(panels, { yPercent: 105 })
+        .to(panels, { yPercent: 0, duration: 0.2, stagger: 0.032 })
         .add(() => window.scrollTo(0, 0))
         .to(panels, {
-          yPercent: -110,
-          duration: 0.45,
-          stagger: 0.055,
-        }, '+=0.06')
+          yPercent: -105,
+          duration: 0.27,
+          stagger: 0.036,
+          ease: 'power4.out',
+        }, '+=0.025')
         .set(root, { autoAlpha: 0 })
 
       // gsap.context calls this on revert (revertOnUpdate / unmount), so `inert`

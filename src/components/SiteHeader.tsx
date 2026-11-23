@@ -13,12 +13,16 @@ import { IntentLink, IntentNavLink } from './IntentLink'
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [tourOpen, setTourOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const menuId = useId()
   const toggleRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false)
     const desktop = window.matchMedia('(min-width: 768px)')
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('hashchange', closeMenu)
     if (typeof desktop.addEventListener === 'function') {
       desktop.addEventListener('change', closeMenu)
@@ -26,6 +30,7 @@ export function SiteHeader() {
       desktop.addListener(closeMenu)
     }
     return () => {
+      window.removeEventListener('scroll', onScroll)
       window.removeEventListener('hashchange', closeMenu)
       if (typeof desktop.removeEventListener === 'function') {
         desktop.removeEventListener('change', closeMenu)
@@ -38,7 +43,7 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={`site-header${menuOpen ? ' is-menu-open' : ''}`}
+        className={`site-header${scrolled ? ' is-scrolled' : ''}${menuOpen ? ' is-menu-open' : ''}`}
         onKeyDown={(event) => {
           if (event.key === 'Escape' && menuOpen) {
             event.preventDefault()

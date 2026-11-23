@@ -1,10 +1,20 @@
 import { useLayoutEffect, type RefObject } from 'react'
+import { formatCounterStep, parseCounterToken } from '../../lib/motion'
 import { useMotionMode } from './useMotionMode'
+
+export interface RevealOnScrollOptions {
+  /** Delay step between consecutive cards in the same batch (ms). Default: 65. */
+  readonly staggerMs?: number
+  /** Cap for stagger index multiplier so late items never lag. Default: 6. */
+  readonly maxStaggerIndex?: number
+  /** Optional header selector revealed just ahead of the cards. */
+  readonly headerSelector?: string
+}
 
 /** Instrument-style self-test roll that always settles on the original text. */
 function rollIndex(element: HTMLElement, target: string, delay: number): () => void {
-  const value = Number.parseInt(target, 10)
-  if (!Number.isFinite(value) || !target.trim()) return () => {}
+  const token = parseCounterToken(target)
+  if (!token) return () => {}
 
   const startedAt = performance.now() + delay
   const duration = 460
@@ -17,8 +27,7 @@ function rollIndex(element: HTMLElement, target: string, delay: number): () => v
     }
     const t = Math.min(1, (now - startedAt) / duration)
     if (t < 1) {
-      const shown = t < 0.72 ? Math.floor(Math.random() * 9) + 1 : value
-      element.textContent = String(shown).padStart(target.length, '0')
+      element.textContent = formatCounterStep(token, t)
       frame = window.requestAnimationFrame(tick)
     } else {
       element.textContent = target
@@ -40,23 +49,50 @@ function rollIndex(element: HTMLElement, target: string, delay: number): () => v
  * Visibility is never delegated to a single mechanism: the observer is backed
  * by a geometry check on scroll/resize, so a card cannot stay hidden forever if
  * IntersectionObserver misbehaves (or the element is clipped by another effect).
+ *
+ * Deliberately free of gsap/ScrollTrigger so first-screen consumers (e.g.
+ * TechStackMatrix) keep ScrollTrigger out of the initial bundle.
  */
 export function useRevealOnScroll(
   rootRef: RefObject<HTMLElement | null>,
   selector: string,
   rollSelector?: string,
+  options?: RevealOnScrollOptions,
 ) {
   const motionMode = useMotionMode()
+  const staggerMs = options?.staggerMs ?? 65
+  const maxStaggerIndex = options?.maxStaggerIndex ?? 6
+  const headerSelector = options?.headerSelector
 
   useLayoutEffect(() => {
     const root = rootRef.current
     if (!root) return
-    if (motionMode === 'reduced' || !('IntersectionObserver' in window)) return
 
-    const items = Array.from(root.querySelectorAll<HTMLElement>(selector))
-    items.forEach((item, index) => {
+    const headerItems = headerSelector
+      ? Array.from(root.querySelectorAll<HTMLElement>(headerSelector))
+      : []
+    const cardItems = Array.from(root.querySelectorAll<HTMLElement>(selector))
+    const items = [...headerItems, ...cardItems]
+
+    const settle = (item: HTMLElement) => {
+      item.removeAttribute('data-reveal-card')
+      item.classList.remove('is-revealed')
+      item.style.removeProperty('--reveal-delay')
+    }
+
+    if (motionMode === 'reduced' || !('IntersectionObserver' in window)) {
+      items.forEach(settle)
+      return
+    }
+
+    headerItems.forEach((item) => {
       item.setAttribute('data-reveal-card', '')
-      item.style.setProperty('--reveal-delay', `${Math.min(index, 5) * 70}ms`)
+      item.style.setProperty('--reveal-delay', '0ms')
+    })
+
+    cardItems.forEach((item, index) => {
+      item.setAttribute('data-reveal-card', '')
+      item.style.setProperty('--reveal-delay', `${Math.min(index, maxStaggerIndex) * staggerMs}ms`)
     })
 
     // Drop the reveal attribute after the transition so the card's own
@@ -64,11 +100,6 @@ export function useRevealOnScroll(
     const timers: number[] = []
     const cancelRolls: Array<() => void> = []
     const pending = new Set(items)
-    const settle = (item: HTMLElement) => {
-      item.removeAttribute('data-reveal-card')
-      item.classList.remove('is-revealed')
-      item.style.removeProperty('--reveal-delay')
-    }
 
     let observer: IntersectionObserver | null = null
     let frame = 0
@@ -79,12 +110,14 @@ export function useRevealOnScroll(
       pending.delete(item)
       item.classList.add('is-revealed')
       observer?.unobserve(item)
-      timers.push(window.setTimeout(() => settle(item), 900))
-      if (rollSelector) {
+      const cardIndex = cardItems.indexOf(item)
+      const delay = cardIndex >= 0 ? Math.min(cardIndex, maxStaggerIndex) * staggerMs : 0
+      timers.push(window.setTimeout(() => settle(item), 600 + delay))
+      if (rollSelector && cardIndex >= 0) {
         const target = item.querySelector<HTMLElement>(rollSelector)
-        if (target) {
+        if (target && target.children.length === 0) {
           cancelRolls.push(
-            rollIndex(target, target.textContent ?? '', items.indexOf(item) * 70),
+            rollIndex(target, target.textContent ?? '', delay),
           )
         }
       }
@@ -97,7 +130,7 @@ export function useRevealOnScroll(
       const viewport = window.innerHeight || document.documentElement.clientHeight
       for (const item of [...pending]) {
         const rect = item.getBoundingClientRect()
-        if (rect.top < viewport * 0.92 && rect.bottom > 0) reveal(item)
+        if (rect.top < viewport * 0.94 && rect.bottom > 0) reveal(item)
       }
     }
 
@@ -119,7 +152,7 @@ export function useRevealOnScroll(
           if (entry.isIntersecting) reveal(entry.target as HTMLElement)
         })
       },
-      { rootMargin: '0px 0px -8%', threshold: 0 },
+      { rootMargin: '0px 0px -6%', threshold: 0 },
     )
 
     items.forEach((item) => observer?.observe(item))
@@ -134,5 +167,5 @@ export function useRevealOnScroll(
       cancelRolls.forEach((cancel) => cancel())
       items.forEach(settle)
     }
-  }, [rootRef, selector, rollSelector, motionMode])
+  }, [rootRef, selector, rollSelector, headerSelector, staggerMs, maxStaggerIndex, motionMode])
 }

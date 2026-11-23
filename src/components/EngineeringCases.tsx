@@ -78,6 +78,7 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
         aria-labelledby={'eng-case-tab-' + currentCase.id}
         tabIndex={0}
         key={currentCase.id}
+        data-motion-panel
       >
         <header className="case-card__hero">
           <div className="case-card__meta">
@@ -90,7 +91,7 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
 
         <div className="case-card__grid">
           {/* 1. 现象 */}
-          <div className="case-block">
+          <div className="case-block" data-motion-item data-spotlight>
             <div className="case-block__heading">
               <span className="case-block__icon case-block__icon--symptom">01</span>
               <h4>故障现场与异常现象</h4>
@@ -104,7 +105,7 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
           </div>
 
           {/* 2. 排查 */}
-          <div className="case-block">
+          <div className="case-block" data-motion-item data-spotlight>
             <div className="case-block__heading">
               <span className="case-block__icon case-block__icon--investigation">02</span>
               <h4>排查验证与现场测试</h4>
@@ -118,7 +119,7 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
           </div>
 
           {/* 3. 根因 */}
-          <div className="case-block">
+          <div className="case-block" data-motion-item data-spotlight>
             <div className="case-block__heading">
               <span className="case-block__icon case-block__icon--root">03</span>
               <h4>底层物理与逻辑根因</h4>
@@ -132,7 +133,7 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
           </div>
 
           {/* 4. 成效概要 */}
-          <div className="case-block">
+          <div className="case-block" data-motion-item data-spotlight>
             <div className="case-block__heading">
               <span className="case-block__icon case-block__icon--solution">04</span>
               <h4>整改成效与量化指标</h4>
@@ -142,7 +143,7 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
           </div>
 
           {/* 5. 详细工程整改方案 (Full Width) */}
-          <div className="case-block case-block--full">
+          <div className="case-block case-block--full" data-motion-item data-spotlight>
             <div className="case-block__heading">
               <span className="case-block__icon case-block__icon--solution">★</span>
               <h4>工程落地措施与防呆闭环</h4>
@@ -150,7 +151,7 @@ export function EngineeringCases({ embedded = false }: EngineeringCasesProps) {
             <p className="case-block__lead">{currentCase.solution.overview}</p>
             <div className="case-measures">
               {currentCase.solution.measures.map((measure) => (
-                <div key={measure.title} className="case-measure">
+                <div key={measure.title} className="case-measure" data-motion-item data-spotlight>
                   <b>{measure.title}</b>
                   <p>{measure.desc}</p>
                 </div>
